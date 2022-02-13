@@ -1,3 +1,4 @@
+from .style import Style
 from .config import Config
 
 from tkinter.filedialog import askopenfilename
@@ -8,13 +9,18 @@ class Base:
         self.root = root
 
         self.config = Config()
+        self.style = Style(self)
 
         self.opened_file = None
     
     def open_file(self):
-        self.opened_file = askopenfilename(filetypes=[("All Files", "*.*")])
+        self.opened_file = file = askopenfilename(filetypes=[("All Files", "*.*")])
         
-        if self.opened_file:
-            self.root.editor.text.load_file(self.opened_file)
+        if file:
+            self.set_opened_file(file)
+    
+    def set_opened_file(self, file):
+        if file:
+            self.root.editor.text.load_file(file)
 
             self.root.show_editor()
