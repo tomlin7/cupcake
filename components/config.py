@@ -11,5 +11,7 @@ class Config:
         with open("config/config.json", "r") as fp:
             self._cfg = jn.load(fp)
 
-        self.font = font.Font(family=self._cfg["font"])
+        self.font = font.Font(
+            family=self._cfg["font"],
+            size=16, weight="normal")
             

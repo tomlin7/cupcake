@@ -10,8 +10,6 @@ class EmptyWindow(Frame):
         self.master = master
         self.base = master.base
 
-        #self.config(bg="#1e1e1e")
-
         self.button = Button(self, command=self.open_file, text="Open File")
         self.button.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     

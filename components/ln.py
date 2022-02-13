@@ -23,11 +23,14 @@ class LineNumbers(tk.Frame):
 
         self.cw = Canvas(self)
         self.cw.pack(fill=tk.BOTH, expand=True)
+    
+    def set_bar_width(self, width):
+        self.configure(width=width)
 
     def config_appearance(self):
         self.font = self.base.config.font
         self.fill = "#ffffff"
-        #self.config(bg="#1e1e1e")
+        self.config(bg="#1e1e1e")
     
     def attach(self, tw):
         self.tw = tw
@@ -47,5 +50,5 @@ class LineNumbers(tk.Frame):
 
             self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill)
 
-            i = self.tw.index(f"{i}+1line")
+            i = self.tw.textw.index(f"{i}+1line")
 

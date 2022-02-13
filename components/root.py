@@ -11,6 +11,10 @@ class Root(Tk):
         super().__init__(*args, **kwargs)
 
         self.minsize(700, 500)
+        self.config(bg="#1e1e1e")
+
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
 
         self.base = Base(self)
 
@@ -19,18 +23,15 @@ class Root(Tk):
 
     def add_empty_window(self):
         self.empty = EmptyWindow(self)
-        self.empty.set_pack_data(fill=tk.BOTH, expand=True, side=tk.LEFT)
-
-        self.empty.pack_frame()
+        self.empty.grid(sticky=tk.NSEW)
 
     def add_editor(self):
         self.editor = Editor(self)
-        self.editor.set_pack_data(fill=tk.BOTH, expand=True,  side=tk.TOP)
     
     def show_editor(self):
-        self.empty.pack_forget()
-        self.editor.pack_frame()
+        self.empty.grid_remove()
+        self.editor.grid(sticky=tk.NSEW)
     
     def hide_editor(self):
-        self.editor.pack_forget()
-        self.empty.pack_frame()
+        self.editor.grid_remove()
+        self.empty.grid()
