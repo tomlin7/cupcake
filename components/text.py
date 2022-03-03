@@ -33,7 +33,7 @@ class TextW(tk.Text):
             args[0:2] == ("yview", "moveto") or
             args[0:2] == ("yview", "scroll")
         ):
-            self.master.event_generate("<<Change>>", when="tail")
+            self.event_generate("<<Change>>", when="tail")
 
         return result
 

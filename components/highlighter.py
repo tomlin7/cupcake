@@ -39,6 +39,7 @@ class Highlighter:
             self.text.tag_add(tag, "matchStart", "matchEnd")
 
     def highlight_all(self):
+        print("highlight all")
         self.highlight_pattern(self.syntax.keywords, "keywords", regexp=True)
         self.highlight_pattern(self.syntax.numbers, "numbers", regexp=True)
         

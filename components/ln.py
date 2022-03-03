@@ -34,20 +34,29 @@ class LineNumbers(tk.Frame):
     
     def attach(self, tw):
         self.tw = tw
+    
+    def clear(self):
+        self.cw.delete(tk.ALL)
+    
+    def highlight_current_line(self):
+        dline = self.tw.get_line_info(tk.INSERT)
+        y = dline[1]
+        self.cw.create_text(35, y, anchor=tk.NE, text=">", font=self.font, fill="red")
 
     def redraw(self, *args):
-        self.cw.delete(tk.ALL)
+        self.clear()
+        self.highlight_current_line()
+        self.redraw_line_numbers()
 
+    def redraw_line_numbers(self):
         i = self.tw.get_origin()
         while True:
             dline = self.tw.get_line_info(i)
-
             if not dline:
                 break
 
             y = dline[1]
             ln = str(i).split(".")[0]
-
             self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill)
 
             i = self.tw.textw.index(f"{i}+1line")

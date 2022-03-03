@@ -44,7 +44,6 @@ class Editor(Frame):
         self.set_fontsize(self.zoom)
     
     def handle_zoom(self, delta):
-        print("handle zoom")
         if 5 <= self.zoom <= 50:
             if delta > 0:
                 self.zoom += 1
