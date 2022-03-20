@@ -29,7 +29,8 @@ class LineNumbers(tk.Frame):
 
     def config_appearance(self):
         self.font = self.base.config.font
-        self.fill = "#ffffff"
+        self.fill = "#858585"
+        self.highlight_fill = "#c6c6c6"
         self.config(bg="#1e1e1e")
     
     def attach(self, tw):
@@ -41,7 +42,7 @@ class LineNumbers(tk.Frame):
     def highlight_current_line(self):
         dline = self.tw.get_line_info(tk.INSERT)
         y = dline[1]
-        self.cw.create_text(35, y, anchor=tk.NE, text=">", font=self.font, fill="red")
+        self.cw.create_text(50, y, anchor=tk.NE, text=">", font=self.font, fill="red")
 
     def redraw(self, *args):
         self.clear()
@@ -57,7 +58,16 @@ class LineNumbers(tk.Frame):
 
             y = dline[1]
             ln = str(i).split(".")[0]
-            self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill)
+
+            curline = self.tw.get_line_info(tk.INSERT)
+            cur_y = None
+            if curline:
+                cur_y = curline[1]
+
+            if y == cur_y:
+                self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.highlight_fill)
+            else:
+                self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill)
 
             i = self.tw.textw.index(f"{i}+1line")
 

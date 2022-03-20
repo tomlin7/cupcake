@@ -13,5 +13,5 @@ class Config:
 
         self.font = font.Font(
             family=self._cfg["font"],
-            size=13, weight="normal")
+            size=11, weight="normal")
             
