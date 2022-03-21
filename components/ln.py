@@ -1,4 +1,3 @@
-from textwrap import fill
 import tkinter as tk
 
 
@@ -39,10 +38,20 @@ class LineNumbers(tk.Frame):
     def clear(self):
         self.cw.delete(tk.ALL)
     
-    def highlight_current_line(self):
-        dline = self.tw.get_line_info(tk.INSERT)
+    def mark_line(self, line):
+        dline = self.tw.get_line_info(line)
+        
+        if not dline:
+            return
+        
         y = dline[1]
         self.cw.create_text(50, y, anchor=tk.NE, text=">", font=self.font, fill="red")
+    
+    def highlight_current_line(self):
+        self.mark_line(tk.INSERT)
+    
+    def select_line(self, line):
+        self.tw.select_line(line)
 
     def redraw(self, *args):
         self.clear()
@@ -65,9 +74,11 @@ class LineNumbers(tk.Frame):
                 cur_y = curline[1]
 
             if y == cur_y:
-                self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.highlight_fill)
+                number = self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.highlight_fill, tag=i)
             else:
-                self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill)
+                number = self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill, tag=i)
+            
+            self.cw.tag_bind(i, "<Button-1>", lambda _, i=i: self.select_line(i))
 
             i = self.tw.textw.index(f"{i}+1line")
 

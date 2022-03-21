@@ -20,7 +20,8 @@ class TextW(tk.Text):
             font=self.master.font, bg="#1e1e1e", 
             fg="#d4d4d4", wrap=tk.NONE, relief=tk.FLAT,
             highlightthickness=0)
-        self.tag_config(tk.SEL, background="#3a3d41", foreground="#ffffff")
+        #self.tag_config(tk.SEL, background="#3a3d41", foreground="#d4d4d4")
+        self.tag_config(tk.SEL, background="#264f78", foreground="#d4d4d4")
     
     def _proxy(self, *args):
         cmd = (self._orig,) + args
@@ -59,6 +60,21 @@ class Text(tk.Frame):
         self.current_line = None
 
         self.textw.bind("<Return>", self.check_indentation)
+    
+    def move_cursor(self, position):
+        self.textw.mark_set(tk.INSERT, position)
+
+    def clear_all_selection(self):
+        self.textw.tag_remove(tk.SEL, 1.0, tk.END)
+    
+    def select_line(self, line):
+        self.clear_all_selection()
+        line = int(line.split(".")[0])
+        start = str(float(line))
+        end = str(float(line) + 1)
+        self.textw.tag_add(tk.SEL, start, end)
+
+        self.move_cursor(end)
     
     def update_current_indent(self):
         line = self.textw.get("insert linestart", "insert lineend")
