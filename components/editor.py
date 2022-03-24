@@ -34,23 +34,32 @@ class Editor(Frame):
         self.text.grid(row=0, column=1, sticky=tk.NSEW)
 
         self.events = Events(self)
+    
+    def focus(self):
+        self.text.textw.focus()
 
     def set_fontsize(self, size):
         self.font.configure(size=size)
         self.ln.set_bar_width(size * 4)
         self._redraw_ln()
+        self._redraw_ln()
 
     def refresh_fontsize(self):
         self.set_fontsize(self.zoom)
     
-    def handle_zoom(self, delta):
-        if 5 <= self.zoom <= 50:
-            if delta > 0:
-                self.zoom += 1
-            else:
-                self.zoom -= 1
-        self.zoom = Utils.clamp(self.zoom, 5, 50)
+    def _handle_zoom(self, event):
+        if event.num == 5 or event.delta == -120:
+            self.zoom -= 1
+        if event.num == 4 or event.delta == 120:
+            self.zoom += 1
+        
+        # linux
+        # if delta > 0:
+        #     self.zoom += 1
+        # else:
+        #     self.zoom -= 1
 
+        self.zoom = Utils.clamp(self.zoom, 5, 50)
         self.refresh_fontsize()
         return "break"
 

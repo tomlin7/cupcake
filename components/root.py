@@ -17,9 +17,11 @@ class Root(Tk):
         self.grid_rowconfigure(0, weight=1)
 
         self.base = Base(self)
-
-        self.add_empty_window()
+        self.empty = None
+        self.editor = None
+        
         self.add_editor()
+        self.add_empty_window()
 
     def add_empty_window(self):
         self.empty = EmptyWindow(self)
@@ -31,6 +33,8 @@ class Root(Tk):
     def show_editor(self):
         self.empty.grid_remove()
         self.editor.grid(sticky=tk.NSEW)
+        
+        self.editor.focus()
     
     def hide_editor(self):
         self.editor.grid_remove()

@@ -1,7 +1,7 @@
 import re, tkinter as tk
 
-from components.highlighter import Highlighter
-
+from .highlighter import Highlighter
+from .autocomplete import AutoComplete
 
 class TextW(tk.Text):
     def __init__(self, master, *args, **kwargs):
@@ -19,7 +19,7 @@ class TextW(tk.Text):
         self.config(
             font=self.master.font, bg="#1e1e1e", 
             fg="#d4d4d4", wrap=tk.NONE, relief=tk.FLAT,
-            highlightthickness=0)
+            highlightthickness=0, insertbackground="#aeafad")
         #self.tag_config(tk.SEL, background="#3a3d41", foreground="#d4d4d4")
         self.tag_config(tk.SEL, background="#264f78", foreground="#d4d4d4")
     
@@ -59,7 +59,54 @@ class Text(tk.Frame):
         self.current_indentation = None
         self.current_line = None
 
-        self.textw.bind("<Return>", self.check_indentation)
+        self.auto_completion = AutoComplete(self, items=[["Test item 1", "object"], ["Test item 2", "object"]])
+        self.completion_active = False
+
+        self.config_bindings()
+    
+    def config_bindings(self):
+        self.textw.bind("<Return>", self.enter_key_events)
+        self.textw.bind("<KeyPress>", self.show_autocomplete)
+
+        for btn in ["<Button-2>", "<BackSpace>", "<Escape>"]:
+            self.textw.bind(btn, self.auto_completion.hide)
+        
+        self.textw.bind("<Up>", self.auto_completion.move_up)
+        self.textw.bind("<Down>", self.auto_completion.move_down)
+
+        self.textw.bind("<Tab>", self.auto_completion.choose)
+
+        self.textw.bind("<Right>", self.auto_completion.hide)
+        self.textw.bind("<Left>", self.auto_completion.hide)
+
+        # self.textw.bind("<space>", self.handle_space())
+    
+    # def handle_space(self, *args):
+    #     self.textw.insert(tk.INSERT, "-")
+        
+    #     return "break"
+
+    def cursor_screen_location(self):
+        pos_x, pos_y = self.textw.winfo_rootx(), self.textw.winfo_rooty()
+
+        cursor = tk.INSERT
+        bbox = self.textw.bbox(cursor)
+        if not bbox:
+            return (0, 0)
+        
+        bbx_x, bbx_y, _, bbx_h = bbox
+        return (pos_x + bbx_x + 8, pos_y + bbx_y + bbx_h)
+    
+    # def get_autocomplete_geometry(self):
+    #     pos = self.get_cursor_screen_location()
+    #     print(pos)
+
+    #     return (self.completion_width, self.completion_height) + pos
+    
+    def show_autocomplete(self, *args):
+        pos = self.cursor_screen_location()
+        self.completion_active = True
+        self.auto_completion.show(pos)
     
     def move_cursor(self, position):
         self.textw.mark_set(tk.INSERT, position)
@@ -80,7 +127,7 @@ class Text(tk.Frame):
         line = self.textw.get("insert linestart", "insert lineend")
         match = re.match(r'^(\s+)', line)
         self.current_indent = len(match.group(0)) if match else 0
-        print("indentation updated to ", len(match.group(0)) if match else 0)
+        print("indentation level updated to ", len(match.group(0)) if match else 0)
 
     def update_current_line(self):
         self.current_line = self.textw.get("insert linestart", "insert lineend")
@@ -88,8 +135,15 @@ class Text(tk.Frame):
     
     def add_newline(self, count=1):
         self.textw.insert(tk.INSERT, "\n" * count)
+    
+    def enter_key_events(self, *args):
+        # if self.completion_active:
+        #     self.auto_completion.choose()
+        #     self.completion_active = False
+        #     return "break"
+        self.check_indentation()
 
-    def check_indentation(self, event):
+    def check_indentation(self, *args):
         self.update_current_indent()
         if self.update_current_line():
             if self.current_line[-1] in ["{", "[", ":", "("]:
@@ -120,7 +174,8 @@ class Text(tk.Frame):
     def load_file(self, path):
         with open(path, 'r') as fp:
             self.clear_insert(fp.read())
-    
+
+    # linux    
     def select_all(self, *args):
         self.textw.tag_add(tk.SEL, 1.0, tk.END)
 
