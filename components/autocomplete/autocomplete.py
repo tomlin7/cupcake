@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from .itemkinds import Kinds
+
 from .item import AutoCompleteItem
 
 class AutoComplete(tk.Toplevel):
@@ -8,6 +10,7 @@ class AutoComplete(tk.Toplevel):
         self.master = master
         self.base = master.base
 
+        self.autocomplete_kinds = Kinds(self)
         self.config(bg="#454545", borderwidth=1)
         
         self.state = state
@@ -36,11 +39,29 @@ class AutoComplete(tk.Toplevel):
         
         self.configure_bindings()
     
+    def update_completions(self):
+        self.refresh_geometry()
+
+        term = self.master.get_current_word()
+        self.hide_all_items()
+
+        new = [i for i in self.get_items_text() if i[0].startswith(term)]
+        new += [i for i in self.get_items_text() if term in i[0] and i not in new]
+        
+        if any(new):
+            self.show_items(new, term)
+        else:
+            self.hide()
+    
     def move_up(self, *args):
-        self.select(-1)
+        if self.state:
+            self.select(-1)
+            return "break"
     
     def move_down(self, *args):
-        self.select(1)
+        if self.state:
+            self.select(1)
+            return "break"
 
     def add_all_items(self):
         for i in self.items:
@@ -90,23 +111,29 @@ class AutoComplete(tk.Toplevel):
         self.menu_items = []
         self.row = 1
     
-    def show_items(self, items, search_term):
-        for i in items[:-1]:
+    def show_items(self, items, term):
+        for i in items:
             i[1].grid(row=self.row, sticky=tk.EW, padx=1, pady=(0, 0))
             self.row += 1
             self.menu_items.append(i[1])
-        items[-1][1].grid(row=self.row, sticky=tk.EW, padx=1, pady=(0, 5))
-        self.row += 1
-        self.menu_items.append(items[-1][1])
+
+            i[1].mark_term(term)
 
         self.reset_selection()
+    
+    def refresh_geometry(self, *args):
+        self.update_idletasks()
+        self.geometry("+{}+{}".format(*self.master.cursor_screen_location()))
 
     def show(self, pos):
+        self.state = True
         self.update_idletasks()
+        self.update_completions()
         self.geometry("+{}+{}".format(*pos))
         self.deiconify()
 
     def hide(self, *args):
+        self.state = False
         self.withdraw()
         self.master.completion_active = False
         # self.reset()
@@ -119,5 +146,5 @@ class AutoComplete(tk.Toplevel):
         self.reset_selection()
     
     def choose(self, *args):
-        # self.menu_items[self.selected]
+        self.master.auto_complete(self.menu_items_text[self.selected][0])
         self.hide()

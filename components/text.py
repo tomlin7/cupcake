@@ -9,11 +9,17 @@ class TextW(tk.Text):
         self.master = master
         self.base = master.base
 
+        self.current_word = None
+
         self._orig = self._w + "_orig"
         self.tk.call("rename", self._w, self._orig)
         self.tk.createcommand(self._w, self._proxy)
 
         self.config_appearance()
+
+    def on_change(self, *args):
+        self.current_word = self.get("insert-1c wordstart", "insert").strip()
+        print("Current word: " + self.current_word)
     
     def config_appearance(self):
         self.config(
@@ -59,14 +65,14 @@ class Text(tk.Frame):
         self.current_indentation = None
         self.current_line = None
 
-        self.auto_completion = AutoComplete(self, items=[["Test item 1", "object"], ["Test item 2", "object"]])
+        self.auto_completion = AutoComplete(self, items=[["print", None], ["test", None]])
         self.completion_active = False
 
         self.config_bindings()
     
     def config_bindings(self):
         self.textw.bind("<Return>", self.enter_key_events)
-        self.textw.bind("<KeyPress>", self.show_autocomplete)
+        self.textw.bind("<KeyRelease>", self.show_autocomplete)
 
         for btn in ["<Button-2>", "<BackSpace>", "<Escape>"]:
             self.textw.bind(btn, self.auto_completion.hide)
@@ -86,6 +92,9 @@ class Text(tk.Frame):
         
     #     return "break"
 
+    def get_current_word(self):
+        return self.textw.current_word
+    
     def cursor_screen_location(self):
         pos_x, pos_y = self.textw.winfo_rootx(), self.textw.winfo_rooty()
 
@@ -95,18 +104,37 @@ class Text(tk.Frame):
             return (0, 0)
         
         bbx_x, bbx_y, _, bbx_h = bbox
-        return (pos_x + bbx_x + 8, pos_y + bbx_y + bbx_h)
+        return (pos_x + bbx_x - 1, pos_y + bbx_y + bbx_h)
     
-    # def get_autocomplete_geometry(self):
-    #     pos = self.get_cursor_screen_location()
-    #     print(pos)
+    def check_autocomplete_keys(self, event):
+        match event.keysym:
+            case "BackSpace":
+                return False
+            case "Escape":
+                return False
+            case "Return":
+                return False
+            case _:
+                return True
 
-    #     return (self.completion_width, self.completion_height) + pos
+    def show_autocomplete(self, event):
+        if not self.check_autocomplete_keys(event):
+            return
+        
+        if self.textw.current_word not in ["{", "}", ":", None, " ", "\""]:
+            if not self.completion_active:
+                pos = self.cursor_screen_location()
+                self.completion_active = True
+                self.auto_completion.show(pos)
+            else:
+                self.auto_completion.update_completions()
+        else:
+            if self.completion_active:
+                self.hide_autocomplete()
     
-    def show_autocomplete(self, *args):
-        pos = self.cursor_screen_location()
-        self.completion_active = True
-        self.auto_completion.show(pos)
+    def hide_autocomplete(self):
+        self.auto_completion.hide()
+        self.completion_active = False
     
     def move_cursor(self, position):
         self.textw.mark_set(tk.INSERT, position)
@@ -118,7 +146,7 @@ class Text(tk.Frame):
         self.clear_all_selection()
         line = int(line.split(".")[0])
         start = str(float(line))
-        end = str(float(line) + 1)
+        end = str(float(line))
         self.textw.tag_add(tk.SEL, start, end)
 
         self.move_cursor(end)
@@ -136,12 +164,15 @@ class Text(tk.Frame):
     def add_newline(self, count=1):
         self.textw.insert(tk.INSERT, "\n" * count)
     
+    def auto_complete(self, text):
+        self.textw.insert(tk.INSERT, text)
+    
     def enter_key_events(self, *args):
-        # if self.completion_active:
-        #     self.auto_completion.choose()
-        #     self.completion_active = False
-        #     return "break"
-        self.check_indentation()
+        if self.completion_active:
+            self.auto_completion.choose()
+            self.completion_active = False
+            return "break"
+        return self.check_indentation()
 
     def check_indentation(self, *args):
         self.update_current_indent()

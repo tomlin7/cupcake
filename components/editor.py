@@ -65,6 +65,7 @@ class Editor(Frame):
 
     def _text_modified(self, *args):
         self._redraw_ln(*args)
+        self.text.textw.on_change()
         self.text.highlighter.highlight_all()
 
     def _redraw_ln(self, *args):
