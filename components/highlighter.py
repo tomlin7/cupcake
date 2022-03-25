@@ -37,8 +37,8 @@ class Highlighter:
             self.text.tag_add(tag, "matchStart", "matchEnd")
 
     def highlight_all(self):
-        self.highlight_pattern(self.syntax.keywords, "keywords", regexp=True)
-        self.highlight_pattern(self.syntax.numbers, "numbers", regexp=True)
+        self.highlight_pattern(self.syntax.rgx_keywords, "keywords", regexp=True)
+        self.highlight_pattern(self.syntax.rgx_numbers, "numbers", regexp=True)
         
-        self.highlight_pattern(self.syntax.strings, "strings", regexp=True)
-        self.highlight_pattern(self.syntax.comments, "comments", regexp=True)
+        self.highlight_pattern(self.syntax.rgx_strings, "strings", regexp=True)
+        self.highlight_pattern(self.syntax.rgx_comments, "comments", regexp=True)

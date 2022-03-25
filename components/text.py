@@ -53,8 +53,11 @@ class Text(tk.Frame):
         
     #     return "break"
 
+    def get_all_words(self):
+        return self.textw.get_all_words()
+
     def get_current_word(self):
-        return self.textw.current_word
+        return self.textw.current_word.strip()
     
     def cursor_screen_location(self):
         pos_x, pos_y = self.textw.winfo_rootx(), self.textw.winfo_rooty()
@@ -75,7 +78,11 @@ class Text(tk.Frame):
                 return False
             case "Return":
                 return False
-            case "Space":
+            case "space":
+                return False
+            case "Up":
+                return False
+            case "Down":
                 return False
             case _:
                 return True
@@ -94,6 +101,9 @@ class Text(tk.Frame):
         else:
             if self.completion_active:
                 self.hide_autocomplete()
+    
+    def update_completions(self):
+        self.auto_completion.update_completions()
     
     def hide_autocomplete(self):
         self.auto_completion.hide()
@@ -127,13 +137,12 @@ class Text(tk.Frame):
     def add_newline(self, count=1):
         self.textw.insert(tk.INSERT, "\n" * count)
     
-    def auto_complete(self, text):
-        self.textw.insert(tk.INSERT, text)
-    
+    def confirm_autocomplete(self, text):
+        self.textw.replace_current_word(text)
+
     def enter_key_events(self, *args):
         if self.completion_active:
             self.auto_completion.choose()
-            self.completion_active = False
             return "break"
         return self.check_indentation()
 

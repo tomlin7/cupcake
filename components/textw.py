@@ -1,4 +1,4 @@
-import tkinter as tk
+import re, tkinter as tk
 
 
 class TextW(tk.Text):
@@ -8,6 +8,7 @@ class TextW(tk.Text):
         self.base = master.base
 
         self.current_word = None
+        self.words = []
 
         self._orig = self._w + "_orig"
         self.tk.call("rename", self._w, self._orig)
@@ -15,9 +16,29 @@ class TextW(tk.Text):
 
         self.config_appearance()
 
+    def replace_current_word(self, new_word):
+        if self.current_word.startswith("\n"):
+            self.delete("insert-1c wordstart+1c", "insert")
+        else:
+            self.delete("insert-1c wordstart", "insert")
+        self.insert("insert", new_word)
+
+    def get_all_text(self, *args):
+        return self.get(1.0, "insert-1c wordstart-1c") + self.get("insert+1c", tk.END)
+    
+    def get_all_words(self, *args):
+        return self.words
+
+    def update_words(self):
+        for i in re.findall(r"\w+", self.get_all_text()):
+            if i not in self.words:
+                self.words.append(i)
+        self.master.update_completions()
+
     def on_change(self, *args):
-        self.current_word = self.get("insert-1c wordstart", "insert").strip()
-        print("Current word: " + self.current_word)
+        self.current_word = self.get("insert-1c wordstart", "insert")
+        self.update_words()
+        print(f"CursorIsOn<{self.current_word.strip()}>")
     
     def config_appearance(self):
         self.config(
