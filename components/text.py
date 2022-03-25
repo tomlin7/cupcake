@@ -2,48 +2,8 @@ import re, tkinter as tk
 
 from .highlighter import Highlighter
 from .autocomplete import AutoComplete
-
-class TextW(tk.Text):
-    def __init__(self, master, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-        self.master = master
-        self.base = master.base
-
-        self.current_word = None
-
-        self._orig = self._w + "_orig"
-        self.tk.call("rename", self._w, self._orig)
-        self.tk.createcommand(self._w, self._proxy)
-
-        self.config_appearance()
-
-    def on_change(self, *args):
-        self.current_word = self.get("insert-1c wordstart", "insert").strip()
-        print("Current word: " + self.current_word)
-    
-    def config_appearance(self):
-        self.config(
-            font=self.master.font, bg="#1e1e1e", 
-            fg="#d4d4d4", wrap=tk.NONE, relief=tk.FLAT,
-            highlightthickness=0, insertbackground="#aeafad")
-        #self.tag_config(tk.SEL, background="#3a3d41", foreground="#d4d4d4")
-        self.tag_config(tk.SEL, background="#264f78", foreground="#d4d4d4")
-    
-    def _proxy(self, *args):
-        cmd = (self._orig,) + args
-        result = self.tk.call(cmd)
-
-        if (args[0] in ("insert", "replace", "delete") or
-            args[0:3] == ("mark", "set", "insert") or
-            args[0:2] == ("xview", "moveto") or
-            args[0:2] == ("xview", "scroll") or
-            args[0:2] == ("yview", "moveto") or
-            args[0:2] == ("yview", "scroll")
-        ):
-            self.event_generate("<<Change>>", when="tail")
-
-        return result
-
+from .syntax import SyntaxLoader
+from .textw import TextW
 
 class Text(tk.Frame):
     def __init__(self, master, *args, **kwargs):
@@ -52,8 +12,9 @@ class Text(tk.Frame):
         self.base = master.base
 
         self.font = self.master.font
-
         self.pack_propagate(False)
+
+        self.syntax = SyntaxLoader()
 
         self.textw = TextW(self, width=0, height=0, *args, **kwargs)
         self.textw.pack(expand=True, fill=tk.BOTH)
@@ -65,7 +26,7 @@ class Text(tk.Frame):
         self.current_indentation = None
         self.current_line = None
 
-        self.auto_completion = AutoComplete(self, items=[["print", None], ["test", None]])
+        self.auto_completion = AutoComplete(self, items=self.syntax.get_autocomplete_list())
         self.completion_active = False
 
         self.config_bindings()
@@ -113,6 +74,8 @@ class Text(tk.Frame):
             case "Escape":
                 return False
             case "Return":
+                return False
+            case "Space":
                 return False
             case _:
                 return True

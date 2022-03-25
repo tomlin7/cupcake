@@ -1,14 +1,12 @@
 import tkinter as tk
 
-from .syntax import SyntaxLoader
-
 
 class Highlighter:
     def __init__(self, master, *args, **kwargs):
         self.text = master
         self.base = master.base
 
-        self.syntax = SyntaxLoader()
+        self.syntax = master.master.syntax
         self.setup_highlight_tags()
 
     def setup_highlight_tags(self):

@@ -5,12 +5,10 @@ Contains Editor class
 import tkinter as tk
 
 from .utils import Utils
-
 from .events import Events
 from .frame import Frame
 from .text import Text
 from .ln import LineNumbers
-
 
 class Editor(Frame):
     """
