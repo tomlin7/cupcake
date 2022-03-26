@@ -100,7 +100,8 @@ class AutoComplete(tk.Toplevel):
         self.selected += delta
         if self.selected > len(self.active_items) - 1:
             self.selected = 0
-        # self.selected = min(max(0, self.selected), len(self.active_items) - 1)
+        elif self.selected < 0:
+            self.selected = len(self.active_items) - 1
         self.refresh_selected()
     
     def reset_selection(self):
@@ -159,6 +160,10 @@ class AutoComplete(tk.Toplevel):
     
     def reset(self):
         self.reset_selection()
+    
+    def tab(self, *args):
+        self.choose()
+        return "break"
     
     def choose(self, this=None, *args):
         self.hide()

@@ -5,7 +5,7 @@ from .autocomplete import AutoComplete
 from .syntax import SyntaxLoader
 from .textw import TextW
 
-class Text(tk.Frame):
+class Text(tk.Canvas):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master)
         self.master = master
@@ -41,7 +41,7 @@ class Text(tk.Frame):
         self.textw.bind("<Up>", self.auto_completion.move_up)
         self.textw.bind("<Down>", self.auto_completion.move_down)
 
-        self.textw.bind("<Tab>", self.auto_completion.choose)
+        self.textw.bind("<Tab>", self.auto_completion.tab)
 
         self.textw.bind("<Right>", self.auto_completion.hide)
         self.textw.bind("<Left>", self.auto_completion.hide)
@@ -77,6 +77,8 @@ class Text(tk.Frame):
             case "Escape":
                 return False
             case "Return":
+                return False
+            case "Tab":
                 return False
             case "space":
                 return False
