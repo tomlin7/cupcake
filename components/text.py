@@ -91,12 +91,15 @@ class Text(tk.Frame):
         if not self.check_autocomplete_keys(event):
             return
         
-        if self.textw.current_word not in ["{", "}", ":", None, " ", "\""]:
+        if self.textw.current_word.strip() not in ["{", "}", ":", "", None, "\""]:
+            print("ac state: ", self.completion_active)
             if not self.completion_active:
+                print("showing autocomplete")
                 pos = self.cursor_screen_location()
-                self.completion_active = True
                 self.auto_completion.show(pos)
+                self.auto_completion.update_completions()
             else:
+                print("updating autocomplete")
                 self.auto_completion.update_completions()
         else:
             if self.completion_active:

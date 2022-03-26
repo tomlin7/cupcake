@@ -110,7 +110,8 @@ class AutoComplete(tk.Toplevel):
     def refresh_selected(self):
         for i in self.active_items:
             i.deselect()
-        self.active_items[self.selected].select()
+        if self.selected < len(self.active_items):
+            self.active_items[self.selected].select()
 
     def get_items(self):
         return self.menu_items
@@ -142,9 +143,9 @@ class AutoComplete(tk.Toplevel):
     def show(self, pos):
         self.state = True
         self.update_idletasks()
-        self.update_completions()
         self.geometry("+{}+{}".format(*pos))
         self.deiconify()
+        self.master.completion_active = True
 
     def hide(self, *args):
         self.state = False
@@ -162,7 +163,7 @@ class AutoComplete(tk.Toplevel):
     def choose(self, this=None, *args):
         self.hide()
         if not this:
-            return self.master.confirm_autocomplete(self.active_items[self.selected].get_text())
+            this = self.active_items[self.selected]
         
         self.master.confirm_autocomplete(this.get_text())
         return "break"
