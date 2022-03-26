@@ -5,7 +5,7 @@ from .autocomplete import AutoComplete
 from .syntax import SyntaxLoader
 from .textw import TextW
 
-class Text(tk.Canvas):
+class Text(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master)
         self.master = master
