@@ -22,26 +22,24 @@ class Kind(tk.Label):
     
     def config_image(self):
         match self.kind:
-            case "object":
-                self.image = self.kinds.iobject
-            case "function":
-                self.image = self.kinds.ifunction
+            case "method":
+                self.image = self.kinds.imethods
+            case "variable":
+                self.image = self.kinds.ivariables
+            case "field":
+                self.image = self.kinds.ifields
             case "class":
-                self.image = self.kinds.iclass
+                self.image = self.kinds.iclasses
+            case "interface":
+                self.image = self.kinds.iinterfaces
             case "module":
-                self.image = self.kinds.imodule
+                self.image = self.kinds.imodules
+            case "property":
+                self.image = self.kinds.iproperties
+            case "keyword":
+                self.image = self.kinds.ikeywords
             case _:
-                self.image = self.kinds.itext
-            # case "method":
-            #     self.image = self.base.images.method_icon
-            # case "attribute":
-            #     self.image = self.base.images.attribute_icon
-            # case "variable":
-            #     self.image = self.base.images.variable_icon
-            # case "keyword":
-            #     self.image = self.base.images.keyword_icon
-            # case "builtin":
-            #     self.image = self.base.images.builtin_icon
+                self.image = self.kinds.iwords
         self.config(image=self.image)
 
 class AutoCompleteItem(tk.Frame):

@@ -107,7 +107,6 @@ class Text(tk.Frame):
     
     def hide_autocomplete(self):
         self.auto_completion.hide()
-        self.completion_active = False
     
     def move_cursor(self, position):
         self.textw.mark_set(tk.INSERT, position)

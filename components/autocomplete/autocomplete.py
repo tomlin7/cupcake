@@ -26,18 +26,16 @@ class AutoComplete(tk.Toplevel):
 
         self.menu_items = []
         self.active_items = []
-        self.word_items = []
 
         self.row = 0
         self.selected = 0
-
 
         if items:
             self.items = items
             # [(completion, type), ...]
             
-            #self.add_all_items()
-            #self.refresh_selected()
+            self.add_all_items()
+            self.refresh_selected()
         
         self.configure_bindings()
     
@@ -54,7 +52,6 @@ class AutoComplete(tk.Toplevel):
         new += [i for i in self.get_items() if term in i.get_text() and i not in new]
 
         self.hide_all_items()
-        self.hide_all_word_items()
         
         if any(new):
             self.show_items(new[:10] if len(new) > 10 else new, term)
@@ -78,18 +75,11 @@ class AutoComplete(tk.Toplevel):
         self.active_items = self.menu_items
         self.refresh_selected()
     
-    def hide_all_word_items(self):
-        for i in self.word_items:
-            i.grid_forget()
-        
-        self.word_items = []
-    
     
     def update_all_words(self):
         for word in self.master.get_all_words():
             if word not in self.get_items_text():
                 self.add_item(word)
-
 
     def configure_bindings(self):
         root = self.base.root
@@ -160,7 +150,7 @@ class AutoComplete(tk.Toplevel):
         self.state = False
         self.withdraw()
         self.master.completion_active = False
-        # self.reset()
+        self.reset()
     
     def refresh_geometry(self, *args):
         self.update_idletasks()
