@@ -35,16 +35,13 @@ class Text(tk.Frame):
         self.textw.bind("<Return>", self.enter_key_events)
         self.textw.bind("<KeyRelease>", self.show_autocomplete)
 
-        for btn in ["<Button-2>", "<BackSpace>", "<Escape>"]:
+        for btn in ["<Button-2>", "<BackSpace>", "<Escape>", "<Right>", "<Left>", "<Control_L>", "<Control_R>"]:
             self.textw.bind(btn, self.auto_completion.hide)
         
         self.textw.bind("<Up>", self.auto_completion.move_up)
         self.textw.bind("<Down>", self.auto_completion.move_down)
 
         self.textw.bind("<Tab>", self.auto_completion.tab)
-
-        self.textw.bind("<Right>", self.auto_completion.hide)
-        self.textw.bind("<Left>", self.auto_completion.hide)
 
         # self.textw.bind("<space>", self.handle_space())
     
@@ -86,6 +83,10 @@ class Text(tk.Frame):
                 return False
             case "Down":
                 return False
+            case "Control_L":
+                return False
+            case "Control_R":
+                return False
             case _:
                 return True
 
@@ -96,15 +97,18 @@ class Text(tk.Frame):
         if self.textw.current_word.strip() not in ["{", "}", ":", "", None, "\""]:
             print("ac state: ", self.completion_active)
             if not self.completion_active:
+                if event.keysym in ["Left", "Right"]:
+                    return
                 print("showing autocomplete")
                 pos = self.cursor_screen_location()
                 self.auto_completion.show(pos)
                 self.auto_completion.update_completions()
             else:
-                print("updating autocomplete")
+                print("hiding autocomplete")
                 self.auto_completion.update_completions()
         else:
             if self.completion_active:
+                print("hiding autocomplete")
                 self.hide_autocomplete()
     
     def update_completions(self):
@@ -121,6 +125,7 @@ class Text(tk.Frame):
     
     def select_line(self, line):
         self.clear_all_selection()
+        
         line = int(line.split(".")[0])
         start = str(float(line))
         end = str(float(line))

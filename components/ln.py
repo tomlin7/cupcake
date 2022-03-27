@@ -1,13 +1,9 @@
+from textwrap import fill
 import tkinter as tk
+from turtle import width
 
-
-class Canvas(tk.Canvas):
-    def __init__(self, master, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-        self.master = master
-        self.base = master.base
-
-        self.config(width=50, bg="#1e1e1e", highlightthickness=0)
+from .canvas import Canvas
+from .breakpoint import Breakpoint
 
 
 class LineNumbers(tk.Frame):
@@ -45,7 +41,11 @@ class LineNumbers(tk.Frame):
             return
         
         y = dline[1]
-        self.cw.create_text(50, y, anchor=tk.NE, text=">", font=self.font, fill="red")
+        btn =  tk.Menubutton(self.cw, 
+            text=">", font=("Consolas", 14), fg="#1e1e1e", bg="#1e1e1e", cursor="hand2", 
+            activeforeground="#c5c5c5", activebackground="#1e1e1e", borderwidth=0,
+            width=2, height=1, pady=0, padx=0, relief=tk.FLAT)
+        self.cw.create_window(70, y-2, anchor=tk.NE, window=btn)
     
     def highlight_current_line(self):
         self.mark_line(tk.INSERT)
@@ -74,11 +74,20 @@ class LineNumbers(tk.Frame):
                 cur_y = curline[1]
 
             if y == cur_y:
-                number = self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.highlight_fill, tag=i)
+                number = self.cw.create_text(46, y, anchor=tk.NE, text=ln, font=self.font, fill=self.highlight_fill, tag=i)
             else:
-                number = self.cw.create_text(35, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill, tag=i)
+                number = self.cw.create_text(46, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill, tag=i)
             
             self.cw.tag_bind(i, "<Button-1>", lambda _, i=i: self.select_line(i))
 
+            # drawing breakpoints -- needs optimisations
+            # self.draw_breakpoint(y)
+
             i = self.tw.textw.index(f"{i}+1line")
 
+    def draw_breakpoint(self, y):
+        bp = Breakpoint(self.cw)
+        self.cw.create_window(21, y-2, anchor=tk.NE, window=bp)
+    
+    def toggle_breakpoint(self, y):
+        ...
