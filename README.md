@@ -6,9 +6,12 @@ Code editor for cpp.
 
 ## Features
 
-- Syntax highlighting
-- Auto indentation
-- Drag n drop
+- `🟢` Syntax Highlighting
+- `🟢` Auto Indentation
+- `🟢` Auto completions
+- `🟡` Code Debugging
+- `🟡` Code Folding
+- `🔴` Integrated Terminal
 
 ## Usage
 
