@@ -9,6 +9,7 @@ from .events import Events
 from .frame import Frame
 from .text import Text
 from .ln import LineNumbers
+from .minimap import Minimap
 
 class Editor(Frame):
     """
@@ -22,14 +23,16 @@ class Editor(Frame):
         self.font = self.base.config.font
         self.zoom = self.font["size"]
 
-        self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
 
         self.text = Text(self)
         self.ln = LineNumbers(self, self.text)
+        self.minimap = Minimap(self, self.text)
 
         self.ln.grid(row=0, column=0, sticky=tk.NS)
         self.text.grid(row=0, column=1, sticky=tk.NSEW)
+        self.minimap.grid(row=0, column=2, sticky=tk.NS)
 
         self.events = Events(self)
     
@@ -65,6 +68,7 @@ class Editor(Frame):
         self._redraw_ln(*args)
         self.text.textw.on_change()
         self.text.highlighter.highlight_all()
+        self.minimap.redraw()
 
     def _redraw_ln(self, *args):
         self.ln.redraw()

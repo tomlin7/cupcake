@@ -22,15 +22,18 @@ class TextW(tk.Text):
         else:
             self.delete("insert-1c wordstart", "insert")
         self.insert("insert", new_word)
-
+    
     def get_all_text(self, *args):
+        return self.get(1.0, tk.END)
+
+    def get_all_text_ac(self, *args):
         return self.get(1.0, "insert-1c wordstart-1c") + self.get("insert+1c", tk.END)
     
     def get_all_words(self, *args):
         return self.words
 
     def update_words(self):
-        for i in re.findall(r"\w+", self.get_all_text()):
+        for i in re.findall(r"\w+", self.get_all_text_ac()):
             if i not in self.words:
                 self.words.append(i)
         self.master.update_completions()

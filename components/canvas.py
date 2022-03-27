@@ -7,4 +7,4 @@ class Canvas(tk.Canvas):
         self.master = master
         self.base = master.base
 
-        self.config(width=70, bg="#1e1e1e", highlightthickness=0)
+        self.config(width=68, bg="#1e1e1e", highlightthickness=0)

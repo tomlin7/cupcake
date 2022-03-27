@@ -50,6 +50,9 @@ class Text(tk.Frame):
         
     #     return "break"
 
+    def get_all_text(self):
+        return self.textw.get_all_text()
+
     def get_all_words(self):
         return self.textw.get_all_words()
 
