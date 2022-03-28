@@ -1,5 +1,5 @@
-- highlight current word under cursor if not keyword
-~ minimap
+. highlight current word under cursor if not keyword
+. minimap
 - language tools ...
 - find replace
 - notifications (threads?)

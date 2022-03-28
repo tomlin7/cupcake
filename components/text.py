@@ -190,8 +190,9 @@ class Text(tk.Frame):
         with open(path, 'r') as fp:
             self.clear_insert(fp.read())
 
-    # linux    
     def select_all(self, *args):
+        self.textw.tag_remove("highlight", 1.0, tk.END)
+        
         self.textw.tag_add(tk.SEL, 1.0, tk.END)
 
         # scroll to top

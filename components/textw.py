@@ -7,6 +7,7 @@ class TextW(tk.Text):
         self.master = master
         self.base = master.base
 
+        self.keywords = master.syntax.keywords
         self.current_word = None
         self.words = []
 
@@ -15,6 +16,7 @@ class TextW(tk.Text):
         self.tk.createcommand(self._w, self._proxy)
 
         self.config_appearance()
+        self.config_tags()
 
     def replace_current_word(self, new_word):
         if self.current_word.startswith("\n"):
@@ -38,17 +40,32 @@ class TextW(tk.Text):
                 self.words.append(i)
         self.master.update_completions()
 
+    def highlight_current_word(self):
+        self.tag_remove("highlight", 1.0, tk.END)
+        text = self.get("insert wordstart", "insert wordend")
+        word = re.findall(r"\w+", text)
+        if any(word):
+            if word[0] not in self.keywords:
+                self.master.highlighter.highlight_pattern(f"\\y{word[0]}\\y", "highlight", regexp=True)
+
     def on_change(self, *args):
-        self.current_word = self.get("insert-1c wordstart", "insert")
+        if self.get("insert-1c wordstart").startswith("\n"):
+            self.current_word = self.get("insert-1c wordstart+1c", "insert")
+        else:
+            self.current_word = self.get("insert-1c wordstart", "insert")
         self.update_words()
-        print(f"CursorIsOn<{self.current_word.strip()}>")
+        self.highlight_current_word()
+        # print(f"CursorIsOn<{self.current_word.strip()}>")
     
     def config_appearance(self):
         self.config(
             font=self.master.font, bg="#1e1e1e", 
             fg="#d4d4d4", wrap=tk.NONE, relief=tk.FLAT,
             highlightthickness=0, insertbackground="#aeafad")
+    
+    def config_tags(self):
         self.tag_config(tk.SEL, background="#264f78", foreground="#d4d4d4")
+        self.tag_config("highlight", background="#464646", foreground="#d4d4d4")
     
     def _proxy(self, *args):
         cmd = (self._orig,) + args
