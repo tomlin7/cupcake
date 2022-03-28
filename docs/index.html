@@ -12,37 +12,44 @@
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-.fa-python,.fa-coffee {font-size:200px}
+.whoa {font-size:200px}
+.lil {font-size:70px; padding-top:100px}
+.fa-cookie {font-size:60px}
+.brrr {color:#FF9900;background-color: #232F3E;}
+.brr {color:#dddddd;}
+.meow {background-color:#232F3E; color:#dddddd;}
+.baw {background-color:#FF9900; color: #dddddd; font-weight: bold;}
+.cupcake {color:#FF9900;background-color: #232F3E;font-size: 75px;font-weight: bold;}
+.images {color: #232F3E;}
 </style>
 </head>
 <body>
 
 <!-- Navbar -->
 <div class="w3-top">
-  <div class="w3-bar w3-light-grey w3-card w3-left-align w3-large">
-    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large w3-white">Home</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Docs</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Downloads</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">Github</a>
-    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white">About</a>
+  <div class="w3-bar brrr w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="pages/docs.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large">Docs</a>
+    <a href="pages/downloads.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large">Downloads</a>
+    <a href="https://github.com/billyeatcookies/cupcake" class="w3-bar-item w3-button w3-hide-small w3-padding-large">Github</a>
   </div>
 
   <!-- Navbar on small screens -->
   <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
     <a href="#" class="w3-bar-item w3-button w3-padding-large">Home</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Docs</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Downloads</a>
-    <a href="#" class="w3-bar-item w3-button w3-padding-large">Github</a>
+    <a href="pages/docs.html" class="w3-bar-item w3-button w3-padding-large">Docs</a>
+    <a href="pages/downloads.html" class="w3-bar-item w3-button w3-padding-large">Downloads</a>
+    <a href="https://github.com/billyeatcookies/cupcake" class="w3-bar-item w3-button w3-padding-large">Github</a>
   </div>
 </div>
 
 <!-- Header -->
-<header class="w3-container w3-light-grey w3-center" style="padding:128px 16px">
-  <h1 class="w3-margin w3-jumbo">CUPCAKE</h1>
-  <p class="w3-xlarge">Code editor written in pure python</p>
-  <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Download</button>
-  <button class="w3-button w3-black w3-padding-large w3-large w3-margin-top">Documentation</button>
+<header class="w3-container meow w3-center" style="padding:128px 16px">
+  <h1 class="w3-margin cupcake">CUPCAKE</h1>
+  <p class="w3-xlarge brr">Code editor written in pure python</p>
+  <a href="pages/downloads.html"><button class="w3-button baw w3-padding-large w3-large w3-margin-top">Download</button></a>
+  <a href="pages/docs.html"><button class="w3-button baw w3-padding-large w3-large w3-margin-top">Documentation</button></a>
 </header>
 
 <!-- First Grid -->
@@ -58,7 +65,8 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     </div>
 
     <div class="w3-third w3-center">
-      <i class="fa fa-coffee w3-padding-64 w3-text-grey"></i>
+      <i class="fa fa-github whoa images w3-opacity w3-padding-64"></i>
+      <i class="fa-brands fa-python lil images w3-opacity w3-padding-100"></i>
     </div>
   </div>
 </div>
@@ -67,7 +75,7 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
 <div class="w3-row-padding w3-light-grey w3-padding-64 w3-container">
   <div class="w3-content">
     <div class="w3-third w3-center">
-      <i class="fa-brands fa-python w3-padding-64 w3-text-grey w3-margin-right"></i>
+      <i class="fa-solid fa-bars-progress images whoa w3-opacity w3-padding-64 w3-margin-right"></i>
     </div>
 
     <div class="w3-twothird">
@@ -86,22 +94,22 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
     </div>
   </div>
 </div>
-
-<div class="w3-container w3-black w3-center w3-opacity w3-padding-64">
-    <h1 class="w3-margin w3-xlarge">Have a Cupcake!</h1>
+<!-- 
+<div class="w3-container w3-green w3-center w3-padding-64">
+    <h1 class="w3-margin w3-xlarge">Have a Cookie!</h1>
     
     <div class="w3-center">
-        <i class="fa-solid fa-cupcake"></i>
+        <i class="fa-solid fa-cookie"></i>
     </div>
-</div>
+</div> -->
 
 <!-- Footer -->
-<footer class="w3-container w3-padding-64 w3-center w3-opacity">  
+<footer class="w3-container meow w3-padding-64 w3-center">  
   <div class="w3-xlarge w3-padding-32">
-    <i class="fa-brands fa-github w3-hover-opacity"></i>
-    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <a href="https://github.com/billyeatcookies/cupcake"><i class="fa-brands fa-github w3-hover-opacity"></i></a>
+    <a href="https://twitter.com/intent/tweet?hashtags=HappyCoding&ref_src=twsrc%5Etfw&related=twitterapi,twitter&text=Have%20a%20cupcake!&tw_p=tweetbutton&via=billyeatcookies"><i class="fa fa-twitter w3-hover-opacity"></i></a>
  </div>
- <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+ <p>Copyright &copy; billyeatcookies</p>
 </footer>
 
 <script>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Cupcake, code editor</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<script src="https://kit.fontawesome.com/f3ed6fbc4e.js" crossorigin="anonymous"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<style>
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+.w3-bar,h1, h2,button {font-family: "Montserrat", sans-serif}
+a {color: #FF9900;}
+.whoa {font-size:200px}
+.lil {font-size:70px; padding-top:100px}
+.fa-cookie {font-size:60px}
+.brrr {color:#FF9900;background-color: #232F3E;}
+.brr {color:#dddddd;}
+.meow {background-color:#232F3E; color:#dddddd;}
+.baw {background-color:#FF9900; color: #dddddd; font-weight: bold;}
+.cupcake {color:#FF9900;background-color: #232F3E;font-size: 75px;font-weight: bold;}
+.images {color: #232F3E;}
+.yellowish {color: #FF9900;}
+.darkbaw {background-color:#FF9900;  color: #232F3E;}
+.hmmm {color: #dddddd;}
+.hmmm:active {
+  color: #FF9900;
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="w3-top" style="z-index:3">
+  <div class="w3-bar brrr w3-card w3-left-align w3-large">
+    <a class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-red" href="javascript:void(0);" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+    <a href="../index.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large">Docs</a>
+    <a href="./downloads.html" class="w3-bar-item w3-button w3-hide-small w3-padding-large">Downloads</a>
+    <a href="https://github.com/billyeatcookies/cupcake" class="w3-bar-item w3-button w3-hide-small w3-padding-large">Github</a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium w3-large">
+    <a href="../index.html" class="w3-bar-item w3-button w3-padding-large">Home</a>
+    <a href="#" class="w3-bar-item w3-button w3-padding-large">Docs</a>
+    <a href="./downloads.html" class="w3-bar-item w3-button w3-padding-large">Downloads</a>
+    <a href="https://github.com/billyeatcookies/cupcake" class="w3-bar-item w3-button w3-padding-large">Github</a>
+  </div>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar brrr w3-collapse w3-top w3-large w3-padding" style="width:300px;font-weight:bold;" id="sidebar"><br>
+  <div class="w3-container">
+    <h3 class="w3-padding-64 yellowish"><b>CUPCAKE</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="#getting-started" onclick="w3_close()" class="w3-bar-item w3-button hmmm">Getting Started</a> 
+    <a href="#installation" onclick="w3_close()" class="w3-bar-item w3-button hmmm">Installation</a> 
+    <a href="#building" onclick="w3_close()" class="w3-bar-item w3-button hmmm">Building</a> 
+    <a href="#ui" onclick="w3_close()" class="w3-bar-item w3-button hmmm">User Interface</a> 
+    <a href="#configuration" onclick="w3_close()" class="w3-bar-item w3-button hmmm">Configuration</a> 
+    <a href="#extensions" onclick="w3_close()" class="w3-bar-item w3-button hmmm">Extensions</a>
+  </div>
+</nav>
+
+<!-- Header -->
+<header class="w3-container cupcake w3-center" style="margin-left:300px; padding:120px 16px">
+  <h1 class="w3-margin w3-jumbo">DOCUMENTATION</h1>
+</header>
+
+
+<!-- First Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container" id="getting-started">
+  <div class="w3-content">
+    <div class="w3-text-grey">
+      <h1>Getting Started</h1>
+      <p class="w3-text-grey">
+        In this section, we will cover the basics of getting started with Cupcake.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Second Grid -->
+<div class="w3-row-padding darkbaw w3-padding-64 w3-container">
+    <div class="w3-content w3-padding-10">
+      <h1>Download</h1>
+      <h5 class="w3-padding-20">In order to go through this section, you should download cupcake from the downloads or github releases.</h5>
+      <a href="./downloads.html"><button class="w3-button meow w3-padding-large w3-large w3-margin-top">Downloads page</button></a>
+      <a href="https://github.com/billyeatcookies/cupcake/releases"><button class="w3-button meow w3-padding-large w3-large w3-margin-top"> Github Releases</button></a>
+    </div>
+  </div>
+</div>
+
+<!-- Third Grid -->
+<div class="w3-row-padding w3-padding-64 w3-container" id="installation">
+  <div class="w3-content">
+    <div class="w3-text-grey">
+      <h2>Installation</h2>
+      <p class="w3-text-grey">
+        Double click the downloaded installer to start the setup of Cupcake. Go through the setup process and then click the finish button. 
+        After installation, you can find the Cupcake folder in your windows start menu. You can now launch Cupcake and start coding!
+    </div>
+  </div>
+</div>
+
+<!-- Fourth Grid -->
+<div class="w3-row-padding w3-padding-10 w3-container" id="building">
+  <div class="w3-content">
+    <div class="w3-text-grey">
+      <h2>Building From Source</h2>
+      
+      <p class="w3-text-grey">
+        If you wish to build cupcake on your own, you can follow this section. Make sure you have git/github desktop and python installed.
+
+        <div class="w3-panel w3-leftbar meow">
+          <h5 class="w3-padding-20">Make sure you have latest <a href="https://www.python.org/downloads/">python</a> 
+            and <a href="https://git-scm.com/downloads">git</a> installed.</h5>
+        </div>
+
+        First let's clone the repository from github:
+        <div class="w3-code w3-light-grey w3-medium">
+          git clone https://github.com/billyeatcookies/cupcake.git
+        </div>
+        Then let's navigate to the cupcake folder:
+        <div class="w3-code w3-light-grey w3-medium">
+          cd cupcake
+        </div>
+        Now run the following command
+        <div class="w3-code w3-light-grey w3-medium">
+          python .
+        </div>
+        And that's it! You can now start coding!
+      </p>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="w3-container w3-padding-64 meow w3-center">  
+  <div class="w3-xlarge w3-padding-32">
+    <a href="https://github.com/billyeatcookies/cupcake"><i class="fa-brands fa-github w3-hover-opacity"></i></a>
+    <a href="https://twitter.com/intent/tweet?hashtags=HappyCoding&ref_src=twsrc%5Etfw&related=twitterapi,twitter&text=Have%20a%20cupcake!&tw_p=tweetbutton&via=billyeatcookies"><i class="fa fa-twitter w3-hover-opacity"></i></a>
+ </div>
+ <p>Copyright &copy; billyeatcookies</p>
+</footer>
+
+<script>
+// Used to toggle the menu on small screens when clicking on the menu button
+function myFunction() {
+  var x = document.getElementById("navDemo");
+  if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+  } else { 
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+
+</body>
+</html>
