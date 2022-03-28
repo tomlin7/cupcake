@@ -13,6 +13,9 @@ Code editor for cpp.
 - `🟡` Code Folding
 - `🔴` Integrated Terminal
 
+https://github.com/billyeatcookies/Cupcake/blob/d1bf524db32629564813b57dda44781e8b48d6e7/proposals/todo.txt#L1-L10
+
+
 ## Usage
 
 ### Prerequisites
