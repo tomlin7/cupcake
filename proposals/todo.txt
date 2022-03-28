@@ -1,0 +1,9 @@
+- highlight current word under cursor if not keyword
+~ minimap
+- language tools ...
+- find replace
+- notifications (threads?)
+- scrollbar (style)
+- docs
+- no tab completion if completion not active
+- ibralogue
