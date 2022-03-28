@@ -48,7 +48,6 @@ class TextW(tk.Text):
             font=self.master.font, bg="#1e1e1e", 
             fg="#d4d4d4", wrap=tk.NONE, relief=tk.FLAT,
             highlightthickness=0, insertbackground="#aeafad")
-        #self.tag_config(tk.SEL, background="#3a3d41", foreground="#d4d4d4")
         self.tag_config(tk.SEL, background="#264f78", foreground="#d4d4d4")
     
     def _proxy(self, *args):
