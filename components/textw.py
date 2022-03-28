@@ -17,6 +17,12 @@ class TextW(tk.Text):
 
         self.config_appearance()
         self.config_tags()
+        self.config_bindings()
+
+    def multi_selection(self, *args):
+        #TODO: multi selection
+
+        return "break"
 
     def replace_current_word(self, new_word):
         if self.current_word.startswith("\n"):
@@ -66,6 +72,10 @@ class TextW(tk.Text):
     def config_tags(self):
         self.tag_config(tk.SEL, background="#264f78", foreground="#d4d4d4")
         self.tag_config("highlight", background="#464646", foreground="#d4d4d4")
+    
+    def config_bindings(self):
+        self.bind("<Control-a>", self.master.select_all)
+        self.bind("<Control-d>", self.master.multi_selection)
     
     def _proxy(self, *args):
         cmd = (self._orig,) + args
