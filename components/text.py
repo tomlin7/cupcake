@@ -98,21 +98,20 @@ class Text(tk.Frame):
             return
         
         if self.textw.current_word.strip() not in ["{", "}", ":", "", None, "\""]:
-            print("ac state: ", self.completion_active)
             if not self.completion_active:
                 if event.keysym in ["Left", "Right"]:
                     return
-                print("showing autocomplete")
                 pos = self.cursor_screen_location()
                 self.auto_completion.show(pos)
                 self.auto_completion.update_completions()
             else:
-                print("hiding autocomplete")
                 self.auto_completion.update_completions()
         else:
             if self.completion_active:
-                print("hiding autocomplete")
                 self.hide_autocomplete()
+    
+    def update_completion_words(self):
+        self.auto_completion.update_all_words()
     
     def update_completions(self):
         self.auto_completion.update_completions()
@@ -140,7 +139,6 @@ class Text(tk.Frame):
         line = self.textw.get("insert linestart", "insert lineend")
         match = re.match(r'^(\s+)', line)
         self.current_indent = len(match.group(0)) if match else 0
-        print("indentation level updated to ", len(match.group(0)) if match else 0)
 
     def update_current_line(self):
         self.current_line = self.textw.get("insert linestart", "insert lineend")

@@ -41,10 +41,8 @@ class TextW(tk.Text):
         return self.words
 
     def update_words(self):
-        for i in re.findall(r"\w+", self.get_all_text_ac()):
-            if i not in self.words:
-                self.words.append(i)
-        self.master.update_completions()
+        self.words = re.findall(r"\w+", self.get_all_text_ac())
+        self.master.update_completion_words()
 
     def highlight_current_word(self):
         self.tag_remove("highlight", 1.0, tk.END)
@@ -55,13 +53,9 @@ class TextW(tk.Text):
                 self.master.highlighter.highlight_pattern(f"\\y{word[0]}\\y", "highlight", regexp=True)
 
     def on_change(self, *args):
-        if self.get("insert-1c wordstart").startswith("\n"):
-            self.current_word = self.get("insert-1c wordstart+1c", "insert")
-        else:
-            self.current_word = self.get("insert-1c wordstart", "insert")
+        self.current_word = self.get("insert-1c wordstart", "insert")
         self.update_words()
         self.highlight_current_word()
-        # print(f"CursorIsOn<{self.current_word.strip()}>")
     
     def config_appearance(self):
         self.config(
@@ -75,7 +69,7 @@ class TextW(tk.Text):
     
     def config_bindings(self):
         self.bind("<Control-a>", self.master.select_all)
-        self.bind("<Control-d>", self.master.multi_selection)
+        self.bind("<Control-d>", self.multi_selection)
     
     def _proxy(self, *args):
         cmd = (self._orig,) + args

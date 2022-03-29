@@ -5,7 +5,7 @@ from .itemkinds import Kinds
 from .item import AutoCompleteItem
 
 class AutoComplete(tk.Toplevel):
-    def __init__(self, master, geometry=None, items=None, state=False, *args, **kwargs):
+    def __init__(self, master, items=None, state=False, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
         self.base = master.base
@@ -75,11 +75,14 @@ class AutoComplete(tk.Toplevel):
         self.active_items = self.menu_items
         self.refresh_selected()
     
-    
     def update_all_words(self):
         for word in self.master.get_all_words():
             if word not in self.get_items_text():
-                self.add_item(word)
+                self.add_item(word, "word")
+        
+        for word in self.get_items():
+            if word.get_text() not in self.master.get_all_words() and word.get_kind() == "word":
+                self.remove_item(word)
 
     def configure_bindings(self):
         root = self.base.root
@@ -95,6 +98,12 @@ class AutoComplete(tk.Toplevel):
         self.menu_items.append(new_item)
 
         self.row += 1
+    
+    def remove_item(self, item):
+        a = self.menu_items
+        item.grid_forget()
+        self.menu_items.remove(item)
+        self.row -= 1
 
     def select(self, delta):
         self.selected += delta
@@ -153,10 +162,6 @@ class AutoComplete(tk.Toplevel):
         self.withdraw()
         self.master.completion_active = False
         self.reset()
-    
-    def refresh_geometry(self, *args):
-        self.update_idletasks()
-        self.geometry("+{}+{}".format(*self.master.cursor_screen_location()))
     
     def reset(self):
         self.reset_selection()
