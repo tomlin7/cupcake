@@ -10,7 +10,7 @@ class Root(Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.minsize(700, 500)
+        self.minsize(1100, 700)
         self.config(bg="#1e1e1e")
 
         self.grid_columnconfigure(0, weight=1)
