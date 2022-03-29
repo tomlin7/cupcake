@@ -4,6 +4,7 @@ Contains Editor class
 
 import tkinter as tk
 
+from .find_replace import FindReplace
 from .utils import Utils
 from .events import Events
 from .frame import Frame
@@ -26,9 +27,12 @@ class Editor(Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
+        self.find_replace_active = False
+
         self.text = Text(self)
         self.ln = LineNumbers(self, self.text)
         self.minimap = Minimap(self, self.text)
+        self.find_replace = FindReplace(self, self.text)
 
         self.ln.grid(row=0, column=0, sticky=tk.NS)
         self.text.grid(row=0, column=1, sticky=tk.NSEW)
@@ -36,22 +40,28 @@ class Editor(Frame):
 
         self.events = Events(self)
     
+    def show_find_replace(self, *args):
+        if not self.find_replace_active:
+            pos_x, pos_y, width = self.text.textw.winfo_rootx(), self.text.textw.winfo_rooty(), self.text.textw.winfo_width()
+            self.find_replace.show(((pos_x + width) - (self.find_replace.winfo_width() + 10), pos_y))
+        else:
+            self.find_replace.reset()
+
     def focus(self):
         self.text.textw.focus()
 
     def set_fontsize(self, size):
         self.font.configure(size=size)
-        self.ln.set_bar_width(size * 4)
-        self._redraw_ln()
+        # self.ln.set_bar_width(size * 4)
         self._redraw_ln()
 
     def refresh_fontsize(self):
         self.set_fontsize(self.zoom)
     
     def _handle_zoom(self, event):
-        if event.num == 5 or event.delta == -120:
+        if event.delta == -120:
             self.zoom -= 1
-        if event.num == 4 or event.delta == 120:
+        if event.delta == 120:
             self.zoom += 1
         
         # linux

@@ -49,7 +49,6 @@ class Minimap(tk.Frame):
     
     def drag_start(self, event):
         self._drag_data["item"] = self.cw.find_closest(event.x, event.y)[0]
-        print(self._drag_data["item"])
         self._drag_data["y"] = event.y
 
     def drag_stop(self, event):

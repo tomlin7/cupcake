@@ -1,7 +1,7 @@
 . highlight current word under cursor if not keyword
 . minimap
 - language tools ...
-- find replace
+~ find replace
 - notifications (threads?)
 - scrollbar (style)
 - docs

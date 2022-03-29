@@ -15,6 +15,8 @@ class Events:
         self.bind_to_editor_text("<<Change>>", self.master._text_modified)
         self.bind_to_editor_text("<Configure>", self.master._redraw_ln)
 
+        self.bind_to_editor_text("<Control-f>", self.master.show_find_replace)
+
         self.bind_to_editor_text("<Control-MouseWheel>", self.master._handle_zoom)
 
         # linux 
