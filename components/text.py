@@ -43,12 +43,29 @@ class Text(tk.Frame):
 
         self.textw.bind("<Tab>", self.auto_completion.tab)
 
+        self.textw.bind("<Control-Left>", lambda e: self.handle_ctrl_hmovement())
+        self.textw.bind("<Control-Right>", lambda e: self.handle_ctrl_hmovement(True))
+
         # self.textw.bind("<space>", self.handle_space())
     
     # def handle_space(self, *args):
     #     self.textw.insert(tk.INSERT, "-")
         
     #     return "break"
+
+    def move_to_next_word(self):
+        self.textw.mark_set(tk.INSERT, self.textw.index("insert+1c wordend"))
+
+    def move_to_previous_word(self):
+        self.textw.mark_set(tk.INSERT, self.textw.index("insert-1c wordstart"))
+
+    def handle_ctrl_hmovement(self, delta=False):
+        if delta:
+            self.move_to_next_word()
+        else:
+            self.move_to_previous_word()
+        
+        return "break"
 
     def get_all_text(self):
         return self.textw.get_all_text()
