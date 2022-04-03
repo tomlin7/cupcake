@@ -19,7 +19,7 @@ class EntryBox(tk.Frame):
 
         self.entry = tk.Entry(
             frame, width=30, bg="#3c3c3c", fg="#ccccc7", font=("Helvetica", 11),
-            textvariable=self.term, relief=tk.FLAT)
+            textvariable=self.term, relief=tk.FLAT, insertbackground="#aeafad")
         self.entry.grid(sticky=tk.EW, padx=3, pady=3)
 
         self.config_bindings()
@@ -27,7 +27,7 @@ class EntryBox(tk.Frame):
     def get(self):
         return self.term.get()
 
-    def config_bindings(self, *args):...
+    def config_bindings(self, *args): ...
         # self.entry.bind("<FocusIn>", self.on_focus)
         # self.entry.bind("<FocusOut>", self.off_focus)
 
