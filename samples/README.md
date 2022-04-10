@@ -1,2 +1,2 @@
 # Sample scripts
-Sample scipts used to test the editor's functionality
+This directory contains the sample scipts used to test the editor's functionality.
