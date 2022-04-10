@@ -1,6 +1,23 @@
 # Cupcake 🧁
 
-Code editor for cpp.
+[Docs](https://billyeatcookies.github.io/cupcake/pages/docs.html) |
+[Gallery](https://billyeatcookies.github.io/cupcake/index.html) |
+[Releases](https://github.com/billyeatcookies/cupcake/releases)
+
+<!--
+<table>
+    <td>
+        <a href=https://billyeatcookies.github.io/cupcake/pages/docs.html>Docs</a>
+    </td>
+    <td>
+        <a href=https://billyeatcookies.github.io/cupcake/index.html>Documentation</a>
+    </td>
+    <td>
+        <a href=https://github.com/billyeatcookies/cupcake/releases>Releases</a>
+    </td>
+</table> -->
+    
+Cupcake is a code editor written in pure python with the tkinter library.
 
 <table>
     <td>
