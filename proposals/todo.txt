@@ -8,3 +8,4 @@
 - no tab completion if completion not active
 - ibralogue
 - multi cursor editing
+- brackets auto filling
