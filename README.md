@@ -41,7 +41,7 @@ Cupcake is the code editor that powers [Biscuit](https://github.com/billyeatcook
 - `🟡` Code Folding
 - `🔴` Language Detection
 
-https://github.com/billyeatcookies/cupcake/blob/693bb853ca055e3f2633ce368845a17322d80be3/proposals/todo.txt#L1-L10
+https://github.com/billyeatcookies/cupcake/blob/356b8d4ce5e86bad9ec744f6968830fdb78d4920/proposals/todo.txt#L1-L5
 
 ## Usage
 
