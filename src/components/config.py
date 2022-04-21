@@ -9,7 +9,7 @@ class Config:
         self._cfg = {}
 
     def load_config(self):
-        with open(f"../src/config/config.json", "r") as fp:
+        with open(f"src/config/config.json", "r") as fp:
             self._cfg = jn.load(fp)
 
         self.font = font.Font(

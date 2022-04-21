@@ -4,7 +4,7 @@ import json
 
 class SyntaxLoader:
     def __init__(self):
-        with open('../src/config/languages/cpp.json') as fp:
+        with open('src/config/languages/cpp.json') as fp:
             self.syntax = json.load(fp)
         
         self.setup_token_colors()
