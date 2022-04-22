@@ -56,7 +56,6 @@ class Text(tk.Frame):
     def key_release_events(self, event):
         self.show_autocomplete(event)
         if self.update_current_line():
-            print(event.keysym)
             if event.keysym not in ["braceleft", "bracketleft", "parenleft"]:
                 return
 

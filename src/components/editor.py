@@ -53,6 +53,7 @@ class Editor(Frame):
 
     def focus(self):
         self.text.textw.focus()
+        self.refresh_editor()
 
     def set_fontsize(self, size):
         self.font.configure(size=size)
