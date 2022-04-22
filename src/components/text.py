@@ -33,7 +33,7 @@ class Text(tk.Frame):
     
     def config_bindings(self):
         self.textw.bind("<Return>", self.enter_key_events)
-        self.textw.bind("<KeyRelease>", self.show_autocomplete)
+        self.textw.bind("<KeyRelease>", self.key_release_events)
 
         for btn in ["<Button-2>", "<BackSpace>", "<Escape>", "<Right>", "<Left>", "<Control_L>", "<Control_R>"]:
             self.textw.bind(btn, self.auto_completion.hide)
@@ -52,6 +52,29 @@ class Text(tk.Frame):
     #     self.textw.insert(tk.INSERT, "-")
         
     #     return "break"
+    
+    def key_release_events(self, event):
+        self.show_autocomplete(event)
+        if self.update_current_line():
+            print(event.keysym)
+            if event.keysym not in ["braceleft", "bracketleft", "parenleft"]:
+                return
+
+            match self.current_line[-1]:
+                case "{":
+                    self.textw.insert(tk.INSERT, "}")
+                    self.textw.mark_set("insert", "insert-1c")
+                case "[":
+                    self.textw.insert(tk.INSERT, "]")
+                    self.textw.mark_set("insert", "insert-1c")
+                case "(":
+                    self.textw.insert(tk.INSERT, ")")
+                    self.textw.mark_set("insert", "insert-1c")
+                case _:
+                    pass
+                
+            # case ":" | ",":
+            #     self.textw.insert(tk.INSERT, " ")
 
     def move_to_next_word(self):
         self.textw.mark_set(tk.INSERT, self.textw.index("insert+1c wordend"))
