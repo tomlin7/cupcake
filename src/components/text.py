@@ -204,6 +204,8 @@ class Text(tk.Frame):
     def load_file(self, path):
         with open(path, 'r') as fp:
             self.clear_insert(fp.read())
+        
+        self.textw.mark_set(tk.INSERT, 1.0)
 
     def select_all(self, *args):
         self.textw.tag_remove("highlight", 1.0, tk.END)

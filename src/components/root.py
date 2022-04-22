@@ -39,3 +39,6 @@ class Root(Tk):
     def hide_editor(self):
         self.editor.grid_remove()
         self.empty.grid()
+
+    def refresh_editor(self):
+        self.editor.refresh_editor()
