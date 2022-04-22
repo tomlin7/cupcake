@@ -11,6 +11,7 @@ from .frame import Frame
 from .text import Text
 from .ln import LineNumbers
 from .minimap import Minimap
+from .scrollbar import AutoHideScrollbar
 
 class Editor(Frame):
     """
@@ -32,11 +33,14 @@ class Editor(Frame):
         self.text = Text(self)
         self.ln = LineNumbers(self, self.text)
         self.minimap = Minimap(self, self.text)
+        self.scrollbar = AutoHideScrollbar(self, command=self.text.textw.yview)
+        self.text.textw.configure(yscrollcommand=self.scrollbar.set)
         self.find_replace = FindReplace(self, self.text)
 
         self.ln.grid(row=0, column=0, sticky=tk.NS)
         self.text.grid(row=0, column=1, sticky=tk.NSEW)
         self.minimap.grid(row=0, column=2, sticky=tk.NS)
+        self.scrollbar.grid(row=0, column=3, sticky=tk.NS)
 
         self.events = Events(self)
     
@@ -74,11 +78,14 @@ class Editor(Frame):
         self.refresh_fontsize()
         return "break"
 
-    def _text_modified(self, *args):
-        self._redraw_ln(*args)
+    def refresh_editor(self, *_):
+        self._redraw_ln()
         self.text.textw.on_change()
         self.text.highlighter.highlight_all()
         self.minimap.redraw()
 
-    def _redraw_ln(self, *args):
+    def _redraw_ln(self, *_):
         self.ln.redraw()
+    
+    def load_file(self, filepath):
+        self.text.load_file(filepath)

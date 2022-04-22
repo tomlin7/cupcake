@@ -21,6 +21,7 @@ class Base:
     
     def set_opened_file(self, file):
         if file:
-            self.root.editor.text.load_file(file)
-
+            self.root.editor.load_file(file)
             self.root.show_editor()
+            self.root.refresh_editor()
+            
