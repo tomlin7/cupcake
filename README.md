@@ -36,7 +36,6 @@ Cupcake is the code editor that powers [Biscuit](https://github.com/billyeatcook
 - `🟢` Auto completions
 - `🟢` Extendable language support
 - `🟢` Minimap
-- `🟡` Find Replace
 - `🟡` Code Debugging
 - `🟡` Code Folding
 - `🔴` Language Detection
