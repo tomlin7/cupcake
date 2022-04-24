@@ -51,8 +51,8 @@ https://github.com/billyeatcookies/cupcake/blob/356b8d4ce5e86bad9ec744f6968830fd
 - pip packages
     > Install with `pip install -r requirements.txt`
 
-### Running
+### Running the Example
 
-- Run `python .` *(don't miss the dot in the end)*
+- Run `python examples/basic.py` *(don't miss the dot in the end)*
 - Open your cpp script.
 - Start editing.
