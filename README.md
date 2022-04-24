@@ -36,7 +36,6 @@ Cupcake is the code editor that powers [Biscuit](https://github.com/billyeatcook
 - `🟢` Auto completions
 - `🟢` Extendable language support
 - `🟢` Minimap
-- `🟡` Find Replace
 - `🟡` Code Debugging
 - `🟡` Code Folding
 - `🔴` Language Detection
@@ -51,8 +50,8 @@ https://github.com/billyeatcookies/cupcake/blob/356b8d4ce5e86bad9ec744f6968830fd
 - pip packages
     > Install with `pip install -r requirements.txt`
 
-### Running
+### Example: Basic Text Editor
 
-- Run `python .` *(don't miss the dot in the end)*
-- Open your cpp script.
+- Run `python examples/basic.py`
+- Open your script to edit
 - Start editing.
