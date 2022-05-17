@@ -194,7 +194,14 @@ class Finder_Replacer:
 
     def revive(self):
         """brings the window back"""
+        if self.parent.text.tag_ranges(tk.SEL):
+            selection = self.parent.text.get(tk.SEL_FIRST, tk.SEL_LAST)
+            self.find_entry.delete("1.0", "end")
+            self.find_entry.insert("1.0", selection)
+            print("selection: ", selection)
         self.window.deiconify()
+        self.find_entry.focus()
+        
 
 
 e = EditorMock(text="""EMACS: The Extensible, Customizable Display Editor
