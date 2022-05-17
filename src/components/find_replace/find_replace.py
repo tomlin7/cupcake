@@ -87,10 +87,13 @@ class Finder_Replacer:
 
     def highlight_matches(self):
         self.parent.text.tag_remove("found", "1.0", "end")
+        self.parent.text.tag_remove("foundcurrent", "1.0", "end")
         for pos, match in self.matches.items():
             start = match.start()
             end = match.end()
             self.parent.text.tag_add("found", f"1.0+{start}c", f"1.0+{end}c")
+        if self.is_on_match():
+            self.highlight_current()
 
     def highlight_current(self):
         self.parent.text.tag_remove("foundcurrent", "1.0", "end")
@@ -105,6 +108,7 @@ class Finder_Replacer:
     def get_find_input(self):
         if self.find_entry.get() == "":
             self.parent.text.tag_remove("found", "1.0", "end")
+            self.parent.text.tag_remove("foundcurrent", "1.0", "end")
             return
         current = self.current
         self.matches = {}
