@@ -9,8 +9,14 @@ class EditorMock(tk.Tk):
         self.text.pack()
         self.text.insert(tk.END, text)
         self.findr = Finder_Replacer(self)
-        self.bind("<Control-f>", lambda x: self.findr.revive())
+        self.bind("<Control-f>", lambda x: self.findreplace())
         self.mainloop()
+    def findreplace(self):
+        if self.text.tag_ranges(tk.SEL):
+            selection = self.text.get(tk.SEL_FIRST, tk.SEL_LAST)
+        else:
+            selection = None
+        self.findr.revive(selection)
 
 
 class Finder_Replacer:
@@ -196,16 +202,14 @@ class Finder_Replacer:
             self.next_match()
             self.replace()
 
-    def revive(self):
+    def revive(self, selection):
         """brings the window back"""
-        if self.parent.text.tag_ranges(tk.SEL):
-            selection = self.parent.text.get(tk.SEL_FIRST, tk.SEL_LAST)
+        if selection:
             self.find_entry.delete("1.0", "end")
             self.find_entry.insert("1.0", selection)
             print("selection: ", selection)
         self.window.deiconify()
         self.find_entry.focus()
-        
 
 
 e = EditorMock(text="""EMACS: The Extensible, Customizable Display Editor
