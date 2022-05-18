@@ -76,7 +76,9 @@ class LineNumbers(tk.Frame):
                 number = self.cw.create_text(46, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill, tag=i)
             
             self.cw.tag_bind(i, "<Button-1>", lambda _, i=i: self.select_line(i))
-            self.draw_breakpoint(y)
+
+            # drawing breakpoints - needs optimisations
+            # self.draw_breakpoint(y)
             
             i = self.textw.textw.index(f"{i}+1line")
 

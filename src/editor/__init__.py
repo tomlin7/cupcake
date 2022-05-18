@@ -37,6 +37,7 @@ class Editor(tk.Frame):
         self.scrollbar.grid(row=0, column=3, sticky=tk.NS)
 
         self.events = Events(self)
+        self.text.textw.config(yscrollcommand=self.text_scrolled)
         self.focus()
     
     def text_scrolled(self, *args):
@@ -60,7 +61,9 @@ class Editor(tk.Frame):
     def refresh_editor(self, *_):
         self.text.textw.on_change()
         self.text.highlighter.highlight_all()
+        self.redraw_ln()
         self.minimap.redraw()
+        self.scrollbar.redraw()
 
     def redraw_ln(self, *_):
         self.linenumebers.redraw()
