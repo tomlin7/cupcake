@@ -23,15 +23,12 @@ class Finder_Replacer:
        matches - a dict of matches with position as key and length of
                  the match as value.
        current - the current position the user is interacting with
-       done - a dict with the positions already done and the letters
-              removed from the text
     """
 
     def __init__(self, parent, matchstring=None, replacestring=None):
         self.matchstring = matchstring
         self.replacestring = replacestring
         self.matches = None
-        self.done = {}
         self.parent = parent
         self.parent.text.tag_configure("found", background="green")
         self.parent.text.tag_configure("foundcurrent", background="orange")
@@ -100,7 +97,6 @@ class Finder_Replacer:
         match = self.matches[current]
         start = match.start()
         end = match.end()
-        #self.parent.text.tag_remove("found", f"1.0+{start}c", f"1.0+{end}c")
         self.parent.text.tag_add(
             "foundcurrent", f"1.0+{start}c", f"1.0+{end}c")
 
@@ -160,8 +156,7 @@ class Finder_Replacer:
         self.replacestring = self.replace_entry.get()
         if self.find_entry.get() != self.matchstring:
             self.get_find_input()
-            self.find()
-        elif self.is_on_match():
+        if self.is_on_match():
             match = self.matches[self.current]
             self.parent.text.delete(
                 f"1.0 + {match.start()}c", f"1.0 + {match.end()}c")
@@ -186,14 +181,15 @@ class Finder_Replacer:
 
     def replace_all(self):
         """replaces all occurences of the string for the replace string, it will even replace partial words."""
-        if self.find_entry.get() != self.matchstring:
-            self.get_find_input()
-            self.find()
+        self.get_find_input()
         nmatches = len(self.matches)
+        current = self.current
         self.parent.text.mark_set("insert", "1.0")
+        self.replace()
         for i in range(nmatches):
             self.next_match()
             self.replace()
+        self.parent.text.mark_set("insert", f"1.0 + {current}c")
 
     def revive(self):
         """brings the window back"""
