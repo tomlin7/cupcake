@@ -5,9 +5,8 @@ from .events import Events
 from .find_replace import FindReplace
 from .linenumbers import LineNumbers
 from .minimap import Minimap
-from .scrollbar import AutoHideScrollbar
+from .scrollbar import Scrollbar
 from .text import Text
-from .utils import Utils
 
 
 class Editor(tk.Frame):
@@ -27,7 +26,7 @@ class Editor(tk.Frame):
         self.text = Text(self)
         self.ln = LineNumbers(self, self.text)
         self.minimap = Minimap(self, self.text)
-        self.scrollbar = AutoHideScrollbar(self, command=self.text.textw.yview)
+        self.scrollbar = Scrollbar(self, command=self.text.textw.yview)
         self.text.textw.configure(yscrollcommand=self.scrollbar.set)
         self.find_replace = FindReplace(self, self.text)
 

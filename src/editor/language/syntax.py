@@ -1,4 +1,4 @@
-from ..config.languages import CPP
+from ...config.languages import CPP
 
 
 class SyntaxLoader:

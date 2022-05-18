@@ -2,7 +2,7 @@ import re, tkinter as tk
 
 from .highlighter import Highlighter
 from .autocomplete import AutoComplete
-from .syntax import SyntaxLoader
+from .language import SyntaxLoader
 from .textw import TextW
 
 class Text(tk.Frame):

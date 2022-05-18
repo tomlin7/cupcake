@@ -1,1 +1,1 @@
-from .components import Editor
+from .editor import Editor
