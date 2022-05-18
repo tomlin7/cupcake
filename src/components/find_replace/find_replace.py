@@ -194,9 +194,6 @@ class Finder_Replacer:
         for i in range(nmatches):
             self.next_match()
             self.replace()
-        
-    def clean_selection(self):
-        self.parent.text.tag_remove(tk.SEL, "1.0", tk.END)
 
     def revive(self):
         """brings the window back"""
@@ -205,13 +202,10 @@ class Finder_Replacer:
             self.find_entry.delete("0", "end")
             self.find_entry.insert("0", selection)
             print("selection: ", selection)
-            self.clean_selection()
         self.window.deiconify()
         self.find_entry.focus()
         self.get_find_input()
         
-
-
 e = EditorMock(text="""EMACS: The Extensible, Customizable Display Editor
 You are reading about GNU Emacs, the GNU incarnation of the advanced, self-documenting, customizable, extensible editor Emacs. (The ‘G’ in GNU (GNU’s Not Unix) is not silent.)
 
