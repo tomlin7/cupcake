@@ -34,8 +34,7 @@ class Finder_Replacer:
         self.done = {}
         self.parent = parent
         self.parent.text.tag_configure("found", background="green")
-        self.parent.text.tag_configure(
-            "foundcurrent", background="orange", foreground="white")
+        self.parent.text.tag_configure("foundcurrent", background="orange")
         self.display()
 
     @property
@@ -195,7 +194,7 @@ class Finder_Replacer:
         for i in range(nmatches):
             self.next_match()
             self.replace()
-
+        
     def revive(self):
         """brings the window back"""
         if self.parent.text.tag_ranges(tk.SEL):    
@@ -207,6 +206,7 @@ class Finder_Replacer:
             
         self.window.deiconify()
         self.find_entry.focus()
+
 
 
 e = EditorMock(text="""EMACS: The Extensible, Customizable Display Editor
