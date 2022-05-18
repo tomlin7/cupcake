@@ -10,7 +10,7 @@ class Scrollbar(tk.Frame):
         self.font = ("Arial", 1, "bold")
 
         self.config(bg="#252526", highlightthickness=0, padx=1)
-        self.cw = tk.Canvas(self, bg="#1e1e1e", width=10, highlightthickness=0)
+        self.cw = tk.Canvas(self, bg="#1e1e1e", width=15, highlightthickness=0)
         self.cw.pack(fill=tk.BOTH, expand=True, side=tk.LEFT)
 
         self.slider_image = tk.PhotoImage(data="""iVBORw0KGgoAAAANSUhEUgAAAG4AAABFCAYAAACrMNMO
@@ -23,7 +23,7 @@ class Scrollbar(tk.Frame):
         self.cw.create_image(0, 0, image=self.slider_image, anchor=tk.NW, tag="slider")
 
         self.y_top_lim = 0
-        self._drag_data = {"y": 0, "item": None}
+        self.drag_data = {"y": 0, "item": None}
         self.yvalue = 0
 
         self.cw.tag_bind("slider", "<ButtonPress-1>", self.drag_start)
@@ -40,21 +40,21 @@ class Scrollbar(tk.Frame):
         self.y_bottom_lim = int(self.tw.textw.index(tk.END).split(".")[0]) * 2 + 10
     
     def drag_start(self, event):
-        self._drag_data["item"] = self.cw.find_closest(event.x, event.y)[0]
-        self._drag_data["y"] = event.y
+        self.drag_data["item"] = self.cw.find_closest(event.x, event.y)[0]
+        self.drag_data["y"] = event.y
 
     def drag_stop(self, event):
-        self._drag_data["item"] = None
-        self._drag_data["y"] = 0
+        self.drag_data["item"] = None
+        self.drag_data["y"] = 0
 
     def drag(self, event):
-        item = self._drag_data["item"]
+        item = self.drag_data["item"]
         if item != 1:
             return
 
-        delta_y = event.y - self._drag_data["y"]
+        delta_y = event.y - self.drag_data["y"]
         self.cw.move(item, 0, delta_y)
-        self._drag_data["y"] = event.y
+        self.drag_data["y"] = event.y
 
         self.yvalue = y = self.cw.coords(item)[1]
         if y <= self.y_top_lim:
@@ -63,4 +63,4 @@ class Scrollbar(tk.Frame):
             self.cw.move("slider", 0, -(y - self.y_bottom_lim))
 
         self.tw.textw.yview(int(y / self.cw.winfo_height() * 100))
-        self.tw.master._redraw_ln()
+        self.tw.master.redraw_ln()

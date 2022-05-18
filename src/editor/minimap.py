@@ -9,7 +9,7 @@ class Minimap(tk.Frame):
         self.tw = textw
         self.font = ("Arial", 1, "bold")
 
-        self.config(bg="#252526", highlightthickness=0, padx=1)
+        self.config(bg="#252526", highlightthickness=0)
         self.cw = tk.Canvas(self, bg="#1e1e1e", width=100, highlightthickness=0)
         self.cw.pack(fill=tk.BOTH, expand=True, side=tk.LEFT)
 
@@ -70,4 +70,4 @@ class Minimap(tk.Frame):
             self.cw.move("slider", 0, -(y - self.y_bottom_lim))
 
         self.tw.textw.yview(int(y / self.cw.winfo_height() * 100))
-        self.tw.master._redraw_ln()
+        self.tw.master.redraw_ln()

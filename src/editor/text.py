@@ -11,9 +11,8 @@ class Text(tk.Frame):
         self.master = master
 
         self.font = self.master.font
+        self.syntax = self.master.syntax
         self.pack_propagate(False)
-
-        self.syntax = SyntaxLoader()
 
         self.textw = TextW(self, width=0, height=0, *args, **kwargs)
         self.textw.pack(expand=True, fill=tk.BOTH)

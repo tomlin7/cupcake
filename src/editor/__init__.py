@@ -6,6 +6,7 @@ from .find_replace import FindReplace
 from .linenumbers import LineNumbers
 from .minimap import Minimap
 from .scrollbar import Scrollbar
+from .language import SyntaxLoader
 from .text import Text
 
 
@@ -16,7 +17,8 @@ class Editor(tk.Frame):
 
         self.config = Config(self)
         self.font = self.config.font
-        self.zoom = self.font["size"]
+        
+        self.syntax = SyntaxLoader()
 
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
@@ -24,18 +26,21 @@ class Editor(tk.Frame):
         self.find_replace_active = False
 
         self.text = Text(self)
-        self.ln = LineNumbers(self, self.text)
+        self.linenumebers = LineNumbers(self, self.text)
         self.minimap = Minimap(self, self.text)
-        self.scrollbar = Scrollbar(self, command=self.text.textw.yview)
-        self.text.textw.configure(yscrollcommand=self.scrollbar.set)
+        self.scrollbar = Scrollbar(self, self.text)
         self.find_replace = FindReplace(self, self.text)
 
-        self.ln.grid(row=0, column=0, sticky=tk.NS)
+        self.linenumebers.grid(row=0, column=0, sticky=tk.NS)
         self.text.grid(row=0, column=1, sticky=tk.NSEW)
         self.minimap.grid(row=0, column=2, sticky=tk.NS)
         self.scrollbar.grid(row=0, column=3, sticky=tk.NS)
 
         self.events = Events(self)
+        self.focus()
+    
+    def text_scrolled(self, *args):
+        print(args)
     
     def show_find_replace(self, *args):
         if not self.find_replace_active:
@@ -50,36 +55,15 @@ class Editor(tk.Frame):
 
     def set_fontsize(self, size):
         self.font.configure(size=size)
-        # self.ln.set_bar_width(size * 4)
-        self._redraw_ln()
-
-    def refresh_fontsize(self):
-        self.set_fontsize(self.zoom)
-    
-    def _handle_zoom(self, event):
-        if event.delta == -120:
-            self.zoom -= 1
-        if event.delta == 120:
-            self.zoom += 1
-        
-        # linux
-        # if delta > 0:
-        #     self.zoom += 1
-        # else:
-        #     self.zoom -= 1
-
-        self.zoom = Utils.clamp(self.zoom, 5, 50)
-        self.refresh_fontsize()
-        return "break"
+        self.linenumebers.set_bar_width(size * 4)
 
     def refresh_editor(self, *_):
-        self._redraw_ln()
         self.text.textw.on_change()
         self.text.highlighter.highlight_all()
         self.minimap.redraw()
 
-    def _redraw_ln(self, *_):
-        self.ln.redraw()
+    def redraw_ln(self, *_):
+        self.linenumebers.redraw()
     
     def load_file(self, filepath):
         self.text.load_file(filepath)
