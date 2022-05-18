@@ -1,1 +1,1 @@
-from .components import Root
+from .components import Editor

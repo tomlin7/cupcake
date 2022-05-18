@@ -19,7 +19,7 @@ class TextW(tk.Text):
         self.config_bindings()
 
     def multi_selection(self, *args):
-        #TODO: multi selection
+        #TODO: multi cursor editing
 
         return "break"
 
