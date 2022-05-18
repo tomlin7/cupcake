@@ -1,8 +1,5 @@
-from textwrap import fill
 import tkinter as tk
-from turtle import width
 
-from .canvas import Canvas
 from .breakpoint import Breakpoint
 
 
@@ -16,7 +13,8 @@ class LineNumbers(tk.Frame):
 
         self.tw = tw
 
-        self.cw = Canvas(self)
+        self.cw = tk.Canvas(self)
+        self.cw.config(width=68, bg="#1e1e1e", highlightthickness=0)
         self.cw.pack(fill=tk.BOTH, expand=True)
     
     def set_bar_width(self, width):

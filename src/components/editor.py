@@ -9,7 +9,7 @@ from .utils import Utils
 from .events import Events
 from .frame import Frame
 from .text import Text
-from .ln import LineNumbers
+from .linenumbers import LineNumbers
 from .minimap import Minimap
 from .scrollbar import AutoHideScrollbar
 
