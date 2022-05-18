@@ -4,7 +4,7 @@ from tkinter import ttk
 class Style(ttk.Style):
     def __init__(self, master, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.master= master
+        self.master = master
         
         self.configure("TFrame", background="#1e1e1e", relief="flat")
         self.configure("TLabel", background="#1e1e1e", foreground="#d4d4d4", relief="flat")

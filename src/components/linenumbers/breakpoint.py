@@ -5,7 +5,6 @@ class Breakpoint(tk.Label):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
 
         self.config(text="●", font=("Consolas", 14), bg="#1e1e1e", fg="#1e1e1e", cursor="hand2", 
             borderwidth=0, width=2, height=1, pady=0, padx=0, relief=tk.FLAT)

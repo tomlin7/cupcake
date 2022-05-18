@@ -1,7 +1,6 @@
 class Events:
     def __init__(self, master, *args, **kwargs):
         self.master = master
-        self.base = master.base
 
         self.bind_all()
 

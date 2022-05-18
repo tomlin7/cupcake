@@ -1,5 +1,7 @@
 import tkinter as tk
 
+from ..config import Config
+
 from .find_replace import FindReplace
 from .utils import Utils
 from .events import Events
@@ -13,9 +15,9 @@ class Editor(Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
 
-        self.font = self.base.config.font
+        self.config = Config(self)
+        self.font = self.config.font
         self.zoom = self.font["size"]
 
         self.grid_rowconfigure(0, weight=1)

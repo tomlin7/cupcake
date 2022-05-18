@@ -1,25 +1,16 @@
-from ast import keyword
-import json
+from ..config.languages import CPP
 
 
 class SyntaxLoader:
     def __init__(self):
-        with open('src/config/languages/cpp.json') as fp:
-            self.syntax = json.load(fp)
-        
-        self.setup_token_colors()
-    
-    def get_pattern(self, tokenkind):
-        try:
-            return self.syntax[tokenkind]
-        except KeyError:
-            return "#000000"
+        self.syntax = CPP()
+        self.setup_tokens()
 
-    def setup_token_colors(self):
-        self.keywords = self.get_pattern("keywords")
-        self.numbers = self.get_pattern("numbers")
-        self.strings = self.get_pattern("strings")
-        self.comments = self.get_pattern("comments")
+    def setup_tokens(self):
+        self.keywords = self.syntax.keywords
+        self.numbers = self.syntax.numbers
+        self.strings = self.syntax.strings
+        self.comments = self.syntax.comments
 
         self.regexize_tokens()
 

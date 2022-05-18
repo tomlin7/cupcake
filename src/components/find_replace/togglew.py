@@ -5,7 +5,6 @@ class ToggleWidget(tk.Frame):
     def __init__(self, master, img=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
         self.img = img
 
         self.state = False

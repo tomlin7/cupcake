@@ -4,7 +4,6 @@ import tkinter as tk
 class Kinds:
     def __init__(self, master, *args, **kwargs):
         self.master = master
-        self.base = master.base
 
         self.imethods = tk.PhotoImage(data="""iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAACXBIWXMAAA7DAAAOwwHHb6hk
         AAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAddJREFUKJGNkjFrk3EQxn/3vtEW8QMICoK

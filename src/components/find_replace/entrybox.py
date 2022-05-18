@@ -6,7 +6,6 @@ class EntryBox(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
 
         self.config(bg="#3c3c3c", padx=1, pady=1)
         self.grid_columnconfigure(0, weight=1)

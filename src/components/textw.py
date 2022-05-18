@@ -5,7 +5,6 @@ class TextW(tk.Text):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
 
         self.keywords = master.syntax.keywords
         self.current_word = None

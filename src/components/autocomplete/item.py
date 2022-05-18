@@ -8,7 +8,6 @@ class Kind(tk.Label):
     def __init__(self, master, kinds, kind="text", *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
         self.kinds = kinds
         self.kind = kind
 
@@ -46,7 +45,6 @@ class AutoCompleteItem(tk.Frame):
     def __init__(self, master, left, kind=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
         
         self.left = left
         self.kind = kind

@@ -9,7 +9,6 @@ class Text(tk.Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master)
         self.master = master
-        self.base = master.base
 
         self.font = self.master.font
         self.pack_propagate(False)

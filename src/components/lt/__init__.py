@@ -8,13 +8,12 @@
 
 """
 
-from langugages import languages
+from ...config import languages
 
 
 class LanguageTools:
     def __init__(self, master, *args, **kwargs):
         self.master = master
-        self.base = master.base
 
     def get_language(self, filename):
         """
@@ -31,7 +30,7 @@ class LanguageTools:
         Get the name of a language
         """
         if language in languages:
-            return self.base.languages[language]['name']
+            return self.languages[language]['name']
         else:
             return 'Plain Text'
     
@@ -40,6 +39,6 @@ class LanguageTools:
         Get the extensions of a language
         """
         if language in languages:
-            return self.base.languages[language]['extensions']
+            return self.languages[language]['extensions']
         else:
             return []

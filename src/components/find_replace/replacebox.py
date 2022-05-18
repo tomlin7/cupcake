@@ -7,6 +7,7 @@ from . import EntryBox
 class ReplaceBox(EntryBox):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
+        self.master = master
 
         self.btn_frame = tk.Frame(self, bg="#3c3c3c")
         self.btn_frame.grid(row=0, column=1, sticky=tk.NSEW)

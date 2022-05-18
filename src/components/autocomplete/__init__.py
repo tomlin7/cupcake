@@ -8,7 +8,6 @@ class AutoComplete(tk.Toplevel):
     def __init__(self, master, items=None, state=False, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
 
         self.autocomplete_kinds = Kinds(self)
         self.config(bg="#454545", borderwidth=1)
@@ -85,11 +84,10 @@ class AutoComplete(tk.Toplevel):
                 self.remove_item(word)
 
     def configure_bindings(self):
-        root = self.base.root
-        
-        root.bind("<Button-1>" , self.hide)
-        root.bind("<Configure>", self.refresh_geometry)
-        root.bind("<FocusOut>", self.hide)
+        # root.bind("<Button-1>" , self.hide)
+        # root.bind("<Configure>", self.refresh_geometry)
+        # root.bind("<FocusOut>", self.hide)
+        ...
 
     def add_item(self, left, kind=None):
         new_item = AutoCompleteItem(self, left, kind=kind)

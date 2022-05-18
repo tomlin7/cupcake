@@ -1,5 +1,8 @@
-{
-    "keywords": [
+from .language import Language
+
+
+class CPP(Language):
+    keywords = [
 		"abstract",
 		"amp",
 		"array",
@@ -178,17 +181,8 @@
 		"__value",
 		"__virtual_inheritance",
 		"__w64",
-		"__wchar_t"
-	],
-    "strings": [
-        "(\\'(.)\\')", "(\"(.)*\")"
-    ],
-    "numbers": [
-        "0", "1", "2", "3", "4", 
-        "5", "6", "7", "8", "9"
-    ],
-    "comments": [
-        "(//(.)*)",
-        "(\/\\*(.*?)\\*\/)"
-    ]
-}
+		"__wchar_t"]
+	
+    strings = ["(\\'(.)\\')", "(\"(.)*\")"]
+    numbers = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    comments = ["(//(.)*)", "(\/\\*(.*?)\\*\/)"]

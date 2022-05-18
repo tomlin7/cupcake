@@ -5,7 +5,6 @@ class Minimap(tk.Frame):
     def __init__(self, master, textw, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
         
         self.tw = textw
         self.font = ("Arial", 1, "bold")

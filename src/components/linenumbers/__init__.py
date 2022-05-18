@@ -7,7 +7,6 @@ class LineNumbers(tk.Frame):
     def __init__(self, master, tw, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
-        self.base = master.base
 
         self.config_appearance()
 
@@ -21,7 +20,7 @@ class LineNumbers(tk.Frame):
         self.configure(width=width)
 
     def config_appearance(self):
-        self.font = self.base.config.font
+        self.font = self.master.font
         self.fill = "#858585"
         self.highlight_fill = "#c6c6c6"
         self.config(bg="#1e1e1e")

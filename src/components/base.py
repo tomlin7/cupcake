@@ -1,5 +1,4 @@
 from .style import Style
-from .config import Config
 
 from tkinter.filedialog import askopenfilename
 
@@ -8,7 +7,6 @@ class Base:
     def __init__(self, root, *args, **kwargs):
         self.root = root
 
-        self.config = Config()
         self.style = Style(self)
 
         self.opened_file = None
