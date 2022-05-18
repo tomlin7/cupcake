@@ -10,7 +10,7 @@ class AutoComplete(tk.Toplevel):
         self.master = master
 
         self.autocomplete_kinds = Kinds(self)
-        self.config(bg="#454545", borderwidth=1)
+        self.config(bg="#454545", padx=1, pady=1)
         
         self.state = state
         self.font = self.master.font
@@ -137,7 +137,7 @@ class AutoComplete(tk.Toplevel):
     def show_items(self, items, term):
         self.active_items = items
         for i in items:
-            i.grid(row=self.row, sticky=tk.EW, padx=1, pady=(0, 0))
+            i.grid(row=self.row, sticky=tk.EW)
             self.row += 1
 
             i.mark_term(term)
