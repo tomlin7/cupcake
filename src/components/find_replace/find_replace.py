@@ -34,8 +34,7 @@ class Finder_Replacer:
         self.done = {}
         self.parent = parent
         self.parent.text.tag_configure("found", background="green")
-        self.parent.text.tag_configure(
-            "foundcurrent", background="orange", foreground="white")
+        self.parent.text.tag_configure("foundcurrent", background="orange")
         self.display()
 
     @property
@@ -195,6 +194,9 @@ class Finder_Replacer:
         for i in range(nmatches):
             self.next_match()
             self.replace()
+        
+    def clean_selection(self):
+        self.parent.text.tag_remove(tk.SEL, "1.0", tk.END)
 
     def revive(self):
         """brings the window back"""
@@ -203,8 +205,10 @@ class Finder_Replacer:
             self.find_entry.delete("0", "end")
             self.find_entry.insert("0", selection)
             print("selection: ", selection)
+            self.clean_selection()
         self.window.deiconify()
         self.find_entry.focus()
+        self.get_find_input()
         
 
 
