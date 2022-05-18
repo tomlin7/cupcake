@@ -1,5 +1,0 @@
-- language tools
-- scrollbar
-- ibralogue
-- multi cursor editing
-- brackets auto filling

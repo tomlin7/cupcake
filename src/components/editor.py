@@ -1,7 +1,3 @@
-"""
-Contains Editor class
-"""
-
 import tkinter as tk
 
 from .find_replace import FindReplace
@@ -14,9 +10,6 @@ from .minimap import Minimap
 from .scrollbar import AutoHideScrollbar
 
 class Editor(Frame):
-    """
-    Editor class
-    """
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
