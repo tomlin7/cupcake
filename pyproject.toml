@@ -1,8 +1,12 @@
 [tool.poetry]
-name = "cupcake"
-version = "0.2.0"
+name = "cupcakepy"
+version = "0.2.1"
 description = "Embeddable code editor for tkinter"
 authors = ["Billy <billydevbusiness@gmail.com>"]
+readme = "README.md"
+packages = [
+    { include = "cupcake" }
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"
