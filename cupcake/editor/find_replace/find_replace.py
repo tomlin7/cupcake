@@ -9,7 +9,7 @@ class EditorMock(tk.Tk):
         self.text.pack()
         self.text.insert(tk.END, text)
         self.findr = Finder_Replacer(self)
-        self.bind("<Control-s>", lambda x: self.findr.revive())
+        self.bind("<Control-s>", self.findr.revive)
         self.mainloop()
 
 
@@ -191,7 +191,7 @@ class Finder_Replacer:
             self.replace()
         self.parent.text.mark_set("insert", f"1.0 + {current}c")
 
-    def revive(self):
+    def revive(self, event):
         """brings the window back"""
         if self.parent.text.tag_ranges(tk.SEL):
             selection = self.parent.text.get(tk.SEL_FIRST, tk.SEL_LAST)
@@ -201,6 +201,7 @@ class Finder_Replacer:
             self.get_find_input()
 
         self.window.deiconify()
+        self.window.lift()
         self.find_entry.focus()
 
 
