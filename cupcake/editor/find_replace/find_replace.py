@@ -9,7 +9,7 @@ class EditorMock(tk.Tk):
         self.text.pack()
         self.text.insert(tk.END, text)
         self.findr = Finder_Replacer(self)
-        self.bind("<Control-f>", lambda x: self.findr.revive())
+        self.bind("<Control-s>", lambda x: self.findr.revive())
         self.mainloop()
 
 
@@ -23,19 +23,15 @@ class Finder_Replacer:
        matches - a dict of matches with position as key and length of
                  the match as value.
        current - the current position the user is interacting with
-       done - a dict with the positions already done and the letters
-              removed from the text
     """
 
     def __init__(self, parent, matchstring=None, replacestring=None):
         self.matchstring = matchstring
         self.replacestring = replacestring
         self.matches = None
-        self.done = {}
         self.parent = parent
         self.parent.text.tag_configure("found", background="green")
-        self.parent.text.tag_configure(
-            "foundcurrent", background="orange", foreground="white")
+        self.parent.text.tag_configure("foundcurrent", background="orange")
         self.display()
 
     @property
@@ -87,10 +83,13 @@ class Finder_Replacer:
 
     def highlight_matches(self):
         self.parent.text.tag_remove("found", "1.0", "end")
+        self.parent.text.tag_remove("foundcurrent", "1.0", "end")
         for pos, match in self.matches.items():
             start = match.start()
             end = match.end()
             self.parent.text.tag_add("found", f"1.0+{start}c", f"1.0+{end}c")
+        if self.is_on_match():
+            self.highlight_current()
 
     def highlight_current(self):
         self.parent.text.tag_remove("foundcurrent", "1.0", "end")
@@ -98,13 +97,13 @@ class Finder_Replacer:
         match = self.matches[current]
         start = match.start()
         end = match.end()
-        #self.parent.text.tag_remove("found", f"1.0+{start}c", f"1.0+{end}c")
         self.parent.text.tag_add(
             "foundcurrent", f"1.0+{start}c", f"1.0+{end}c")
 
     def get_find_input(self):
         if self.find_entry.get() == "":
             self.parent.text.tag_remove("found", "1.0", "end")
+            self.parent.text.tag_remove("foundcurrent", "1.0", "end")
             return
         current = self.current
         self.matches = {}
@@ -157,8 +156,7 @@ class Finder_Replacer:
         self.replacestring = self.replace_entry.get()
         if self.find_entry.get() != self.matchstring:
             self.get_find_input()
-            self.find()
-        elif self.is_on_match():
+        if self.is_on_match():
             match = self.matches[self.current]
             self.parent.text.delete(
                 f"1.0 + {match.start()}c", f"1.0 + {match.end()}c")
@@ -183,18 +181,27 @@ class Finder_Replacer:
 
     def replace_all(self):
         """replaces all occurences of the string for the replace string, it will even replace partial words."""
-        if self.find_entry.get() != self.matchstring:
-            self.get_find_input()
-            self.find()
+        self.get_find_input()
         nmatches = len(self.matches)
+        current = self.current
         self.parent.text.mark_set("insert", "1.0")
+        self.replace()
         for i in range(nmatches):
             self.next_match()
             self.replace()
+        self.parent.text.mark_set("insert", f"1.0 + {current}c")
 
     def revive(self):
         """brings the window back"""
+        if self.parent.text.tag_ranges(tk.SEL):
+            selection = self.parent.text.get(tk.SEL_FIRST, tk.SEL_LAST)
+            self.find_entry.delete("0", "end")
+            self.find_entry.insert("0", selection)
+            self.parent.text.mark_set("insert", tk.SEL_FIRST)
+            self.get_find_input()
+
         self.window.deiconify()
+        self.find_entry.focus()
 
 
 e = EditorMock(text="""EMACS: The Extensible, Customizable Display Editor
