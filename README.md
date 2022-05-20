@@ -53,10 +53,7 @@ root.mainloop()
 ```
 
 ## Examples!
-Examples demonstrating how to use cupcake are in the [examples](./examples) directory. You can learn how to integrate the editor to your app with these.
-- Run `python -m examples.hello`
-- Open your script to edit
-- Start editing!
+Examples demonstrating how to use cupcake are in the [examples](./examples) directory. You can learn how to integrate the editor to your app with these. You can run the examples like `python -m examples.hello`
 
 ## Features
 
