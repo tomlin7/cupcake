@@ -68,5 +68,8 @@ class Editor(tk.Frame):
     def redraw_ln(self, *_):
         self.linenumebers.redraw()
     
+    def insert(self, text):
+        self.text.clear_insert(text)
+    
     def load_file(self, filepath):
         self.text.load_file(filepath)
