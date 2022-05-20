@@ -9,8 +9,8 @@ class FinderReplacer:
        matchstring - the string that the user wants to find.
        replacestring - the string that the user wants to replace,
                        if the user just wants to search is None.
-       matches - a dict of matches with position as key and length of
-                 the match as value.
+       matches - a dict of matches with position as key and match
+                 object as value.
        current - the current position the user is interacting with
     """
 
@@ -77,7 +77,8 @@ class FinderReplacer:
         for pos, match in self.matches.items():
             start = match.start()
             end = match.end()
-            self.parent.text.textw.tag_add("found", f"1.0+{start}c", f"1.0+{end}c")
+            self.parent.text.textw.tag_add(
+                "found", f"1.0+{start}c", f"1.0+{end}c")
         if self.is_on_match():
             self.highlight_current()
 
@@ -121,7 +122,10 @@ class FinderReplacer:
             self.highlight_current()
         elif len(self.matches) > 0:
             self.parent.text.textw.mark_set("insert", "1.0")
-            self.next_match()
+            if self.is_on_match():
+                self.highlight_current()
+            else:
+                self.next_match()
         self.parent.lift()
         self.parent.text.textw.focus()
 
@@ -194,8 +198,9 @@ class FinderReplacer:
         self.window.lift()
         self.find_entry.focus()
 
+
 if __name__ == '__main__':
-    
+
     class EditorMock(tk.Tk):
         def __init__(self, text=""):
             super().__init__()

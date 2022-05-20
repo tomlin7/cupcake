@@ -32,7 +32,7 @@ class Editor(tk.Frame):
         # self.find_replace = FindReplace(self, self.text)
         # self.find_replace_active = False
         print("about to instantitate")
-        self.find_replace = FinderReplacer(self.master)
+        self.find_replace = FinderReplacer(self)
         #self.find_replace.on_close()
         self.bind("<Control-s>", self.find_replace.revive)
 
