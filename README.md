@@ -44,18 +44,19 @@ import tkinter as tk
 from cupcake import Editor 
 
 root = tk.Tk()
+root.minsize(800, 600)
 
 editor = Editor(root)
-editor.pack()
+editor.pack(expand=1, fill=tk.BOTH)
 
 root.mainloop()
 ```
 
-### Example: Basic Code Editor
-
-- Run `python examples/basic.py`
+## Examples!
+Examples demonstrating how to use cupcake are in the [examples](./examples) directory. You can learn how to integrate the editor to your app with these.
+- Run `python -m examples.hello`
 - Open your script to edit
-- Start editing.
+- Start editing!
 
 ## Features
 
@@ -68,3 +69,7 @@ root.mainloop()
 - [ ] Code Debugging
 - [ ] Language Detection
 - [ ] Code Folding
+
+
+### Contributing
+Thank you if you are considering to contribute to Cupcake. See [contributing](#contributing) for further details such as coding guides and editing tools used.
