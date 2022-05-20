@@ -2,7 +2,7 @@ import tkinter as tk
 import re
 
 
-class Finder_Replacer:
+class FinderReplacer:
     """A class to hold all the find/replace functionality
     it will have the following attributes:
 
@@ -19,20 +19,20 @@ class Finder_Replacer:
         self.replacestring = replacestring
         self.matches = None
         self.parent = parent
-        self.parent.text.tag_configure("found", background="green")
-        self.parent.text.tag_configure("foundcurrent", background="orange")
+        self.parent.text.textw.tag_configure("found", background="green")
+        self.parent.text.textw.tag_configure("foundcurrent", background="orange")
         self.display()
 
     @property
     def text(self):
-        return self.parent.text.get(1.0, tk.END)
+        return self.parent.text.textw.get(1.0, tk.END)
 
     @property
     def current(self):
-        if not self.parent.text.count("1.0", self.parent.text.index(tk.INSERT), "chars"):
+        if not self.parent.text.textw.count("1.0", self.parent.text.textw.index(tk.INSERT), "chars"):
             return 0
         else:
-            return self.parent.text.count("1.0", self.parent.text.index(tk.INSERT), "chars")[0]
+            return self.parent.text.textw.count("1.0", self.parent.text.textw.index(tk.INSERT), "chars")[0]
 
     def display(self):
         self.window = tk.Toplevel(self.parent)
@@ -71,28 +71,28 @@ class Finder_Replacer:
         self.window.protocol("WM_DELETE_WINDOW", self.on_close)
 
     def highlight_matches(self):
-        self.parent.text.tag_remove("found", "1.0", "end")
-        self.parent.text.tag_remove("foundcurrent", "1.0", "end")
+        self.parent.text.textw.tag_remove("found", "1.0", "end")
+        self.parent.text.textw.tag_remove("foundcurrent", "1.0", "end")
         for pos, match in self.matches.items():
             start = match.start()
             end = match.end()
-            self.parent.text.tag_add("found", f"1.0+{start}c", f"1.0+{end}c")
+            self.parent.text.textw.tag_add("found", f"1.0+{start}c", f"1.0+{end}c")
         if self.is_on_match():
             self.highlight_current()
 
     def highlight_current(self):
-        self.parent.text.tag_remove("foundcurrent", "1.0", "end")
+        self.parent.text.textw.tag_remove("foundcurrent", "1.0", "end")
         current = self.current
         match = self.matches[current]
         start = match.start()
         end = match.end()
-        self.parent.text.tag_add(
+        self.parent.text.textw.tag_add(
             "foundcurrent", f"1.0+{start}c", f"1.0+{end}c")
 
     def get_find_input(self):
         if self.find_entry.get() == "":
-            self.parent.text.tag_remove("found", "1.0", "end")
-            self.parent.text.tag_remove("foundcurrent", "1.0", "end")
+            self.parent.text.textw.tag_remove("found", "1.0", "end")
+            self.parent.text.textw.tag_remove("foundcurrent", "1.0", "end")
             return
         current = self.current
         self.matches = {}
@@ -101,12 +101,12 @@ class Finder_Replacer:
         for match in self.re_.finditer(self.text):
             self.matches[match.start()] = match
         self.highlight_matches()
-        self.parent.text.mark_set("insert", f"1.0 + {current}c")
+        self.parent.text.textw.mark_set("insert", f"1.0 + {current}c")
 
     def find(self):
         self.get_find_input()
         self.parent.lift()
-        self.parent.text.focus()
+        self.parent.text.textw.focus()
 
     def next_match(self):
         """Moves the editor focus to the next match"""
@@ -115,14 +115,14 @@ class Finder_Replacer:
         matchpos = [i for i in sorted(self.matches.keys()) if i > self.current]
         if len(matchpos) > 0:
             next_index = f"1.0 + {matchpos[0]}c"
-            self.parent.text.mark_set("insert", next_index)
-            self.parent.text.see(next_index)
+            self.parent.text.textw.mark_set("insert", next_index)
+            self.parent.text.textw.see(next_index)
             self.highlight_current()
         elif len(self.matches) > 0:
-            self.parent.text.mark_set("insert", "1.0")
+            self.parent.text.textw.mark_set("insert", "1.0")
             self.next_match()
         self.parent.lift()
-        self.parent.text.focus()
+        self.parent.text.textw.focus()
 
     def prev_match(self):
         """Moves the editor focus to the previous match"""
@@ -131,14 +131,14 @@ class Finder_Replacer:
         matchpos = [i for i in sorted(self.matches.keys()) if i < self.current]
         if len(matchpos) > 0:
             next_index = f"1.0 + {matchpos[-1]}c"
-            self.parent.text.mark_set("insert", next_index)
-            self.parent.text.see(next_index)
+            self.parent.text.textw.mark_set("insert", next_index)
+            self.parent.text.textw.see(next_index)
             self.highlight_current()
         elif len(self.matches) > 0:
-            self.parent.text.mark_set("insert", "end")
+            self.parent.text.textw.mark_set("insert", "end")
             self.prev_match()
         self.parent.lift()
-        self.parent.text.focus()
+        self.parent.text.textw.focus()
 
     def replace(self):
         """replaces current (in focus) match, removing the match and writing the replace string"""
@@ -147,13 +147,13 @@ class Finder_Replacer:
             self.get_find_input()
         if self.is_on_match():
             match = self.matches[self.current]
-            self.parent.text.delete(
+            self.parent.text.textw.delete(
                 f"1.0 + {match.start()}c", f"1.0 + {match.end()}c")
-            self.parent.text.insert(
+            self.parent.text.textw.insert(
                 f"1.0 + {self.current}c", self.replacestring)
             self.get_find_input()
         self.parent.lift()
-        self.parent.text.focus()
+        self.parent.text.textw.focus()
 
     def is_on_match(self):
         """tells if the editor is currently pointing to a match"""
@@ -164,8 +164,8 @@ class Finder_Replacer:
 
     def on_close(self):
         """removes the highlighting of the find string when the window is closed"""
-        self.parent.text.tag_remove("found", "1.0", "end")
-        self.parent.text.tag_remove("foundcurrent", "1.0", "end")
+        self.parent.text.textw.tag_remove("found", "1.0", "end")
+        self.parent.text.textw.tag_remove("foundcurrent", "1.0", "end")
         self.window.withdraw()
 
     def replace_all(self):
@@ -173,20 +173,20 @@ class Finder_Replacer:
         self.get_find_input()
         nmatches = len(self.matches)
         current = self.current
-        self.parent.text.mark_set("insert", "1.0")
+        self.parent.text.textw.mark_set("insert", "1.0")
         self.replace()
         for i in range(nmatches):
             self.next_match()
             self.replace()
-        self.parent.text.mark_set("insert", f"1.0 + {current}c")
+        self.parent.text.textw.mark_set("insert", f"1.0 + {current}c")
 
     def revive(self, event):
         """brings the window back"""
-        if self.parent.text.tag_ranges(tk.SEL):
-            selection = self.parent.text.get(tk.SEL_FIRST, tk.SEL_LAST)
+        if self.parent.text.textw.tag_ranges(tk.SEL):
+            selection = self.parent.text.textw.get(tk.SEL_FIRST, tk.SEL_LAST)
             self.find_entry.delete("0", "end")
             self.find_entry.insert("0", selection)
-            self.parent.text.mark_set("insert", tk.SEL_FIRST)
+            self.parent.text.textw.mark_set("insert", tk.SEL_FIRST)
             self.get_find_input()
 
         self.window.deiconify()
@@ -199,8 +199,8 @@ if __name__ == '__main__':
         def __init__(self, text=""):
             super().__init__()
             self.text = tk.Text(self)
-            self.text.pack()
-            self.text.insert(tk.END, text)
+            self.text.textw.pack()
+            self.text.textw.insert(tk.END, text)
             self.findr = Finder_Replacer(self)
             self.bind("<Control-s>", self.findr.revive)
             self.mainloop()

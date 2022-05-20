@@ -7,7 +7,7 @@ from .minimap import Minimap
 from .scrollbar import Scrollbar
 from .language import SyntaxLoader
 from .text import Text
-from .find_replace.find_replace import Finder_Replacer
+from .find_replace import FinderReplacer
 
 
 class Editor(tk.Frame):
@@ -23,14 +23,17 @@ class Editor(tk.Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
-        self.find_replace = Finder_Replacer(self)
-        self.find_replace.on_close()
-
         self.text = Text(self)
         self.linenumebers = LineNumbers(self, self.text)
         self.minimap = Minimap(self, self.text)
         self.scrollbar = Scrollbar(self, self.text)
-        self.find_replace = FindReplace(self, self.text)
+
+        # actual find-replace widget
+        # self.find_replace = FindReplace(self, self.text)
+        # self.find_replace_active = False
+
+        self.find_replace = FinderReplacer(self)
+        self.find_replace.on_close()
         self.bind("<Control-s>", self.find_replace.revive)
 
         self.linenumebers.grid(row=0, column=0, sticky=tk.NS)
@@ -46,6 +49,12 @@ class Editor(tk.Frame):
         print(args)
 
     def show_find_replace(self):
+        # positioning of the actual find_replace widget
+        # if not self.find_replace_active:
+        #     pos_x, pos_y, width = self.text.textw.winfo_rootx(), self.text.textw.winfo_rooty(), self.text.textw.winfo_width()
+        #     self.find_replace.show(((pos_x + width) - (self.find_replace.winfo_width() + 10), pos_y))
+        # else:
+        #     self.find_replace.reset()
         self.find_replace.revive()
 
     def focus(self):
@@ -68,8 +77,3 @@ class Editor(tk.Frame):
 
     def load_file(self, filepath):
         self.text.load_file(filepath)
-
-
-if __name__ == '__main__':
-    root = tk.Tk()
-    e = Editor(root)
