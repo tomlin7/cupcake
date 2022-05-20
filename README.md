@@ -16,6 +16,7 @@
         <a href=https://github.com/billyeatcookies/cupcake/releases>Releases</a>
     </td>
 </table> -->
+
 Cupcake is the code editor that powers [Biscuit](https://github.com/billyeatcookies/Biscuit), written in pure python with the tkinter library. See a good list of the code editor's features [here](#features). It is licensed under the [MIT License](./LICENSE).
 
 <table>
@@ -29,24 +30,43 @@ Cupcake is the code editor that powers [Biscuit](https://github.com/billyeatcook
 
 <!-- ![something](.github/res/screenshot.png) -->
 
+## Installation
+Cupcake can be installed by running:
+```
+pip install cupcake-editor
+```
+Cupcake requires Python 3.10+ to run.
+
+## Quick start
+Here is a quick example of embedding cupcake in your project:
+```py
+import tkinter as tk
+from cupcake import Editor 
+
+root = tk.Tk()
+root.minsize(800, 600)
+
+editor = Editor(root)
+editor.pack(expand=1, fill=tk.BOTH)
+
+root.mainloop()
+```
+
+## Examples!
+Examples demonstrating how to use cupcake are in the [examples](./examples) directory. You can learn how to integrate the editor to your app with these. You can run the examples like `python -m examples.hello`
+
 ## Features
 
-- `🟢` Syntax Highlighting
-- `🟢` Auto completions
-- `🟢` Auto Indentation
-- `🟢` Minimap
-- `🟡` Extendable language support
-- `🟡` Find Replace
-- `🟡` Code Debugging
-- `🟡` Language Detection
-- `🔴` Code Folding
+- [x] Syntax Highlighting
+- [x] Auto completions
+- [x] Auto Indentation
+- [x] Minimap
+- [ ] Extendable language support
+- [ ] Find Replace
+- [ ] Code Debugging
+- [ ] Language Detection
+- [ ] Code Folding
 
-## Usage
-- Clone the repository and copy src folder to your project
-- import cupcake to your script.
 
-### Example: Basic Code Editor
-
-- Run `python examples/basic.py`
-- Open your script to edit
-- Start editing.
+### Contributing
+Thank you if you are considering to contribute to Cupcake. See [contributing](./CONTRIBUTING.md) for further details such as coding guides and editing tools used.

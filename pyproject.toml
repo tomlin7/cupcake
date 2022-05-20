@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "cupcakepy"
+name = "cupcake-editor"
 version = "0.2.1"
 description = "Embeddable code editor for tkinter"
 authors = ["Billy <billydevbusiness@gmail.com>"]

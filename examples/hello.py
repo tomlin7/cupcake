@@ -2,9 +2,6 @@
 Hello, have a Cupcake! 🧁
 """
 
-import sys
-sys.path.append(".")
-
 import tkinter as tk
 from cupcake import Editor
 
