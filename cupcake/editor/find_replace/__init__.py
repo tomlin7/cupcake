@@ -34,9 +34,9 @@ class FindReplace(tk.Toplevel):
 
         self.togglew.grid(row=0, column=0, sticky=tk.NS, padx=(2, 0))
         self.container.grid(row=0, column=1, sticky=tk.NSEW)
-        
+
         self.config_bindings()
-    
+
     def config_bindings(self, *args):
         self.container.find_entry.entry.bind("<Configure>", self.do_find)
     

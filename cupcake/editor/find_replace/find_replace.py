@@ -20,7 +20,8 @@ class FinderReplacer:
         self.matches = None
         self.parent = parent
         self.parent.text.textw.tag_configure("found", background="green")
-        self.parent.text.textw.tag_configure("foundcurrent", background="orange")
+        self.parent.text.textw.tag_configure(
+            "foundcurrent", background="orange")
         self.display()
 
     @property
@@ -199,9 +200,10 @@ if __name__ == '__main__':
         def __init__(self, text=""):
             super().__init__()
             self.text = tk.Text(self)
+            self.text.textw = self.text
             self.text.textw.pack()
             self.text.textw.insert(tk.END, text)
-            self.findr = Finder_Replacer(self)
+            self.findr = FinderReplacer(self)
             self.bind("<Control-s>", self.findr.revive)
             self.mainloop()
 

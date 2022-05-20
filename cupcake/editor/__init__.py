@@ -31,9 +31,9 @@ class Editor(tk.Frame):
         # actual find-replace widget
         # self.find_replace = FindReplace(self, self.text)
         # self.find_replace_active = False
-
+        print("about to instantitate")
         self.find_replace = FinderReplacer(self)
-        self.find_replace.on_close()
+        #self.find_replace.on_close()
         self.bind("<Control-s>", self.find_replace.revive)
 
         self.linenumebers.grid(row=0, column=0, sticky=tk.NS)
