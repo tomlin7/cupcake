@@ -16,6 +16,7 @@
         <a href=https://github.com/billyeatcookies/cupcake/releases>Releases</a>
     </td>
 </table> -->
+
 Cupcake is the code editor that powers [Biscuit](https://github.com/billyeatcookies/Biscuit), written in pure python with the tkinter library. See a good list of the code editor's features [here](#features). It is licensed under the [MIT License](./LICENSE).
 
 <table>
@@ -29,24 +30,41 @@ Cupcake is the code editor that powers [Biscuit](https://github.com/billyeatcook
 
 <!-- ![something](.github/res/screenshot.png) -->
 
-## Features
+## Installation
+Cupcake can be installed by running:
+```
+pip install cupcake-editor
+```
+Cupcake requires Python 3.10+ to run.
 
-- `🟢` Syntax Highlighting
-- `🟢` Auto completions
-- `🟢` Auto Indentation
-- `🟢` Minimap
-- `🟡` Extendable language support
-- `🟡` Find Replace
-- `🟡` Code Debugging
-- `🟡` Language Detection
-- `🔴` Code Folding
+## Quick start
+Here is a quick example of embedding cupcake in your project:
+```py
+import tkinter as tk
+from cupcake import Editor 
 
-## Usage
-- Clone the repository and copy src folder to your project
-- import cupcake to your script.
+root = tk.Tk()
+
+editor = Editor(root)
+editor.pack()
+
+root.mainloop()
+```
 
 ### Example: Basic Code Editor
 
 - Run `python examples/basic.py`
 - Open your script to edit
 - Start editing.
+
+## Features
+
+- [x] Syntax Highlighting
+- [x] Auto completions
+- [x] Auto Indentation
+- [x] Minimap
+- [ ] Extendable language support
+- [ ] Find Replace
+- [ ] Code Debugging
+- [ ] Language Detection
+- [ ] Code Folding
