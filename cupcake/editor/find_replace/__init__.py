@@ -8,6 +8,8 @@ from .results import FindResults
 from .togglew import ToggleWidget
 from .container import FindReplaceContainer
 
+from .find_replace import FinderReplacer
+
 
 class FindReplace(tk.Toplevel):
     def __init__(self, master, tw, state=False, *args, **kwargs):
@@ -20,7 +22,7 @@ class FindReplace(tk.Toplevel):
 
         if not state:
             self.withdraw()
-        
+
         self.overrideredirect(True)
         self.config(bg="#454545")
 

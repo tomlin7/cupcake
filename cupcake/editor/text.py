@@ -1,9 +1,11 @@
-import re, tkinter as tk
+import re
+import tkinter as tk
 
 from .highlighter import Highlighter
 from .autocomplete import AutoComplete
 from .language import SyntaxLoader
 from .textw import TextW
+
 
 class Text(tk.Frame):
     def __init__(self, master, *args, **kwargs):
@@ -24,28 +26,31 @@ class Text(tk.Frame):
         self.current_indentation = None
         self.current_line = None
 
-        self.auto_completion = AutoComplete(self, items=self.syntax.get_autocomplete_list())
+        self.auto_completion = AutoComplete(
+            self, items=self.syntax.get_autocomplete_list())
         self.completion_active = False
 
         self.config_bindings()
-    
+
     def config_bindings(self):
         self.textw.bind("<Return>", self.enter_key_events)
         self.textw.bind("<KeyRelease>", self.key_release_events)
 
         for btn in ["<Button-2>", "<BackSpace>", "<Escape>", "<Right>", "<Left>", "<Control_L>", "<Control_R>"]:
             self.textw.bind(btn, self.auto_completion.hide)
-        
+
         self.textw.bind("<Up>", self.auto_completion.move_up)
         self.textw.bind("<Down>", self.auto_completion.move_down)
 
         self.textw.bind("<Tab>", self.auto_completion.tab)
 
-        self.textw.bind("<Control-Left>", lambda e: self.handle_ctrl_hmovement())
-        self.textw.bind("<Control-Right>", lambda e: self.handle_ctrl_hmovement(True))
+        self.textw.bind("<Control-Left>",
+                        lambda e: self.handle_ctrl_hmovement())
+        self.textw.bind("<Control-Right>",
+                        lambda e: self.handle_ctrl_hmovement(True))
 
         # self.textw.bind("<space>", self.handle_space())
-    
+
     # def handle_space(self, *args):
     #     self.textw.insert(tk.INSERT, "-")
         
