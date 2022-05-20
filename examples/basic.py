@@ -8,12 +8,11 @@ Features enabled:
 """
 
 # for importing from top level
+from src import Editor
+import tkinter as tk
 import sys
 sys.path.append('.')
 sys.path.append('..')
-
-import tkinter as tk
-from src import Editor
 
 
 class Basic(tk.Tk):

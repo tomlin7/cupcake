@@ -20,7 +20,7 @@ class FindReplace(tk.Toplevel):
 
         if not state:
             self.withdraw()
-        
+
         self.overrideredirect(True)
         self.config(bg="#454545")
 

@@ -6,4 +6,4 @@ class Config:
         self.master = master
         self.font = font.Font(
             family="Consolas",
-            size=11, weight="normal")      
+            size=11, weight="normal")
