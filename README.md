@@ -72,4 +72,4 @@ Examples demonstrating how to use cupcake are in the [examples](./examples) dire
 
 
 ### Contributing
-Thank you if you are considering to contribute to Cupcake. See [contributing](#contributing) for further details such as coding guides and editing tools used.
+Thank you if you are considering to contribute to Cupcake. See [contributing](./CONTRIBUTING.md) for further details such as coding guides and editing tools used.
