@@ -2,17 +2,6 @@ import tkinter as tk
 import re
 
 
-class EditorMock(tk.Tk):
-    def __init__(self, text=""):
-        super().__init__()
-        self.text = tk.Text(self)
-        self.text.pack()
-        self.text.insert(tk.END, text)
-        self.findr = Finder_Replacer(self)
-        self.bind("<Control-s>", self.findr.revive)
-        self.mainloop()
-
-
 class Finder_Replacer:
     """A class to hold all the find/replace functionality
     it will have the following attributes:
@@ -204,8 +193,21 @@ class Finder_Replacer:
         self.window.lift()
         self.find_entry.focus()
 
+if __name__ == '__main__':
+    
+    class EditorMock(tk.Tk):
+        def __init__(self, text=""):
+            super().__init__()
+            self.text = tk.Text(self)
+            self.text.pack()
+            self.text.insert(tk.END, text)
+            self.findr = Finder_Replacer(self)
+            self.bind("<Control-s>", self.findr.revive)
+            self.mainloop()
 
-e = EditorMock(text="""EMACS: The Extensible, Customizable Display Editor
+
+    
+    e = EditorMock(text="""EMACS: The Extensible, Customizable Display Editor
 You are reading about GNU Emacs, the GNU incarnation of the advanced, self-documenting, customizable, extensible editor Emacs. (The ‘G’ in GNU (GNU’s Not Unix) is not silent.)
 
 We call Emacs advanced because it can do much more than simple insertion and deletion of text. It can control subprocesses, indent programs automatically, show multiple files at once, edit remote files like they were local files, and more. Emacs editing commands operate in terms of characters, words, lines, sentences, paragraphs, and pages, as well as expressions and comments in various programming languages.
