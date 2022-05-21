@@ -31,10 +31,9 @@ class Editor(tk.Frame):
         # actual find-replace widget
         # self.find_replace = FindReplace(self, self.text)
         # self.find_replace_active = False
-        print("about to instantitate")
         self.find_replace = FinderReplacer(self)
-        #self.find_replace.on_close()
-        self.bind("<Control-s>", self.find_replace.revive)
+        self.find_replace.on_close()
+        #self.text.textw.bind("<Control-s>", self.find_replace.revive)
 
         self.linenumebers.grid(row=0, column=0, sticky=tk.NS)
         self.text.grid(row=0, column=1, sticky=tk.NSEW)
@@ -48,14 +47,14 @@ class Editor(tk.Frame):
     def text_scrolled(self, *args):
         print(args)
 
-    def show_find_replace(self):
+    def show_find_replace(self, event):
         # positioning of the actual find_replace widget
         # if not self.find_replace_active:
         #     pos_x, pos_y, width = self.text.textw.winfo_rootx(), self.text.textw.winfo_rooty(), self.text.textw.winfo_width()
         #     self.find_replace.show(((pos_x + width) - (self.find_replace.winfo_width() + 10), pos_y))
         # else:
         #     self.find_replace.reset()
-        self.find_replace.revive()
+        self.find_replace.revive(event)
 
     def focus(self):
         self.text.textw.focus()

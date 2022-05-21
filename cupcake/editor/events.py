@@ -6,7 +6,7 @@ class Events:
 
     def bind(self, key, fn):
         self.master.text.textw.bind(key, fn)
-    
+
     def bind_all(self):
         self.bind("<<Change>>", self.master.refresh_editor)
         self.bind("<Configure>", self.master.redraw_ln)
