@@ -61,8 +61,8 @@ Examples demonstrating how to use cupcake are in the [examples](./examples) dire
 - [x] Auto completions
 - [x] Auto Indentation
 - [x] Minimap
+- [x] Find Replace
 - [ ] Extendable language support
-- [ ] Find Replace
 - [ ] Code Debugging
 - [ ] Language Detection
 - [ ] Code Folding
