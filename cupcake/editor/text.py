@@ -53,7 +53,7 @@ class Text(tk.Frame):
 
     # def handle_space(self, *args):
     #     self.textw.insert(tk.INSERT, "-")
-        
+
     #     return "break"
     
     def key_release_events(self, event):
