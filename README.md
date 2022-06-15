@@ -1,23 +1,5 @@
-# Cupcake 🧁
-
-[Docs](https://billyeatcookies.github.io/cupcake/pages/docs.html) |
-[Gallery](https://billyeatcookies.github.io/cupcake/index.html) |
-[Releases](https://github.com/billyeatcookies/cupcake/releases)
-
-<!--
-<table>
-    <td>
-        <a href=https://billyeatcookies.github.io/cupcake/pages/docs.html>Docs</a>
-    </td>
-    <td>
-        <a href=https://billyeatcookies.github.io/cupcake/index.html>Documentation</a>
-    </td>
-    <td>
-        <a href=https://github.com/billyeatcookies/cupcake/releases>Releases</a>
-    </td>
-</table> -->
-
-Cupcake is the code editor that powers [Biscuit](https://github.com/billyeatcookies/Biscuit), written in pure python with the tkinter library. See a good list of the code editor's features [here](#features). It is licensed under the [MIT License](./LICENSE).
+# Cupcake: Embeddable Code Editor
+Cupcake is an Embeddable Modern Code editor for python tkinter applications. It comes with features such as **Autocompletions**, **Minimap** and **Semantic Syntax highlighting**. Cupcake is written in pure python with the tkinter library. It is the the code editor which powers [Biscuit](https://github.com/billyeatcookies/Biscuit). See a good list of the code editor's [features](#features).
 
 <table>
     <td>
