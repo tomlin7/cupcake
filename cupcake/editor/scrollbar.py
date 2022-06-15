@@ -38,7 +38,7 @@ class Scrollbar(tk.Frame):
         self.tw = textw
 
     def redraw(self):
-        self.y_bottom_lim = int(self.tw.textw.index(tk.END).split(".")[0]) * 2 + self.extra_y
+        self.y_bottom_lim = int(self.tw.index(tk.END).split(".")[0]) * 2 + self.extra_y
     
     def drag_start(self, event):
         self.drag_data["item"] = self.cw.find_closest(event.x, event.y)[0]
@@ -63,5 +63,5 @@ class Scrollbar(tk.Frame):
         elif y >= self.y_bottom_lim:
             self.cw.move("slider", 0, -(y - self.y_bottom_lim))
 
-        self.tw.textw.yview(int(y / self.cw.winfo_height() * 100))
+        self.tw.yview(int(y / self.cw.winfo_height() * 100))
         self.tw.master.redraw_ln()

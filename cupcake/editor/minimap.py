@@ -41,10 +41,10 @@ class Minimap(tk.Frame):
         self.text = self.tw.get_all_text()
         self.cw.create_text(5, 0, text=self.text, anchor=tk.NW, font=self.font, fill="#678ca0", tag="redrawn")
 
-        y = int(self.tw.textw.index(tk.INSERT).split(".")[0]) * 2
+        y = int(self.tw.index(tk.INSERT).split(".")[0]) * 2
         self.cw.create_line(0, y, 100, y, fill="#22374b", width=2, tag="redrawn")
 
-        self.y_bottom_lim = int(self.tw.textw.index(tk.END).split(".")[0]) * 2 + 10
+        self.y_bottom_lim = int(self.tw.index(tk.END).split(".")[0]) * 2 + 10
     
     def drag_start(self, event):
         self._drag_data["item"] = self.cw.find_closest(event.x, event.y)[0]
@@ -69,5 +69,5 @@ class Minimap(tk.Frame):
         elif y >= self.y_bottom_lim:
             self.cw.move("slider", 0, -(y - self.y_bottom_lim))
 
-        self.tw.textw.yview(int(y / self.cw.winfo_height() * 100))
+        self.tw.yview(int(y / self.cw.winfo_height() * 100))
         self.tw.master.redraw_ln()

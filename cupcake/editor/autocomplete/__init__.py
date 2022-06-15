@@ -5,17 +5,17 @@ from .item import AutoCompleteItem
 
 
 class AutoComplete(tk.Toplevel):
-    def __init__(self, master, items=None, state=False, *args, **kwargs):
+    def __init__(self, master, items=None, active=False, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
 
         self.autocomplete_kinds = Kinds(self)
         self.config(bg="#454545", padx=1, pady=1)
         
-        self.state = state
+        self.active = active
         self.font = self.master.font
 
-        if not state:
+        if not self.active:
             self.withdraw()
         
         self.overrideredirect(True)
@@ -58,12 +58,12 @@ class AutoComplete(tk.Toplevel):
             self.hide()
     
     def move_up(self, *args):
-        if self.state:
+        if self.active:
             self.select(-1)
             return "break"
     
     def move_down(self, *args):
-        if self.state:
+        if self.active:
             self.select(1)
             return "break"
 
@@ -149,24 +149,18 @@ class AutoComplete(tk.Toplevel):
         self.geometry("+{}+{}".format(*self.master.cursor_screen_location()))
 
     def show(self, pos):
-        self.state = True
+        self.active = True
         self.update_idletasks()
         self.geometry("+{}+{}".format(*pos))
         self.deiconify()
-        self.master.completion_active = True
 
     def hide(self, *args):
-        self.state = False
+        self.active = False
         self.withdraw()
-        self.master.completion_active = False
         self.reset()
     
     def reset(self):
         self.reset_selection()
-    
-    def tab(self, *args):
-        self.choose()
-        return "break"
     
     def choose(self, this=None, *args):
         self.hide()
