@@ -5,7 +5,7 @@ class Events:
         self.bind_all()
 
     def bind(self, key, fn):
-        self.master.text.textw.bind(key, fn)
+        self.master.text.bind(key, fn)
 
     def bind_all(self):
         self.bind("<<Change>>", self.master.refresh_editor)

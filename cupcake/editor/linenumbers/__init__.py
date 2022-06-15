@@ -4,13 +4,13 @@ from .breakpoint import Breakpoint
 
 
 class LineNumbers(tk.Frame):
-    def __init__(self, master, textw, *args, **kwargs):
+    def __init__(self, master, text, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
 
         self.config_appearance()
 
-        self.textw = textw
+        self.text = text
 
         self.cw = tk.Canvas(self)
         self.cw.config(width=68, bg="#1e1e1e", highlightthickness=0)
@@ -25,14 +25,14 @@ class LineNumbers(tk.Frame):
         self.highlight_fill = "#c6c6c6"
         self.config(bg="#1e1e1e")
     
-    def attach(self, textw):
-        self.textw = textw
+    def attach(self, text):
+        self.text = text
     
     def clear(self):
         self.cw.delete(tk.ALL)
     
     def mark_line(self, line):
-        dline = self.textw.get_line_info(line)
+        dline = self.text.get_line_info(line)
         
         if not dline:
             return
@@ -48,7 +48,7 @@ class LineNumbers(tk.Frame):
         self.mark_line(tk.INSERT)
     
     def select_line(self, line):
-        self.textw.select_line(line)
+        self.text.select_line(line)
 
     def redraw(self, *args):
         self.clear()
@@ -56,16 +56,16 @@ class LineNumbers(tk.Frame):
         self.redraw_line_numbers()
 
     def redraw_line_numbers(self):
-        i = self.textw.get_origin()
+        i = self.text.get_origin()
         while True:
-            dline = self.textw.get_line_info(i)
+            dline = self.text.get_line_info(i)
             if not dline:
                 break
 
             y = dline[1]
             ln = str(i).split(".")[0]
 
-            curline = self.textw.get_line_info(tk.INSERT)
+            curline = self.text.get_line_info(tk.INSERT)
             cur_y = None
             if curline:
                 cur_y = curline[1]
@@ -80,7 +80,7 @@ class LineNumbers(tk.Frame):
             # drawing breakpoints - needs optimisations
             # self.draw_breakpoint(y)
             
-            i = self.textw.textw.index(f"{i}+1line")
+            i = self.text.index(f"{i}+1line")
 
     def draw_breakpoint(self, y):
         bp = Breakpoint(self.cw)
