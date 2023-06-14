@@ -206,7 +206,7 @@ class Text(tk.Text):
         
         line = int(line.split(".")[0])
         start = str(float(line))
-        end = str(float(line))
+        end = str(float(line + 1))
         self.tag_add(tk.SEL, start, end)
 
         self.move_cursor(end)
