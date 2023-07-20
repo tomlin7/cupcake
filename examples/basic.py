@@ -1,11 +1,15 @@
 """
-Cupcake running with C++ code editing features.
+Cupcake running with code editing features.
 
 Features enabled:
 - Syntax highlighting
-- Autocompletions (keywords & words)
+- Autocompletions (words only, no lsp)
 - Minimap
 """
+
+import sys
+from os.path import abspath, dirname, join
+sys.path.append(abspath(join(dirname(__file__), '..')))
 
 import tkinter as tk
 from cupcake import Editor

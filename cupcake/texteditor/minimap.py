@@ -1,5 +1,5 @@
 import tkinter as tk
-from core.components.utils import Frame
+from ..utils import Frame
 
 
 #TODO update minimap when scrollbar is used
@@ -8,7 +8,7 @@ class Minimap(Frame):
         super().__init__(master, *args, **kwargs)
         self.tw = textw
         self.font = ("Arial", 1, "bold")
-        self.config(highlightthickness=0, bg=self.base.theme.border)
+        self.config(highlightthickness=0) # bg=self.base.theme.border
         
         self.cw = tk.Canvas(self, width=100, highlightthickness=0, **self.base.theme.editors.minimap)
         self.cw.pack(fill=tk.BOTH, expand=True, side=tk.LEFT, padx=(1, 0))

@@ -1,4 +1,4 @@
-import re, codecs, io
+import re, codecs
 import threading
 import tkinter as tk
 from collections import deque
@@ -7,7 +7,7 @@ from .syntax import Syntax
 from .highlighter import Highlighter
 from .autocomplete import AutoComplete
 
-from core.components.utils import Text
+from ..utils import Text
 
 
 class Text(Text):
@@ -36,7 +36,7 @@ class Text(Text):
         self.config_tags()
         self.create_proxy()
         self.config_bindings()
-        self.configure(wrap=tk.NONE, relief=tk.FLAT, **self.base.theme.editors.text)
+        self.configure(wrap=tk.NONE, relief=tk.FLAT) # **self.base.theme.editors.text
 
         self.update_words()
 
@@ -262,10 +262,6 @@ class Text(Text):
             self.update_current_indent()
             
             return "break"
-
-    # def handle_space(self, *args):
-    #     self.insert(tk.INSERT, "-")
-    #     return "break"
 
     def multi_selection(self, *args):
         #TODO: multi cursor editing
