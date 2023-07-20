@@ -8,7 +8,7 @@ from ..editor import BaseEditor
 
 
 class DiffEditor(BaseEditor):
-    def __init__(self, master, path1, path2, kind, *args, **kwargs):
+    def __init__(self, master, path1, path2, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         # self.config(bg=self.base.theme.border)
         self.grid_columnconfigure(0, weight=1)
@@ -16,7 +16,6 @@ class DiffEditor(BaseEditor):
         self.grid_rowconfigure(0, weight=1)
         self.path1 = path1
         self.path2 = path2
-        self.kind = kind
         self.editable = True
 
         self.lhs_data = []

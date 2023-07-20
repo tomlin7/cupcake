@@ -17,7 +17,7 @@ from .texteditor import TextEditor
 def get_editor(base, path=None, path2=None, diff=False):
     "picks the right editor for the given values"
     if diff:
-        return DiffEditor()
+        return DiffEditor(base, path, path2)
     
     if path and os.path.isfile(path):
         if FileType.is_image(path):

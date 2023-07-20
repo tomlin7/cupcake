@@ -41,9 +41,9 @@ class Text(Text):
         self.update_words()
 
     def config_tags(self):
-        self.tag_config(tk.SEL, background=self.base.theme.primary_background_highlight)
-        self.tag_config("highlight", background=self.base.theme.primary_background_highlight)
-        self.tag_config("currentline", background=self.base.theme.border)
+        self.tag_config(tk.SEL, background="blue")
+        self.tag_config("highlight", background="grey")
+        self.tag_config("currentline", background="grey")
         self.tag_config("found", background="green")
         self.tag_config("foundcurrent", background="orange")
 
