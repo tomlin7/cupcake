@@ -4,14 +4,14 @@ from itertools import chain
 from .kinds import Kinds
 from .item import AutoCompleteItem
 
-from core.components.utils import Toplevel
+from ...utils import Toplevel
 
 
 class AutoComplete(Toplevel):
     def __init__(self, master, items=None, active=False, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.autocomplete_kinds = Kinds(self)
-        self.config(padx=1, pady=1, bg=self.base.theme.border)
+        self.config(padx=1, pady=1) # bg=self.base.theme.border
         
         self.active = active
         if not self.active:

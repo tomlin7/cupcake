@@ -12,12 +12,9 @@ class Kind(tk.Label):
 
         self.image = None
 
-        self.config_appearance()
+        # self.config(**self.base.theme.editors.autocomplete)
         self.config_image()
 
-    def config_appearance(self):
-        self.config(**self.base.theme.editors.autocomplete)
-    
     def config_image(self):
         match self.kind:
             case "method":

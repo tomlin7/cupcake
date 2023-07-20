@@ -1,25 +1,26 @@
 import tkinter as tk
 
 from .kind import Kind
-from core.components.utils import Frame
+from ...utils import Frame
+
 
 class AutoCompleteItem(Frame):
     def __init__(self, master, text, kind=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.config(width=400, **self.base.theme.editors.autocomplete)
-        self.bg, self.fg, self.hbg, self.hfg = self.base.theme.editors.autocomplete.item.values()
+        self.config(width=400) # **self.base.theme.editors.autocomplete
+        self.bg, self.fg, self.hbg, self.hfg = "black", "white", "grey", "white"
 
         self.text = text
         self.kind = kind
 
         self.kindw = Kind(self, self.master.autocomplete_kinds, kind)
         self.textw = tk.Text(self, 
-            font=self.base.settings.font, fg=self.fg, bg=self.bg,
+            font=("Consolas", 11), fg=self.fg, bg=self.bg,
             relief=tk.FLAT, highlightthickness=0, width=30, height=1)
         self.textw.insert(tk.END, text)
         self.textw.config(state=tk.DISABLED)
 
-        self.textw.tag_config("term", foreground=self.base.theme.biscuit)
+        self.textw.tag_config("term", foreground="blue")
         
         self.kindw.bind("<Button-1>", self.on_click)
         self.textw.bind("<Button-1>", self.on_click)
