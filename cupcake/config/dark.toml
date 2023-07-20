@@ -1,0 +1,30 @@
+[diffEditor]
+insertedLineBackground = "#23863633"
+insertedTextBackground = "#2386364d"
+removedLineBackground = "#da363333"
+removedTextBackground = "#da36334d"
+
+[editor]
+background = "#1f1f1f"
+findMatchBackground = "#9e6a03"
+foreground = "#cccccc"
+
+[editorLineNumber]
+activeForeground = "#cccccc"
+foreground = "#6e7681"
+
+[editorWidget]
+background = "#1f1f1f"
+
+errorForeground = "#f85149"
+focusBorder = "#0078d"
+foreground = "#cccccc"
+
+[icon]
+foreground = "#cccccc"
+
+[scrollbar]
+shadow = "#484f5833"
+activeBackground = "#6e768187"
+background = "#6e768133"
+hoverBackground = "#6e768145"
