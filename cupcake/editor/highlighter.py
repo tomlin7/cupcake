@@ -1,50 +1,43 @@
-import os, tkinter as tk
-from pygments import lex
-from pygments.lexers import get_lexer_for_filename
-from pygments.util import ClassNotFound
+import tkinter as tk
 
 
 class Highlighter:
     def __init__(self, master, *args, **kwargs):
         self.text = master
-        self.base = master.base
 
-        try:
-            self.lexer = get_lexer_for_filename(os.path.basename(master.path), inencoding=master.encoding, encoding=master.encoding)
-        except ClassNotFound:
-            self.lexer = None
-
-        self.tag_colors = self.base.theme.syntax
+        self.syntax = master.master.syntax
         self.setup_highlight_tags()
 
     def setup_highlight_tags(self):
-        for token, color in self.tag_colors.items():
-            self.text.tag_configure(str(token), foreground=color)
+        self.text.tag_configure("keywords", foreground="#559dd2")
+        self.text.tag_configure("strings", foreground="#cf8e7c")
+        self.text.tag_configure("numbers", foreground="#b5cfab")
+        self.text.tag_configure("comments", foreground="#699b5c")
 
-    def highlight(self):
-        if not self.lexer:
-            return
+    def highlight_pattern(self, pattern, tag, start="1.0", end=tk.END, regexp=False):
+        start = self.text.index(start)
+        end = self.text.index(end)
         
-        for token, _ in self.tag_colors.items():
-            self.text.tag_remove(str(token), '1.0', tk.END)
-            
-        text = self.text.get_all_text()
+        self.text.mark_set("matchStart", start)
+        self.text.mark_set("matchEnd", start)
+        self.text.mark_set("searchLimit", end)
 
-        # NOTE:  Highlighting only visible area
-        # total_lines = int(self.text.index('end-1c').split('.')[0])
-        # start_line = int(self.text.yview()[0] * total_lines)
-        # first_visible_index = f"{start_line}.0"
-        # last_visible_index =f"{self.text.winfo_height()}.end"
-        # for token, _ in self.tag_colors.items():
-        #     self.text.tag_remove(str(token), first_visible_index, last_visible_index)
-        # text = self.text.get(first_visible_index, last_visible_index)
+        self.text.tag_remove(tag, start, end)
+        
+        count = tk.IntVar()
+        while True:
+            index = self.text.search(pattern, "matchEnd", "searchLimit", count=count, regexp=regexp)
+            if index == "" or count.get() == 0:
+                break
 
-        self.text.mark_set("range_start", '1.0')
-        for token, content in lex(text, self.lexer):
-            self.text.mark_set("range_end", f"range_start + {len(content)}c")
-            self.text.tag_add(str(token), "range_start", "range_end")
-            self.text.mark_set("range_start", "range_end")
-            
-            # DEBUG
-            # print(f"{content} is recognized as a <{str(token)}>")
-        # print("==================================")
+            self.text.mark_set("matchStart", index)
+            self.text.mark_set("matchEnd", f"{index}+{count.get()}c")
+
+            self.text.tag_add(tag, "matchStart", "matchEnd")
+
+    def highlight_all(self):
+        self.highlight_pattern(self.syntax.rgx_keywords, "keywords", regexp=True)
+        self.highlight_pattern(self.syntax.rgx_numbers, "numbers", regexp=True)
+        
+        self.highlight_pattern(self.syntax.rgx_strings, "strings", regexp=True)
+        self.highlight_pattern(self.syntax.rgx_comments, "comments", regexp=True)

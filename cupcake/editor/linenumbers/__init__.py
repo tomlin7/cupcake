@@ -2,64 +2,89 @@ import tkinter as tk
 
 from .breakpoint import Breakpoint
 
-from core.components.utils import Canvas, Menubutton
 
-
-class LineNumbers(Canvas):
-    def __init__(self, master, text=None, *args, **kwargs):
+class LineNumbers(tk.Frame):
+    def __init__(self, master, text, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.font = self.master.font
-        self.config(width=65, bd=0, highlightthickness=0, **self.base.theme.editors.linenumbers)
+        self.master = master
+
+        self.config_appearance()
+
         self.text = text
 
+        self.cw = tk.Canvas(self)
+        self.cw.config(width=68, bg="#1e1e1e", highlightthickness=0)
+        self.cw.pack(fill=tk.BOTH, expand=True)
+    
+    def set_bar_width(self, width):
+        self.configure(width=width)
+
+    def config_appearance(self):
+        self.font = self.master.font
+        self.fill = "#858585"
+        self.highlight_fill = "#c6c6c6"
+        self.config(bg="#1e1e1e")
+    
     def attach(self, text):
         self.text = text
     
+    def clear(self):
+        self.cw.delete(tk.ALL)
+    
     def mark_line(self, line):
-        dline = self.text.dlineinfo(line)
+        dline = self.text.get_line_info(line)
         
         if not dline:
             return
         
         y = dline[1]
-        btn = Menubutton(self, 
-            text=">", font=("Consolas", 14), cursor="hand2", borderwidth=0,
-            width=2, height=1, pady=0, padx=0, relief=tk.FLAT, **self.base.theme.editors.linenumbers)
-        self.create_window(70, y-2, anchor=tk.NE, window=btn)
+        btn =  tk.Menubutton(self.cw, 
+            text=">", font=("Consolas", 14), fg="#1e1e1e", bg="#1e1e1e", cursor="hand2", 
+            activeforeground="#c5c5c5", activebackground="#1e1e1e", borderwidth=0,
+            width=2, height=1, pady=0, padx=0, relief=tk.FLAT)
+        self.cw.create_window(70, y-2, anchor=tk.NE, window=btn)
     
-    def set_bar_width(self, width):
-        self.configure(width=width)
-        
-    def redraw(self, *_):
-        self.delete(tk.ALL)
+    def highlight_current_line(self):
+        self.mark_line(tk.INSERT)
+    
+    def select_line(self, line):
+        self.text.select_line(line)
 
-        i = self.text.index("@0,0")
-        while True :
-            dline = self.text.dlineinfo(i)
-            if dline is None: 
+    def redraw(self, *args):
+        self.clear()
+        self.highlight_current_line()
+        self.redraw_line_numbers()
+
+    def redraw_line_numbers(self):
+        i = self.text.get_origin()
+        while True:
+            dline = self.text.get_line_info(i)
+            if not dline:
                 break
 
             y = dline[1]
-            linenum = str(i).split(".")[0]
+            ln = str(i).split(".")[0]
 
-            # to highlight current line
-            curline = self.text.dlineinfo(tk.INSERT)
-            cur_y = curline[1] if curline else None
+            curline = self.text.get_line_info(tk.INSERT)
+            cur_y = None
+            if curline:
+                cur_y = curline[1]
 
             if y == cur_y:
-                self.create_text(40, y, anchor=tk.NE, text=linenum, font=self.font, 
-                                 fill=self.base.theme.editors.linenumbers.number.highlightforeground, tag=i)
+                number = self.cw.create_text(46, y, anchor=tk.NE, text=ln, font=self.font, fill=self.highlight_fill, tag=i)
             else:
-                self.create_text(40, y, anchor=tk.NE, text=linenum, font=self.font, 
-                                 fill=self.base.theme.editors.linenumbers.number.foreground, tag=i)
+                number = self.cw.create_text(46, y, anchor=tk.NE, text=ln, font=self.font, fill=self.fill, tag=i)
             
-            self.tag_bind(i, "<Button-1>", lambda _, i=i: self.text.select_line(i))
+            self.cw.tag_bind(i, "<Button-1>", lambda _, i=i: self.select_line(i))
 
-            # TODO drawing breakpoints - need optimisations
+            # drawing breakpoints - needs optimisations
             # self.draw_breakpoint(y)
             
             i = self.text.index(f"{i}+1line")
-    
+
     def draw_breakpoint(self, y):
-        bp = Breakpoint(self)
-        self.create_window(21, y-2, anchor=tk.NE, window=bp)
+        bp = Breakpoint(self.cw)
+        self.cw.create_window(21, y-2, anchor=tk.NE, window=bp)
+    
+    def toggle_breakpoint(self, y):
+        ...

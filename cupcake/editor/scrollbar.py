@@ -1,7 +1,7 @@
 import tkinter as tk
 
 
-class Minimap(tk.Frame):
+class Scrollbar(tk.Frame):
     def __init__(self, master, textw, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.master = master
@@ -9,8 +9,8 @@ class Minimap(tk.Frame):
         self.tw = textw
         self.font = ("Arial", 1, "bold")
 
-        self.config(bg="#252526", highlightthickness=0)
-        self.cw = tk.Canvas(self, bg="#1e1e1e", width=100, highlightthickness=0)
+        self.config(bg="#252526", highlightthickness=0, padx=1)
+        self.cw = tk.Canvas(self, bg="#1e1e1e", width=15, highlightthickness=0)
         self.cw.pack(fill=tk.BOTH, expand=True, side=tk.LEFT)
 
         self.slider_image = tk.PhotoImage(data="""iVBORw0KGgoAAAANSUhEUgAAAG4AAABFCAYAAACrMNMO
@@ -22,8 +22,9 @@ class Minimap(tk.Frame):
 
         self.cw.create_image(0, 0, image=self.slider_image, anchor=tk.NW, tag="slider")
 
+        self.extra_y = 10
         self.y_top_lim = 0
-        self._drag_data = {"y": 0, "item": None}
+        self.drag_data = {"y": 0, "item": None}
         self.yvalue = 0
 
         self.cw.tag_bind("slider", "<ButtonPress-1>", self.drag_start)
@@ -37,31 +38,24 @@ class Minimap(tk.Frame):
         self.tw = textw
 
     def redraw(self):
-        self.cw.delete("redrawn")
-        self.text = self.tw.get_all_text()
-        self.cw.create_text(5, 0, text=self.text, anchor=tk.NW, font=self.font, fill="#678ca0", tag="redrawn")
-
-        y = int(self.tw.index(tk.INSERT).split(".")[0]) * 2
-        self.cw.create_line(0, y, 100, y, fill="#22374b", width=2, tag="redrawn")
-
-        self.y_bottom_lim = int(self.tw.index(tk.END).split(".")[0]) * 2 + 10
+        self.y_bottom_lim = int(self.tw.index(tk.END).split(".")[0]) * 2 + self.extra_y
     
     def drag_start(self, event):
-        self._drag_data["item"] = self.cw.find_closest(event.x, event.y)[0]
-        self._drag_data["y"] = event.y
+        self.drag_data["item"] = self.cw.find_closest(event.x, event.y)[0]
+        self.drag_data["y"] = event.y
 
     def drag_stop(self, event):
-        self._drag_data["item"] = None
-        self._drag_data["y"] = 0
+        self.drag_data["item"] = None
+        self.drag_data["y"] = 0
 
     def drag(self, event):
-        item = self._drag_data["item"]
+        item = self.drag_data["item"]
         if item != 1:
             return
 
-        delta_y = event.y - self._drag_data["y"]
+        delta_y = event.y - self.drag_data["y"]
         self.cw.move(item, 0, delta_y)
-        self._drag_data["y"] = event.y
+        self.drag_data["y"] = event.y
 
         self.yvalue = y = self.cw.coords(item)[1]
         if y <= self.y_top_lim:
