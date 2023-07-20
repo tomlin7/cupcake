@@ -1,43 +1,36 @@
 import tkinter as tk
+from itertools import chain
 
-from .itemkinds import Kinds
+from .kinds import Kinds
 from .item import AutoCompleteItem
 
+from core.components.utils import Toplevel
 
-class AutoComplete(tk.Toplevel):
+
+class AutoComplete(Toplevel):
     def __init__(self, master, items=None, active=False, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.master = master
-
         self.autocomplete_kinds = Kinds(self)
-        self.config(bg="#454545", padx=1, pady=1)
+        self.config(padx=1, pady=1, bg=self.base.theme.border)
         
         self.active = active
-        self.font = self.master.font
-
         if not self.active:
             self.withdraw()
         
         self.overrideredirect(True)
         self.wm_attributes("-topmost", True)
-
         self.grid_columnconfigure(0, weight=1)
 
         self.menu_items = []
         self.active_items = []
-
         self.row = 0
         self.selected = 0
-
         if items:
-            self.items = items
-            # [(completion, type), ...]
-            
+            self.items = items # [(completion, type), ...]
             self.add_all_items()
             self.refresh_selected()
-        
-        self.configure_bindings()
     
+    # filter
     def update_completions(self):
         self.refresh_geometry()
         self.update_idletasks()
@@ -45,24 +38,28 @@ class AutoComplete(tk.Toplevel):
 
         term = self.master.get_current_word()
 
-        new = [i for i in self.get_items() if i.get_text() == term]
-        new += [i for i in self.get_items() if i.get_text().startswith(term)]
-        new += [i for i in self.get_items() if term in i.get_text() and i.get_kind() != "word" and i not in new]
-        new += [i for i in self.get_items() if term in i.get_text() and i not in new]
+        exact, starts, includes = [], [], []
+        for i in self.menu_items:
+            if i.get_text() == term:
+                exact.append(i)
+            elif i.get_text().startswith(term):
+                starts.append(i)
+            elif term in i.get_text():
+                includes.append(i)
+        new = list(chain(exact, starts, includes))
 
         self.hide_all_items()
-        
         if any(new):
             self.show_items(new[:10] if len(new) > 10 else new, term)
         else:
             self.hide()
     
-    def move_up(self, *args):
+    def move_up(self, *_):
         if self.active:
             self.select(-1)
             return "break"
     
-    def move_down(self, *args):
+    def move_down(self, *_):
         if self.active:
             self.select(1)
             return "break"
@@ -75,22 +72,16 @@ class AutoComplete(tk.Toplevel):
         self.refresh_selected()
     
     def update_all_words(self):
-        for word in self.master.get_all_words():
+        for word in self.master.words:
             if word not in self.get_items_text():
                 self.add_item(word, "word")
         
-        for word in self.get_items():
-            if word.get_text() not in self.master.get_all_words() and word.get_kind() == "word":
+        for word in self.menu_items:
+            if word.get_text() not in self.master.words and word.get_kind() == "word":
                 self.remove_item(word)
 
-    def configure_bindings(self):
-        # root.bind("<Button-1>" , self.hide)
-        # root.bind("<Configure>", self.refresh_geometry)
-        # root.bind("<FocusOut>", self.hide)
-        ...
-
-    def add_item(self, left, kind=None):
-        new_item = AutoCompleteItem(self, left, kind=kind)
+    def add_item(self, text, kind=None):
+        new_item = AutoCompleteItem(self, text, kind=kind)
         new_item.grid(row=self.row, sticky=tk.EW)
         
         self.menu_items.append(new_item)
@@ -120,9 +111,6 @@ class AutoComplete(tk.Toplevel):
             i.deselect()
         if self.selected < len(self.active_items):
             self.active_items[self.selected].select()
-
-    def get_items(self):
-        return self.menu_items
     
     def get_items_text(self):
         return [i.get_text() for i in self.menu_items]
@@ -144,7 +132,7 @@ class AutoComplete(tk.Toplevel):
 
         self.reset_selection()
     
-    def refresh_geometry(self, *args):
+    def refresh_geometry(self, *_):
         self.update_idletasks()
         self.geometry("+{}+{}".format(*self.master.cursor_screen_location()))
 
@@ -154,7 +142,7 @@ class AutoComplete(tk.Toplevel):
         self.geometry("+{}+{}".format(*pos))
         self.deiconify()
 
-    def hide(self, *args):
+    def hide(self, *_):
         self.active = False
         self.withdraw()
         self.reset()
@@ -162,10 +150,10 @@ class AutoComplete(tk.Toplevel):
     def reset(self):
         self.reset_selection()
     
-    def choose(self, this=None, *args):
-        self.hide()
+    def choose(self, this=None, *_):
         if not this:
             this = self.active_items[self.selected]
         
         self.master.confirm_autocomplete(this.get_text())
+        self.hide()
         return "break"

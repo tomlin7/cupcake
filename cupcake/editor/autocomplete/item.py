@@ -1,67 +1,28 @@
-from cgitb import text
 import tkinter as tk
 
-from .itemkinds import Kinds
+from .kind import Kind
+from core.components.utils import Frame
 
-
-class Kind(tk.Label):
-    def __init__(self, master, kinds, kind="text", *args, **kwargs):
+class AutoCompleteItem(Frame):
+    def __init__(self, master, text, kind=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.master = master
-        self.kinds = kinds
-        self.kind = kind
+        self.config(width=400, **self.base.theme.editors.autocomplete)
+        self.bg, self.fg, self.hbg, self.hfg = self.base.theme.editors.autocomplete.item.values()
 
-        self.image = None
-
-        self.config_appearance()
-        self.config_image()
-
-    def config_appearance(self):
-        self.config(bg="#252526")
-    
-    def config_image(self):
-        match self.kind:
-            case "method":
-                self.image = self.kinds.imethods
-            case "variable":
-                self.image = self.kinds.ivariables
-            case "field":
-                self.image = self.kinds.ifields
-            case "class":
-                self.image = self.kinds.iclasses
-            case "interface":
-                self.image = self.kinds.iinterfaces
-            case "module":
-                self.image = self.kinds.imodules
-            case "property":
-                self.image = self.kinds.iproperties
-            case "keyword":
-                self.image = self.kinds.ikeywords
-            case _:
-                self.image = self.kinds.iwords
-        self.config(image=self.image)
-
-class AutoCompleteItem(tk.Frame):
-    def __init__(self, master, left, kind=None, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-        self.master = master
-        
-        self.left = left
+        self.text = text
         self.kind = kind
 
         self.kindw = Kind(self, self.master.autocomplete_kinds, kind)
-        self.leftw = tk.Text(self, 
-            font=(self.master.font['family'], 10), fg="#d4d4d4",
-            bg="#252526", relief=tk.FLAT, highlightthickness=0, width=30, height=1)
-        self.leftw.insert(tk.END, left)
-        self.leftw.config(state=tk.DISABLED)
+        self.textw = tk.Text(self, 
+            font=self.base.settings.font, fg=self.fg, bg=self.bg,
+            relief=tk.FLAT, highlightthickness=0, width=30, height=1)
+        self.textw.insert(tk.END, text)
+        self.textw.config(state=tk.DISABLED)
 
-        self.leftw.tag_config("term", foreground="#18a3ff")
+        self.textw.tag_config("term", foreground=self.base.theme.biscuit)
         
-        self.config(bg="#1e1e1e", width=300)
-
         self.kindw.bind("<Button-1>", self.on_click)
-        self.leftw.bind("<Button-1>", self.on_click)
+        self.textw.bind("<Button-1>", self.on_click)
 
         self.bind("<Enter>", self.on_hover)
         self.bind("<Leave>", self.off_hover)
@@ -73,33 +34,33 @@ class AutoCompleteItem(tk.Frame):
         self.grid_rowconfigure(0, weight=1)
 
         self.kindw.grid(row=0, column=0, sticky=tk.NSEW)
-        self.leftw.grid(row=0, column=1, sticky=tk.NSEW)
+        self.textw.grid(row=0, column=1, sticky=tk.NSEW)
     
     def get_text(self):
-        return self.left
+        return self.text
     
     def get_kind(self):
         return self.kind
 
     def mark_term(self, term):
-        start_pos = self.left.find(term)
+        start_pos = self.text.find(term)
         end_pos = start_pos + len(term)
-        self.leftw.tag_remove("term", 1.0, tk.END)
-        self.leftw.tag_add("term", f"1.{start_pos}", f"1.{end_pos}")
+        self.textw.tag_remove("term", 1.0, tk.END)
+        self.textw.tag_add("term", f"1.{start_pos}", f"1.{end_pos}")
     
     def on_click(self, *args):
         self.master.choose(self)
     
     def on_hover(self, *args):
         if not self.selected:
-            self.kindw.config(bg="#2a2d2e")
-            self.leftw.config(bg="#2a2d2e")
+            self.kindw.config(bg=self.hbg)
+            self.textw.config(bg=self.hbg)
             self.hovered = True
 
     def off_hover(self, *args):
         if not self.selected:
-            self.kindw.config(bg="#252526")
-            self.leftw.config(bg="#252526")
+            self.kindw.config(bg=self.bg)
+            self.textw.config(bg=self.bg)
             self.hovered = False
     
     def toggle_selection(self):
@@ -109,11 +70,11 @@ class AutoCompleteItem(tk.Frame):
             self.deselect()
 
     def select(self):
-        self.kindw.config(bg="#094771")
-        self.leftw.config(bg="#094771", fg="#ffffff")
+        self.kindw.config(bg=self.hbg)
+        self.textw.config(bg=self.hbg, fg=self.hfg)
         self.selected = True
     
     def deselect(self):
-        self.kindw.config(bg="#252526")
-        self.leftw.config(bg="#252526", fg="#d4d4d4")
+        self.kindw.config(bg=self.bg)
+        self.textw.config(bg=self.bg, fg=self.fg)
         self.selected = False
