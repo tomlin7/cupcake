@@ -4,7 +4,6 @@ Various types of widgets/functions used across the editor
 
 from .directorytree import DirectoryTree
 from .canvas import Canvas
-from .codicon import get_codicon
 from .frame import Frame
 from .filetype import FileType
 from .scrollbar import Scrollbar

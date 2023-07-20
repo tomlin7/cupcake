@@ -1,7 +1,6 @@
 import tkinter as tk
 
 from .breakpoint import Breakpoint
-
 from ...utils import Canvas, Menubutton
 
 
