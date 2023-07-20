@@ -1,17 +1,17 @@
 import tkinter as tk
+from core.components.utils import Frame
 
 
-class Minimap(tk.Frame):
+#TODO update minimap when scrollbar is used
+class Minimap(Frame):
     def __init__(self, master, textw, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.master = master
-        
         self.tw = textw
         self.font = ("Arial", 1, "bold")
-
-        self.config(bg="#252526", highlightthickness=0)
-        self.cw = tk.Canvas(self, bg="#1e1e1e", width=100, highlightthickness=0)
-        self.cw.pack(fill=tk.BOTH, expand=True, side=tk.LEFT)
+        self.config(highlightthickness=0, bg=self.base.theme.border)
+        
+        self.cw = tk.Canvas(self, width=100, highlightthickness=0, **self.base.theme.editors.minimap)
+        self.cw.pack(fill=tk.BOTH, expand=True, side=tk.LEFT, padx=(1, 0))
 
         self.slider_image = tk.PhotoImage(data="""iVBORw0KGgoAAAANSUhEUgAAAG4AAABFCAYAAACrMNMO
         AAAACXBIWXMAAABfAAAAXwEqnu0dAAAAGXRFWHRTb2Z0d2FyZQB3d3cuaW5rc2NhcGUub3Jnm+48GgAAAMBJRE
@@ -38,13 +38,14 @@ class Minimap(tk.Frame):
 
     def redraw(self):
         self.cw.delete("redrawn")
-        self.text = self.tw.get_all_text()
-        self.cw.create_text(5, 0, text=self.text, anchor=tk.NW, font=self.font, fill="#678ca0", tag="redrawn")
+        self.text = self.tw.get('1.0', tk.END)
+        self.cw.create_text(5, 0, text=self.text, anchor=tk.NW, font=self.font, fill="grey", tag="redrawn")
 
         y = int(self.tw.index(tk.INSERT).split(".")[0]) * 2
-        self.cw.create_line(0, y, 100, y, fill="#22374b", width=2, tag="redrawn")
+        self.cw.create_line(0, y, 100, y, fill="#dc8c34", width=2, tag="redrawn")
 
         self.y_bottom_lim = int(self.tw.index(tk.END).split(".")[0]) * 2 + 10
+        # self.y_bottom_lim = self.tw.yview()[1] * self.cw.winfo_height()
     
     def drag_start(self, event):
         self._drag_data["item"] = self.cw.find_closest(event.x, event.y)[0]
@@ -69,5 +70,5 @@ class Minimap(tk.Frame):
         elif y >= self.y_bottom_lim:
             self.cw.move("slider", 0, -(y - self.y_bottom_lim))
 
-        self.tw.yview(int(y / self.cw.winfo_height() * 100))
-        self.tw.master.redraw_ln()
+        self.tw.yview(int(y / self.cw.winfo_height() * 350))
+        self.tw.master.on_scroll()
