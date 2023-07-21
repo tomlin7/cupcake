@@ -1,6 +1,6 @@
 # Cupcake: Embeddable Code Editor
-![](https://github.com/billyeatcookies/cupcake/blob/main/.github/res/screenshot.png)
-
+![image](https://github.com/billyeatcookies/cupcake/assets/70792552/11dbd746-f5c0-41cd-8ee3-e2b9328faf17)
+![image](https://github.com/billyeatcookies/cupcake/assets/70792552/a489a4a1-da96-4ab5-a498-47e6dd6cb36c)
 
 Cupcake is an **Embeddable** modern-looking code editor for **python tkinter** applications. It has rich **Autocompletions**, **Minimap** and **Semantic Syntax highlighting**. Cupcake is written in pure python with the tkinter library. It is the code editor which powers [Biscuit](https://github.com/billyeatcookies/Biscuit).
 ```py
