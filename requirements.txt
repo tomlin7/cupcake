@@ -1,0 +1,4 @@
+pygments
+filetype
+pillow
+toml

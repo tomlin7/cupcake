@@ -1,0 +1,123 @@
+# Cupcake Dark theme
+# author: billyeatcookies
+# NOTE: all fields are mandatory and shall only modified, not removed
+
+accent = "#2aaaff"
+background = "white"
+foreground = "#424242"
+border = "#dfdfdf"
+
+
+[editor]
+selection = "#add6ff"
+currentword = "#d5d5d5"
+currentline = "#eeeeee"
+found = "#f8c9ab"
+foundcurrent = "#a8ac94"
+
+[autocomplete]
+background = "#f8f8f8"
+foreground = "#424242"
+activebackground = "#e8e8e8"
+activeforeground = "#black"
+
+[breadcrumbs]
+background = "white"
+foreground = "#424242"
+activebackground = "white"
+activeforeground = "black"
+
+[linenumbers]
+background = "white"
+foreground = "#727681"
+activebackground = "white"
+activeforeground = "#171184"
+
+[minimap]
+background = "white"
+
+[diffeditor]
+notexist = "#d3d3d3"
+added = "#f8d6d6"
+addedword = "#9ecaa6"
+removed = "#d3e7d6"
+removedword = "#efa6a5"
+
+[scrollbar]
+background = "white"
+activeBackground = "#b2b6bc"
+
+[tree]
+background = "#f8f8f8"
+foreground = "#424242"
+activebackground= "#e8e8e8"
+
+
+# following is used for syntax highlighting
+[syntax]
+"Keyword" = "#0000ff"
+"Keyword.Constant" = "#0000ff"
+"Keyword.Declaration" = "#0000ff"
+"Keyword.Namespace" = "#0000ff"
+"Keyword.Pseudo" = "#0000ff"
+"Keyword.Reserved" = "#0000ff"
+"Keyword.Type" = "#0000ff"
+
+"Name" = "#267f99"
+"Name.Attribute" = "#267f99"
+"Name.Builtin" = "#267f99"
+"Name.Builtin.Pseudo" = "#267f99"
+"Name.Class" = "#267f99"
+"Name.Constant" = "#267f99"
+"Name.Decorator" = "#267f99"
+"Name.Entity" = "#267f99"
+"Name.Exception" = "#267f99"
+"Name.Function" = "#795e26"
+"Name.Function.Magic" = "#795e26"
+"Name.Property" = "#267f99"
+"Name.Label" = "#267f99"
+"Name.Namespace" = "#267f99"
+"Name.Other" = "#267f99"
+"Name.Tag" = "#267f99"
+"Name.Variable" = "#267f99"
+"Name.Variable.Class" = "#267f99"
+"Name.Variable.Global" = "#267f99"
+"Name.Variable.Instance" = "#267f99"
+"Name.Variable.Magic" = "#267f99"
+
+"Literal.String" = "#b11515"
+"Literal.String.Affix" = "#b11515"
+"Literal.String.Backtick" = "#b11515"
+"Literal.String.Char" = "#b11515"
+"Literal.String.Delimiter" = "#b11515"
+"Literal.String.Doc" = "#b11515"
+"Literal.String.Double" = "#b11515"
+"Literal.String.Escape" = "#b11515"
+"Literal.String.Heredoc" = "#b11515"
+"Literal.String.Interpol" = "#b11515"
+"Literal.String.Other" = "#b11515"
+"Literal.String.Regex" = "#b11515"
+"Literal.String.Single" = "#b11515"
+"Literal.String.Symbol" = "#b11515"
+
+"Literal.Number" = "#098658"
+"Literal.Number.Bin" = "#098658"
+"Literal.Number.Float" = "#098658"
+"Literal.Number.Hex" = "#098658"
+"Literal.Number.Integer" = "#098658"
+"Literal.Number.Integer.Long" = "#098658"
+"Literal.Number.Oct" = "#098658"
+
+"Comment" = "#098658"
+"Comment.Hashbang" = "#098658"
+"Comment.Multiline" = "#098658"
+"Comment.Preproc" = "#098658"
+"Comment.PreprocFile" = "#098658"
+"Comment.Single" = "#098658"
+"Comment.Special" = "#098658"
+
+"Operator" = "#cccccc"
+"Operator.Word" = "#cccccc"
+
+"Punctuation" = "#424242"
+"Punctuation.Marker" = "#3b3b3b"
