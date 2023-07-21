@@ -1,11 +1,12 @@
 __version__ = '0.15.0'
 __version_info__ = tuple([ int(num) for num in __version__.split('.')])
 
-__all__ = ["Editor", "get_editor", "DiffEditor", "ImageViewer", "TextEditor"]
+__all__ = ["Editor", "get_editor", "DiffEditor", "ImageViewer", "TextEditor", "Config"]
 
 
 import os
-from tkinter.constants import *
+import tkinter as tk
+from .config import Config
 
 from .utils import FileType, Frame
 from .breadcrumbs import BreadCrumbs
@@ -52,26 +53,29 @@ class Editor(Frame):
     focus()
         Gives focus to the content.
     """
-    def __init__(self, master, path: str=None, path2: str=None, diff: bool=False, showpath: bool=True, *args, **kwargs):
+    def __init__(self, master, path: str=None, path2: str=None, diff: bool=False, showpath: bool=True, config_file: str=None, dark_mode=True, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        #self.config(bg=self.base.theme.border)
+        self.settings = Config(self, config_file)
+        self.theme = self.settings.theme
+        self.config(bg=self.theme.border)
+
         self.path = path
         self.path2 = path2
         self.diff = diff
         self.showpath = showpath
         self.filename = os.path.basename(self.path) if path else None
-
+        
         self.grid_columnconfigure(0, weight=1)
         self.content = get_editor(self, path, path2, diff)
 
         if path and self.showpath and not diff:
             self.breadcrumbs = BreadCrumbs(self, path)
             self.grid_rowconfigure(1, weight=1)  
-            self.breadcrumbs.grid(row=0, column=0, sticky=EW, pady=(0, 1))
-            self.content.grid(row=1, column=0, sticky=NSEW)
+            self.breadcrumbs.grid(row=0, column=0, sticky=tk.EW, pady=(0, 1))
+            self.content.grid(row=1, column=0, sticky=tk.NSEW)
         else:
             self.grid_rowconfigure(0, weight=1)
-            self.content.grid(row=0, column=0, sticky=NSEW)
+            self.content.grid(row=0, column=0, sticky=tk.NSEW)
     
     def save(self, path: str=None) -> None:
         self.content.save(path)

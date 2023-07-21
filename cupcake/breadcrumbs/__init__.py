@@ -9,7 +9,7 @@ class Item(Menubutton):
     def __init__(self, master, path, *args, **kwargs):
         super().__init__(master, font=("Segoe UI", 10), *args, **kwargs)
         self.path = path
-        self.config(height=1, pady=2, padx=1) # **self.base.theme.editors.breadcrumbs.item
+        self.config(height=1, pady=2, padx=1, bg=self.base.theme.breadcrumbs)
 
 
 class BreadCrumbs(Frame):

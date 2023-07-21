@@ -7,7 +7,7 @@ class BaseEditor(Frame):
     """
     def __init__(self, master, path=None, path2=None, exists=None, editable=True, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        # self.config(**self.base.theme.editors)
+        self.config(bg=self.base.theme.background)
 
         self.path = path
         self.path2 = path2

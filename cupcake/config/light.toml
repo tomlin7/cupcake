@@ -1,30 +1,89 @@
-[diffEditor]
-insertedLineBackground = "#23863633"
-insertedTextBackground = "#2386364d"
-removedLineBackground = "#da363333"
-removedTextBackground = "#da36334d"
-
-[editor]
 background = "#1f1f1f"
-findMatchBackground = "#9e6a03"
 foreground = "#cccccc"
 
 [editorLineNumber]
 activeForeground = "#cccccc"
 foreground = "#6e7681"
 
-[editorWidget]
-background = "#1f1f1f"
-
-errorForeground = "#f85149"
-focusBorder = "#0078d"
-foreground = "#cccccc"
-
-[icon]
-foreground = "#cccccc"
+[diffEditor]
+insertedLineBackground = "#23863633"
+insertedTextBackground = "#2386364d"
+removedLineBackground = "#da363333"
+removedTextBackground = "#da36334d"
 
 [scrollbar]
 shadow = "#484f5833"
 activeBackground = "#6e768187"
 background = "#6e768133"
 hoverBackground = "#6e768145"
+
+
+
+[syntax]
+Operator = "#0000ff"
+"Operator.Word" = "#0000ff"
+
+Punctuation = "#0000ff"
+"Punctuation.Marker" = "#0000ff"
+
+[syntax.Keyword]
+Constant = "#0000ff" 
+Declaration = "#0000ff" 
+Namespace = "#0000ff" 
+Pseudo = "#0000ff" 
+Reserved = "#0000ff" 
+Type = "#0000ff" 
+
+[syntax.Name]
+Attribute = "#0000ff"
+Builtin = "#0000ff"
+"Builtin.Pseudo" = "#0000ff"
+Class = "#0000ff"
+Constant = "#0000ff"
+Decorator = "#0000ff"
+Entity = "#0000ff"
+Exception = "#0000ff"
+Function = "#0000ff"
+"Function.Magic" = "#0000ff"
+Property = "#0000ff"
+Label = "#0000ff"
+Namespace = "#0000ff"
+Other = "#0000ff"
+Tag = "#0000ff"
+
+[syntax.Name.Variable]
+Class = "#0000ff"
+Global = "#0000ff"
+Instance = "#0000ff"
+Magic = "#0000ff"
+
+[syntax.String]
+Affix = "#0000ff"
+Backtick = "#0000ff"
+Char = "#0000ff"
+Delimiter = "#0000ff"
+Doc = "#0000ff"
+Double = "#0000ff"
+Escape = "#0000ff"
+Heredoc = "#0000ff"
+Interpol = "#0000ff"
+Other = "#0000ff"
+Regex = "#0000ff"
+Single = "#0000ff"
+Symbol = "#0000ff"
+
+[syntax.Number]
+Bin = "#0000ff"
+Float = "#0000ff"
+Hex = "#0000ff"
+Integer = "#0000ff"
+"Integer.Long" = "#0000ff"
+Oct = "#0000ff"
+
+[syntax.Comment]
+Hashbang = "#0000ff"
+Multiline = "#0000ff"
+Preproc = "#0000ff"
+PreprocFile = "#0000ff"
+Single = "#0000ff"
+Special = "#0000ff"

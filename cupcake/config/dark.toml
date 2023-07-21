@@ -1,30 +1,95 @@
+background = "#1f1f1f"
+foreground = "#cccccc"
+border = "#dfdfdf"
+
+[breadcrumbs]
+background = '#1f1f1f'
+foreground = '#a9a9a9'
+highlightbackground = '#1f1f1f'
+highlightforeground = '#e0e0e0'
+
+[editorLineNumber]
+activeForeground = "#cccccc"
+foreground = "#6e7681"
+
 [diffEditor]
 insertedLineBackground = "#23863633"
 insertedTextBackground = "#2386364d"
 removedLineBackground = "#da363333"
 removedTextBackground = "#da36334d"
 
-[editor]
-background = "#1f1f1f"
-findMatchBackground = "#9e6a03"
-foreground = "#cccccc"
-
-[editorLineNumber]
-activeForeground = "#cccccc"
-foreground = "#6e7681"
-
-[editorWidget]
-background = "#1f1f1f"
-
-errorForeground = "#f85149"
-focusBorder = "#0078d"
-foreground = "#cccccc"
-
-[icon]
-foreground = "#cccccc"
-
 [scrollbar]
 shadow = "#484f5833"
 activeBackground = "#6e768187"
 background = "#6e768133"
 hoverBackground = "#6e768145"
+
+
+
+[syntax]
+"Keyword" = "#0000ff"
+"Keyword.Constant" = "#0000ff"
+"Keyword.Declaration" = "#0000ff"
+"Keyword.Namespace" = "#0000ff"
+"Keyword.Pseudo" = "#0000ff"
+"Keyword.Reserved" = "#0000ff"
+"Keyword.Type" = "#0000ff"
+
+"Name" = "#267f99"
+"Name.Attribute" = "#267f99"
+"Name.Builtin" = "#267f99"
+"Name.Builtin.Pseudo" = "#267f99"
+"Name.Class" = "#267f99"
+"Name.Constant" = "#267f99"
+"Name.Decorator" = "#267f99"
+"Name.Entity" = "#267f99"
+"Name.Exception" = "#267f99"
+"Name.Function" = "#795e26"
+"Name.Function.Magic" = "#795e26"
+"Name.Property" = "#267f99"
+"Name.Label" = "#267f99"
+"Name.Namespace" = "#267f99"
+"Name.Other" = "#267f99"
+"Name.Tag" = "#267f99"
+"Name.Variable" = "#267f99"
+"Name.Variable.Class" = "#267f99"
+"Name.Variable.Global" = "#267f99"
+"Name.Variable.Instance" = "#267f99"
+"Name.Variable.Magic" = "#267f99"
+
+"String" = "#b11515"
+"String.Affix" = "#b11515"
+"String.Backtick" = "#b11515"
+"String.Char" = "#b11515"
+"String.Delimiter" = "#b11515"
+"String.Doc" = "#b11515"
+"String.Double" = "#b11515"
+"String.Escape" = "#b11515"
+"String.Heredoc" = "#b11515"
+"String.Interpol" = "#b11515"
+"String.Other" = "#b11515"
+"String.Regex" = "#b11515"
+"String.Single" = "#b11515"
+"String.Symbol" = "#b11515"
+
+"Number" = "#098658"
+"Number.Bin" = "#098658"
+"Number.Float" = "#098658"
+"Number.Hex" = "#098658"
+"Number.Integer" = "#098658"
+"Number.Integer.Long" = "#098658"
+"Number.Oct" = "#098658"
+
+"Comment" = "#098658"
+"Comment.Hashbang" = "#098658"
+"Comment.Multiline" = "#098658"
+"Comment.Preproc" = "#098658"
+"Comment.PreprocFile" = "#098658"
+"Comment.Single" = "#098658"
+"Comment.Special" = "#098658"
+
+"Operator" = "#cccccc"
+"Operator.Word" = "#cccccc"
+
+"Punctuation" = "#3b3b3b"
+"Punctuation.Marker" = "#3b3b3b"
