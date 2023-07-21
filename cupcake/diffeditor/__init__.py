@@ -8,7 +8,7 @@ from ..editor import BaseEditor
 
 
 class DiffEditor(BaseEditor):
-    def __init__(self, master, path1, path2, *args, **kwargs):
+    def __init__(self, master, path1, path2, language=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.config(bg=self.base.theme.border)
         self.grid_columnconfigure(0, weight=1)
@@ -24,10 +24,10 @@ class DiffEditor(BaseEditor):
         self.lhs_last_line = 0
         self.rhs_last_line = 0
 
-        self.lhs = DiffPane(self, path1)
+        self.lhs = DiffPane(self, path1, language=language)
         self.lhs.grid(row=0, column=0, sticky=tk.NSEW, padx=(0, 1))
 
-        self.rhs = DiffPane(self, path2)
+        self.rhs = DiffPane(self, path2, language=language)
         self.rhs.grid(row=0, column=1, sticky=tk.NSEW)
 
         self.left = self.lhs.text
@@ -38,7 +38,7 @@ class DiffEditor(BaseEditor):
         self.left['yscrollcommand'] = self.on_textscroll
         self.right['yscrollcommand'] = self.on_textscroll
 
-        self.stipple = self.base.settings.res.stipple
+        self.stipple = self.base.settings.stipple
 
         self.left.tag_config("addition", background=self.base.theme.diffeditor.notexist, bgstipple=f"@{self.stipple}")
         self.left.tag_config("removal", background=self.base.theme.diffeditor.removed)
@@ -49,10 +49,13 @@ class DiffEditor(BaseEditor):
         self.right.tag_config("addedword", background=self.base.theme.diffeditor.addedword)
 
         self.differ = Differ(self)
-        self.show_diff()
-        
-        self.left.set_active(False)
 
+        if path1 and path2:
+            with open(self.path1, 'r') as f:
+                self.lhs_data = f.read()
+            with open(self.path2, 'r') as f:
+                self.rhs_data = f.read()
+    
     def on_scrollbar(self, *args):
         self.left.yview(*args)
         self.lhs.on_scroll()
@@ -68,14 +71,19 @@ class DiffEditor(BaseEditor):
     def run_show_diff(self):
         threading.Thread(target=self.show_diff).start()
     
-    def show_diff(self):
-        with open(self.path1, 'r') as f:
-            lhs_data = f.read()
-        with open(self.path2, 'r') as f:
-            rhs_data = f.read()
+    def show_diff_text(self, lhs, rhs):
+        self.lhs_data = lhs
+        self.rhs_data = rhs
 
-        lhs_lines = [line+"\n" for line in lhs_data.split('\n')]
-        rhs_lines = [line+"\n" for line in rhs_data.split('\n')]
+        self.show_diff()
+
+    def show_diff(self):
+        self.left.set_active(True)
+        self.lhs.clear()
+        self.rhs.clear()
+
+        lhs_lines = [line+"\n" for line in self.lhs_data.split('\n')]
+        rhs_lines = [line+"\n" for line in self.rhs_data.split('\n')]
         
         self.diff = list(self.differ.get_diff(lhs_lines, rhs_lines))
         for i, line in enumerate(self.diff):
@@ -90,37 +98,29 @@ class DiffEditor(BaseEditor):
 
                 case "-":
                     # line is only on the left
-                    self.lhs_last_line = int(float(self.left.index(tk.INSERT)))
                     self.left.write(content, "removal")
-
-                    # TODO this check is done to make sure if this is a line with modifications
-                    # and not a newly added line, but this is not done right.
                     self.left.newline("addition")
 
                 case "+":
                     # line is only on the right
-                    self.rhs_last_line = int(float(self.right.index(tk.INSERT)))
                     self.right.write(content, "addition")
-                    
-                    # TODO this check is done to make sure if this is a line with modifications
-                    # and not a newly added line, but this is not done right.
                     self.left.newline("addition")
 
-                case "?":
-                    # the above line has changes
-                    if matches := re.finditer(r'\++', content):
-                        self.left.delete(str(float(self.rhs_last_line+1)), str(float(int(float(self.left.index(tk.INSERT))))))
-                        for match in matches:
-                            start = f"{self.rhs_last_line}.{match.start()}"
-                            end = f"{self.rhs_last_line}.{match.end()}"
-                            self.right.tag_add("addedword", start, end)
+                # case "?":
+                #     # the above line has changes
+                #     if matches := re.finditer(r'\++', content):
+                #         self.left.delete(str(float(self.rhs_last_line+1)), str(float(int(float(self.left.index(tk.INSERT))))))
+                #         for match in matches:
+                #             start = f"{self.rhs_last_line}.{match.start()}"
+                #             end = f"{self.rhs_last_line}.{match.end()}"
+                #             self.right.tag_add("addedword", start, end)
 
-                    if matches := re.finditer(r'-+', content):
-                        self.right.delete(str(float(self.lhs_last_line+1)), str(float(int(float(self.right.index(tk.INSERT))))))
-                        for match in matches:
-                            start = f"{self.lhs_last_line}.{match.start()}"
-                            end = f"{self.lhs_last_line}.{match.end()}"
-                            self.left.tag_add("removedword", start, end)
+                #     if matches := re.finditer(r'-+', content):
+                #         self.right.delete(str(float(self.lhs_last_line+1)), str(float(int(float(self.right.index(tk.INSERT))))))
+                #         for match in matches:
+                #             start = f"{self.lhs_last_line}.{match.start()}"
+                #             end = f"{self.lhs_last_line}.{match.end()}"
+                #             self.left.tag_add("removedword", start, end)
                     
             self.left.update()
             self.right.update()
@@ -139,3 +139,5 @@ class DiffEditor(BaseEditor):
             extra_newlines = rhs_line_count - lhs_line_count
             for _ in range(extra_newlines):
                 self.left.newline()
+        
+        self.left.set_active(False)

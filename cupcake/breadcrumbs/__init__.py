@@ -7,15 +7,14 @@ from ..utils import Frame, Menubutton
 
 class Item(Menubutton):
     def __init__(self, master, path, *args, **kwargs):
-        super().__init__(master, font=("Segoe UI", 10), *args, **kwargs)
+        super().__init__(master, *args, **kwargs)
         self.path = path
-        self.config(height=1, pady=2, padx=1, **self.base.theme.breadcrumbs)
-
+        self.config(pady=3, padx=3, font=self.base.settings.uifont, **self.base.theme.breadcrumbs)
 
 class BreadCrumbs(Frame):
     def __init__(self, master, path=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.config(padx=10, **self.base.theme.breadcrumbs["background"])
+        self.config(padx=20, bg=self.base.theme.breadcrumbs["background"])
 
         self.pathview = PathView(self)
         path = os.path.abspath(path).split('\\')

@@ -3,11 +3,11 @@ from tkinter import ttk
 
 
 class Style(ttk.Style):
-    def __init__(self, master, theme, *args, **kwargs):
+    def __init__(self, master, config, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.master = master
-        self.base = master.base
-        self.theme = theme
+        self.base = master
+        self.config = config
+        self.theme = config.theme
         
         self.gen_fileicons()
         self.config_treeview()
@@ -33,20 +33,23 @@ class Style(ttk.Style):
         bg, highlight = self.theme.scrollbar.values()
         self.configure("TreeScrollbar", gripcount=0, background=bg, troughcolor=bg, bordercolor=bg, lightcolor=bg, darkcolor=bg, arrowsize=14)
         self.map("TreeScrollbar", background=[('pressed', highlight), ('!disabled', self.theme.border)])
+        
+        self.element_create("EditorScrollbar.trough", "from", "clam")
+        self.element_create("EditorScrollbar.thumb", "from", "clam")
 
-        self.layout('Vertical.TScrollbar', [
-            ('Vertical.TScrollbar.trough', {
+        self.layout('EditorScrollbar', [
+            ('EditorScrollbar.trough', {
                 'sticky': 'nsew',
                 'children': [
-                    ('Vertical.TScrollbar.thumb', {
+                    ('EditorScrollbar.thumb', {
                         'sticky': 'nsew'
                     })
                 ]
             })
             
         ])
-        self.configure("Vertical.TScrollbar", gripcount=0, background=bg, troughcolor=bg, bordercolor=bg, lightcolor=bg, darkcolor=bg)
-        self.map("Vertical.TScrollbar", background=[('pressed', highlight), ('!disabled', self.theme.border)])
+        self.configure("EditorScrollbar", gripcount=0, background=bg, troughcolor=bg, bordercolor=bg, lightcolor=bg, darkcolor=bg)
+        self.map("EditorScrollbar", background=[('pressed', highlight), ('!disabled', self.theme.border)])
 
     def config_treeview(self):
         ## TREENODE CHEVRONS -----
@@ -71,7 +74,7 @@ class Style(ttk.Style):
             ('user1', '!user2', self.img_tree_open), ('user2', self.img_tree_empty), 
             sticky='w', width=20)
 
-        self.configure("Treeview", font=("Segoe UI", 10), rowheight=25, **self.theme.tree)  
+        self.configure("Treeview", font=self.config.uifont, rowheight=25, **self.theme.tree)  
         self.map("Treeview", background=[('selected', self.theme.tree["activebackground"])])
 
         self.layout('Treeview', [('Treeview.treearea', {'sticky': 'nswe'})])

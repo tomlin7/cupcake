@@ -4,9 +4,9 @@ from ..utils import DirectoryTree, Toplevel
 class PathView(Toplevel):
     def __init__(self, master, width=150, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.width = round(width * self.base.scale)
+        self.width = round(width)
         
-        self.tree = DirectoryTree(self, width=width, observe_changes=False, itembar=False)
+        self.tree = DirectoryTree(self, width=width)
         self.tree.pack()
 
         self.config(pady=1, padx=1, bg=self.base.theme.border)
@@ -36,7 +36,10 @@ class PathView(Toplevel):
         x = w.winfo_rootx()
         y = w.winfo_rooty() + w.winfo_height()
         
+        if not w.path:
+            return
         self.tree.change_path(w.path)
+
         self.geometry(f"+{x}+{y}")
         self.deiconify()
         self.focus_set()

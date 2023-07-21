@@ -1,10 +1,5 @@
 """
-Cupcake running with code editing features.
-
-Features enabled:
-- Syntax highlighting
-- Autocompletions (words only, no lsp)
-- Minimap
+Cupcake light mode
 """
 
 import sys
@@ -17,7 +12,7 @@ from cupcake import Editor
 root = tk.Tk()
 root.minsize(800, 600)
 
-e = Editor(root, __file__)
+e = Editor(root, __file__, darkmode=False)
 e.pack(expand=1, fill=tk.BOTH)
 
 root.mainloop()

@@ -20,7 +20,7 @@ class AutoCompleteItem(Frame):
         self.textw.insert(tk.END, text)
         self.textw.config(state=tk.DISABLED)
 
-        self.textw.tag_config("term", foreground="blue")
+        self.textw.tag_config("term", foreground=self.base.theme.accent)
         
         self.kindw.bind("<Button-1>", self.on_click)
         self.textw.bind("<Button-1>", self.on_click)

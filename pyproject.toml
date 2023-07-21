@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cupcake"
-version = "0.15.0"
+version = "0.25.0"
 description = "Embeddable code editor for python apps"
 authors = ["Billy <billydevbusiness@gmail.com>"]
 license = "MIT"
