@@ -1,9 +1,7 @@
 import os, tkinter as tk
 
 from pygments import lex
-from pygments.token import Token
-from pygments.lexers import get_lexer_for_filename, guess_lexer
-from pygments.util import ClassNotFound
+from pygments.lexers import get_lexer_for_filename
 
 
 class Highlighter:

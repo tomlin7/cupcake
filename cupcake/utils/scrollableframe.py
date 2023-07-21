@@ -21,13 +21,13 @@ class ScrollableFrame(Frame):
         self.scrollbar = Scrollbar(self)
         self.scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 
-        self.canvas = Canvas(self, yscrollcommand=self.scrollbar.set, **self.base.theme.editors)
+        self.canvas = Canvas(self, yscrollcommand=self.scrollbar.set, bg=self.base.theme.background)
         self.canvas.configure(highlightthickness=0)
         self.canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 
         self.scrollbar.config(command=self.canvas.yview)
 
-        self.content = Frame(self.canvas, **self.base.theme.editors)
+        self.content = Frame(self.canvas, bg=self.base.theme.background)
         self._content = self.canvas.create_window((0, 0), window=self.content, anchor="nw")
 
         self.content.bind("<Configure>", self._scroll)

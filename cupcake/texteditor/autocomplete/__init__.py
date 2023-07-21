@@ -11,7 +11,7 @@ class AutoComplete(Toplevel):
     def __init__(self, master, items=None, active=False, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.autocomplete_kinds = Kinds(self)
-        self.config(padx=1, pady=1) # bg=self.base.theme.border
+        self.config(padx=1, pady=1, bg=self.base.theme.border)
         
         self.active = active
         if not self.active:
@@ -26,11 +26,11 @@ class AutoComplete(Toplevel):
         self.row = 0
         self.selected = 0
         if items:
+            # TODO this should be a dict
             self.items = items # [(completion, type), ...]
             self.add_all_items()
             self.refresh_selected()
     
-    # filter
     def update_completions(self):
         self.refresh_geometry()
         self.update_idletasks()
@@ -151,6 +151,9 @@ class AutoComplete(Toplevel):
         self.reset_selection()
     
     def choose(self, this=None, *_):
+        if not self.active_items:
+            return
+        
         if not this:
             this = self.active_items[self.selected]
         

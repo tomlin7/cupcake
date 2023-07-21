@@ -9,17 +9,15 @@ class Item(Menubutton):
     def __init__(self, master, path, *args, **kwargs):
         super().__init__(master, font=("Segoe UI", 10), *args, **kwargs)
         self.path = path
-        self.config(height=1, pady=2, padx=1, bg=self.base.theme.breadcrumbs)
+        self.config(height=1, pady=2, padx=1, **self.base.theme.breadcrumbs)
 
 
 class BreadCrumbs(Frame):
     def __init__(self, master, path=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.config(padx=10) # **self.base.theme.editors.breadcrumbs
+        self.config(padx=10, **self.base.theme.breadcrumbs["background"])
 
         self.pathview = PathView(self)
-
-        # if the file does not belong to active directory, use the absolute path instead
         path = os.path.abspath(path).split('\\')
         for i, item in enumerate(path):
             text = item if item == path[-1] else f"{item} ›"

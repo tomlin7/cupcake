@@ -10,7 +10,7 @@ from ..editor import BaseEditor
 class DiffEditor(BaseEditor):
     def __init__(self, master, path1, path2, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        # self.config(bg=self.base.theme.border)
+        self.config(bg=self.base.theme.border)
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
@@ -40,17 +40,13 @@ class DiffEditor(BaseEditor):
 
         self.stipple = self.base.settings.res.stipple
 
-        self.left.tag_config("addition", background=self.base.theme.editors.diff.not_exist, bgstipple=f"@{self.stipple}")
-        self.left.tag_config("removal", background=self.base.theme.editors.diff.removed)
-
-        # testing word based diff per line
-        self.left.tag_config("uhhh", background="red")
+        self.left.tag_config("addition", background=self.base.theme.diffeditor.notexist, bgstipple=f"@{self.stipple}")
+        self.left.tag_config("removal", background=self.base.theme.diffeditor.removed)
+        self.left.tag_config("removedword", background=self.base.theme.diffeditor.removedword)
         
-        self.right.tag_config("addition", background=self.base.theme.editors.diff.addition)
-        self.right.tag_config("removal", background=self.base.theme.editors.diff.not_exist, bgstipple=f"@{self.stipple}")
-
-        # testing word based diff per line
-        self.right.tag_config("uhhh", background="green")
+        self.right.tag_config("addition", background=self.base.theme.diffeditor.added)
+        self.right.tag_config("removal", background=self.base.theme.diffeditor.notexist, bgstipple=f"@{self.stipple}")
+        self.right.tag_config("addedword", background=self.base.theme.diffeditor.addedword)
 
         self.differ = Differ(self)
         self.show_diff()
@@ -117,14 +113,14 @@ class DiffEditor(BaseEditor):
                         for match in matches:
                             start = f"{self.rhs_last_line}.{match.start()}"
                             end = f"{self.rhs_last_line}.{match.end()}"
-                            self.right.tag_add("uhhh", start, end)
+                            self.right.tag_add("addedword", start, end)
 
                     if matches := re.finditer(r'-+', content):
                         self.right.delete(str(float(self.lhs_last_line+1)), str(float(int(float(self.right.index(tk.INSERT))))))
                         for match in matches:
                             start = f"{self.lhs_last_line}.{match.start()}"
                             end = f"{self.lhs_last_line}.{match.end()}"
-                            self.left.tag_add("uhhh", start, end)
+                            self.left.tag_add("removedword", start, end)
                     
             self.left.update()
             self.right.update()

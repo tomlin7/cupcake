@@ -9,9 +9,9 @@ from .text import Text
 
 
 class TextEditor(BaseEditor):
-    def __init__(self, master, path=None, exists=True, font=("Consolas", 11), minimalist=False, *args, **kwargs):
+    def __init__(self, master, path=None, exists=True, font=None, minimalist=False, *args, **kwargs):
         super().__init__(master, path, exists, *args, **kwargs)
-        self.font = font
+        self.font = font or self.base.settings.font
         self.minimalist = minimalist
         
         self.rowconfigure(0, weight=1)

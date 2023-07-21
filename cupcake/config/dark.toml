@@ -1,29 +1,51 @@
 background = "#1f1f1f"
 foreground = "#cccccc"
-border = "#dfdfdf"
+border = "#2a2a2a"
+
+
+[editor]
+selection = "blue"
+currentword = "grey"
+currentline = "grey"
+found = "yellow"
+foundcurrent = "green"
+
+[autocomplete]
+background = '#1f1f1f'
+foreground = '#a9a9a9'
+activebackground = '#1f1f1f'
+activeforeground = '#e0e0e0'
 
 [breadcrumbs]
 background = '#1f1f1f'
 foreground = '#a9a9a9'
-highlightbackground = '#1f1f1f'
-highlightforeground = '#e0e0e0'
+activebackground = '#1f1f1f'
+activeforeground = '#e0e0e0'
 
-[editorLineNumber]
-activeForeground = "#cccccc"
+[linenumbers]
+background = '#1f1f1f'
 foreground = "#6e7681"
+activebackground = '#1f1f1f'
+activeforeground = "#cccccc"
 
-[diffEditor]
-insertedLineBackground = "#23863633"
-insertedTextBackground = "#2386364d"
-removedLineBackground = "#da363333"
-removedTextBackground = "#da36334d"
+[minimap]
+background = '#1f1f1f'
+
+[diffeditor]
+notexist = "grey"
+added = "#23863633"
+addedword = "#2386364d"
+removed = "#da363333"
+removedword = "#da36334d"
 
 [scrollbar]
-shadow = "#484f5833"
+background = "#484f5833"
 activeBackground = "#6e768187"
-background = "#6e768133"
-hoverBackground = "#6e768145"
 
+[tree]
+background = "red"
+foreground = "white"
+activebackground= "green"
 
 
 [syntax]

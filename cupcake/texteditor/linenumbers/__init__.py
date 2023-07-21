@@ -8,7 +8,7 @@ class LineNumbers(Canvas):
     def __init__(self, master, text=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.font = self.master.font
-        self.config(width=65, bd=0, highlightthickness=0) # **self.base.theme.editors.linenumbers
+        self.config(width=65, bd=0, highlightthickness=0, bg=self.base.theme.linenumbers["background"])
         self.text = text
 
     def attach(self, text):
@@ -23,7 +23,7 @@ class LineNumbers(Canvas):
         y = dline[1]
         btn = Menubutton(self, 
             text=">", font=("Consolas", 14), cursor="hand2", borderwidth=0,
-            width=2, height=1, pady=0, padx=0, relief=tk.FLAT) # **self.base.theme.editors.linenumbers)
+            width=2, height=1, pady=0, padx=0, relief=tk.FLAT, **self.base.theme.linenumbers)
         self.create_window(70, y-2, anchor=tk.NE, window=btn)
     
     def set_bar_width(self, width):

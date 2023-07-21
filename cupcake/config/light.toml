@@ -1,89 +1,117 @@
 background = "#1f1f1f"
 foreground = "#cccccc"
+border = "#2a2a2a"
 
-[editorLineNumber]
-activeForeground = "#cccccc"
+
+[editor]
+selection = '#323232'
+currentword = "grey"
+currentline = "grey"
+found = "yellow"
+foundcurrent = "green"
+
+[autocomplete]
+background = '#1f1f1f'
+foreground = '#a9a9a9'
+activebackground = '#1f1f1f'
+activeforeground = '#e0e0e0'
+
+[breadcrumbs]
+background = '#1f1f1f'
+foreground = '#a9a9a9'
+activebackground = '#1f1f1f'
+activeforeground = '#e0e0e0'
+
+[linenumbers]
+background = '#1f1f1f'
 foreground = "#6e7681"
+activebackground = '#1f1f1f'
+activeforeground = "#cccccc"
 
-[diffEditor]
-insertedLineBackground = "#23863633"
-insertedTextBackground = "#2386364d"
-removedLineBackground = "#da363333"
-removedTextBackground = "#da36334d"
+[minimap]
+background = '#1f1f1f'
+
+[diffeditor]
+notexist = "grey"
+added = "#23863633"
+addedword = "#2386364d"
+removed = "#da363333"
+removedword = "#da36334d"
 
 [scrollbar]
-shadow = "#484f5833"
+background = "#484f5833"
 activeBackground = "#6e768187"
-background = "#6e768133"
-hoverBackground = "#6e768145"
 
+[tree]
+background = "red"
+foreground = "white"
+activebackground= "green"
 
 
 [syntax]
-Operator = "#0000ff"
-"Operator.Word" = "#0000ff"
+"Keyword" = "#0000ff"
+"Keyword.Constant" = "#0000ff"
+"Keyword.Declaration" = "#0000ff"
+"Keyword.Namespace" = "#0000ff"
+"Keyword.Pseudo" = "#0000ff"
+"Keyword.Reserved" = "#0000ff"
+"Keyword.Type" = "#0000ff"
 
-Punctuation = "#0000ff"
-"Punctuation.Marker" = "#0000ff"
+"Name" = "#267f99"
+"Name.Attribute" = "#267f99"
+"Name.Builtin" = "#267f99"
+"Name.Builtin.Pseudo" = "#267f99"
+"Name.Class" = "#267f99"
+"Name.Constant" = "#267f99"
+"Name.Decorator" = "#267f99"
+"Name.Entity" = "#267f99"
+"Name.Exception" = "#267f99"
+"Name.Function" = "#795e26"
+"Name.Function.Magic" = "#795e26"
+"Name.Property" = "#267f99"
+"Name.Label" = "#267f99"
+"Name.Namespace" = "#267f99"
+"Name.Other" = "#267f99"
+"Name.Tag" = "#267f99"
+"Name.Variable" = "#267f99"
+"Name.Variable.Class" = "#267f99"
+"Name.Variable.Global" = "#267f99"
+"Name.Variable.Instance" = "#267f99"
+"Name.Variable.Magic" = "#267f99"
 
-[syntax.Keyword]
-Constant = "#0000ff" 
-Declaration = "#0000ff" 
-Namespace = "#0000ff" 
-Pseudo = "#0000ff" 
-Reserved = "#0000ff" 
-Type = "#0000ff" 
+"String" = "#b11515"
+"String.Affix" = "#b11515"
+"String.Backtick" = "#b11515"
+"String.Char" = "#b11515"
+"String.Delimiter" = "#b11515"
+"String.Doc" = "#b11515"
+"String.Double" = "#b11515"
+"String.Escape" = "#b11515"
+"String.Heredoc" = "#b11515"
+"String.Interpol" = "#b11515"
+"String.Other" = "#b11515"
+"String.Regex" = "#b11515"
+"String.Single" = "#b11515"
+"String.Symbol" = "#b11515"
 
-[syntax.Name]
-Attribute = "#0000ff"
-Builtin = "#0000ff"
-"Builtin.Pseudo" = "#0000ff"
-Class = "#0000ff"
-Constant = "#0000ff"
-Decorator = "#0000ff"
-Entity = "#0000ff"
-Exception = "#0000ff"
-Function = "#0000ff"
-"Function.Magic" = "#0000ff"
-Property = "#0000ff"
-Label = "#0000ff"
-Namespace = "#0000ff"
-Other = "#0000ff"
-Tag = "#0000ff"
+"Number" = "#098658"
+"Number.Bin" = "#098658"
+"Number.Float" = "#098658"
+"Number.Hex" = "#098658"
+"Number.Integer" = "#098658"
+"Number.Integer.Long" = "#098658"
+"Number.Oct" = "#098658"
 
-[syntax.Name.Variable]
-Class = "#0000ff"
-Global = "#0000ff"
-Instance = "#0000ff"
-Magic = "#0000ff"
+"Comment" = "#098658"
+"Comment.Hashbang" = "#098658"
+"Comment.Multiline" = "#098658"
+"Comment.Preproc" = "#098658"
+"Comment.PreprocFile" = "#098658"
+"Comment.Single" = "#098658"
+"Comment.Special" = "#098658"
 
-[syntax.String]
-Affix = "#0000ff"
-Backtick = "#0000ff"
-Char = "#0000ff"
-Delimiter = "#0000ff"
-Doc = "#0000ff"
-Double = "#0000ff"
-Escape = "#0000ff"
-Heredoc = "#0000ff"
-Interpol = "#0000ff"
-Other = "#0000ff"
-Regex = "#0000ff"
-Single = "#0000ff"
-Symbol = "#0000ff"
+"Operator" = "#cccccc"
+"Operator.Word" = "#cccccc"
 
-[syntax.Number]
-Bin = "#0000ff"
-Float = "#0000ff"
-Hex = "#0000ff"
-Integer = "#0000ff"
-"Integer.Long" = "#0000ff"
-Oct = "#0000ff"
-
-[syntax.Comment]
-Hashbang = "#0000ff"
-Multiline = "#0000ff"
-Preproc = "#0000ff"
-PreprocFile = "#0000ff"
-Single = "#0000ff"
-Special = "#0000ff"
+"Punctuation" = "#3b3b3b"
+"Punctuation.Marker" = "#3b3b3b"

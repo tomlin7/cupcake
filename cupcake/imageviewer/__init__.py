@@ -15,5 +15,5 @@ class ImageViewer(BaseEditor):
         self.image.thumbnail((500, 500))
         self.tk_image = ImageTk.PhotoImage(self.image)
 
-        self.image_label = tk.Label(self, image=self.tk_image, **self.base.theme.editors)
+        self.image_label = tk.Label(self, image=self.tk_image, bg=self.base.theme.background)
         self.image_label.pack(fill=tk.BOTH, expand=True)

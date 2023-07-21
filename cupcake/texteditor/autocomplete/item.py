@@ -7,8 +7,8 @@ from ...utils import Frame
 class AutoCompleteItem(Frame):
     def __init__(self, master, text, kind=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self.config(width=400) # **self.base.theme.editors.autocomplete
-        self.bg, self.fg, self.hbg, self.hfg = "black", "white", "grey", "white"
+        self.config(width=400, bg=self.base.theme.autocomplete["background"])
+        self.bg, self.fg, self.hbg, self.hfg = self.base.theme.autocomplete.values()
 
         self.text = text
         self.kind = kind

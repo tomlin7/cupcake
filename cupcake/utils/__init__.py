@@ -6,6 +6,7 @@ from .directorytree import DirectoryTree
 from .canvas import Canvas
 from .frame import Frame
 from .filetype import FileType
+from .label import Label
 from .scrollbar import Scrollbar
 from .scrollableframe import ScrollableFrame
 from .tree import Tree

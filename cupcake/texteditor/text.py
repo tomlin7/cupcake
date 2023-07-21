@@ -36,16 +36,17 @@ class Text(Text):
         self.config_tags()
         self.create_proxy()
         self.config_bindings()
-        self.configure(wrap=tk.NONE, relief=tk.FLAT) # **self.base.theme.editors.text
+        self.configure(wrap=tk.NONE, relief=tk.FLAT, bg=self.base.theme.background, fg=self.base.theme.foreground)
 
         self.update_words()
 
     def config_tags(self):
-        self.tag_config(tk.SEL, background="blue")
-        self.tag_config("highlight", background="grey")
-        self.tag_config("currentline", background="grey")
-        self.tag_config("found", background="green")
-        self.tag_config("foundcurrent", background="orange")
+        self.tag_config(tk.SEL, background=self.base.theme.editor.selection)
+        self.tag_config("highlight", background=self.base.theme.editor.currentword)
+        self.tag_config("currentline", background=self.base.theme.editor.currentline)
+
+        self.tag_config("found", background=self.base.theme.editor.found)
+        self.tag_config("foundcurrent", background=self.base.theme.editor.foundcurrent)
 
     def config_bindings(self):
         self.bind("<KeyRelease>", self.key_release_events) 
@@ -72,8 +73,6 @@ class Text(Text):
 
         # self.bind("<apostrophe>", lambda e: self.surrounding_selection("\'"))
         # self.bind("<quotedbl>", lambda e: self.surrounding_selection("\""))
-
-        # self.mark_set(tk.INSERT, "insert+1c")
 
     def key_release_events(self, event):
         if event.keysym not in ("Up", "Down", "Return"):

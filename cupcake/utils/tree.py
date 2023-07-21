@@ -8,7 +8,7 @@ from .frame import Frame
 class Tree(Frame):
     def __init__(self, master, path=None, doubleclick=lambda _: None, singleclick=lambda _: None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        # self.config(**self.base.theme.utils.tree)
+        self.config(bg=self.base.theme.tree["background"])
 
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
