@@ -5,14 +5,31 @@
 Cupcake is an **Embeddable** modern-looking code editor for **python tkinter** applications. It has rich **Autocompletions**, **Minimap** and **Semantic Syntax highlighting**. Cupcake is written in pure python with the tkinter library. It is the code editor which powers [Biscuit](https://github.com/billyeatcookies/Biscuit).
 ```py
 import tkinter as tk
-from cupcake import Editor 
+from cupcake import Editor, Languages
 
 root = tk.Tk()
 root.minsize(800, 600)
-Editor(root).pack(expand=1, fill=tk.BOTH)
+
+e = Editor(root, language=Languages.TYPESCRIPT)
+e.pack(expand=1, fill=tk.BOTH)
+
+e.content.insert("end", """
+// check this out
+import "./theme.scss";
+import "./global.css";
+import App from './App.svelte';
+
+const app = new App({
+	target: document.body
+});
+
+export default app;
+""")
+
 root.mainloop()
+
 ```
-aaand you have cupcake running inside your tkinter application!
+see [**examples**](./examples/) for instructions on **Diff viewer**, **Image viewer** and **Theming**
 
 ## Syntax Highlighting & Minimap
 
@@ -51,16 +68,16 @@ Examples demonstrating how to use cupcake are in the [examples](./examples) dire
 
 ## Features
 
-- [x] Syntax Highlighting
-- [x] Auto completions
-- [x] Auto Indentation
+- [x] Syntax Highlighting (over 500+ languages supported)
+- [x] Auto=Completions (words + keywords)
+- [x] Auto-Indentation
+- [x] Diff Viewer
 - [x] Minimap
-- [x] Find Replace
-- [x] Extendable language support
-- [ ] Code Debugging
-- [ ] Language Detection
+- [x] Breadcrumbs and Pathview tree
+- [x] Image Viewer
+- [x] Fully Customizable and Themable 
+- [x] Language Detection from File Extensions
 - [ ] Code Folding
 
-
 ### Contributing
-Thank you if you are considering to contribute to Cupcake. See [contributing](./CONTRIBUTING.md) for further details such as coding guides and editing tools used.
+Your contributions and support are greatly appreciated! 🧡 See [contributing](./CONTRIBUTING.md) for further details such as coding guidelines and tools used.
