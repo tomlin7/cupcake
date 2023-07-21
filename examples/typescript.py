@@ -12,7 +12,7 @@ from cupcake import Editor, Languages
 root = tk.Tk()
 root.minsize(800, 600)
 
-e = Editor(root, language=Languages.TYPESCRIPT)
+e = Editor(root, language=Languages.TYPESCRIPT, darkmode=False)
 e.pack(expand=1, fill=tk.BOTH)
 
 e.content.insert("end", """import "./theme.scss";

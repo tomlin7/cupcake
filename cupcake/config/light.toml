@@ -19,7 +19,7 @@ foundcurrent = "#a8ac94"
 background = "#f8f8f8"
 foreground = "#424242"
 activebackground = "#e8e8e8"
-activeforeground = "#black"
+activeforeground = "black"
 
 [breadcrumbs]
 background = "white"
@@ -116,8 +116,8 @@ activebackground= "#e8e8e8"
 "Comment.Single" = "#098658"
 "Comment.Special" = "#098658"
 
-"Operator" = "#cccccc"
-"Operator.Word" = "#cccccc"
+"Operator" = "#424242"
+"Operator.Word" = "#424242"
 
 "Punctuation" = "#424242"
 "Punctuation.Marker" = "#3b3b3b"
