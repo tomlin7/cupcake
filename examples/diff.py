@@ -33,7 +33,7 @@ from os.path import abspath, dirname, join
 sys.path.append(abspath(join(dirname(__file__), '..')))
 
 import tkinter as tk
-from cupcake import Editor, Languages
+from cupcake import Editor
 
 root = tk.Tk()
 root.minsize(800, 600)
