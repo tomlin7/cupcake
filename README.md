@@ -57,7 +57,7 @@ Picks the right editor based on the path, path2, diff values passed. Supports sh
 |diff|`bool`|Whether to be opened in diffviewer|optional|
 |language|[`cupcake.Language`](https://github.com/billyeatcookies/cupcake/blob/main/cupcake/languages.py)|This is given priority while picking suitable highlighter. If not passed, guesses from file extension.|optional|
 |dark_mode|`bool`| Sets the editor theme to cupcake dark if True, or cupcake light by default. This is ignored if custom config_file path is passed|optional|
-|config_file|`str`|Absolute path to the custom config (TOML) file, uses theme defaults if not passed|optional|
+|config_file|`str`|Absolute path to the custom config (TOML) file, uses theme defaults if not passed. [see examples](https://github.com/billyeatcookies/cupcake/blob/main/cupcake/config)|optional|
 |showpath|`bool`|Whether to show the breadcrumbs for editor or not|optional|
 |font|`str`/`tk.font.Font`|Font used in line numbers, text editor, autocomplete. defaults to Consolas(11)|optional|
 |uifont|`str`/`tk.font.Font`|Font used for other UI components (breadcrumbs, trees)|optional|
