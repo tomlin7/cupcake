@@ -1,4 +1,4 @@
-import re, codecs, os
+import re, codecs
 import threading, queue
 import tkinter as tk
 from collections import deque
@@ -22,9 +22,6 @@ class Text(Text):
         self.bom = True
         self.current_word = None
         self.words = []
-
-        if self.path and os.path.isfile(self.path):
-            self.load_file()
 
         self.syntax = Syntax(self)
         self.auto_completion = AutoComplete(

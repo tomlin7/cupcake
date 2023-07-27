@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 
 from ..utils import Scrollbar
@@ -35,6 +36,9 @@ class TextEditor(BaseEditor):
 
         self.text.bind("<<Change>>", self.on_change)
         self.text.bind("<<Scroll>>", self.on_scroll)
+
+        if self.path and os.path.isfile(self.path):
+            self.text.load_file()
 
     def on_change(self, *_):
         self.text.refresh()
