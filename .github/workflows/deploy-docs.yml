@@ -12,14 +12,13 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
+      - name: switch dir
+        run: cd docs
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 18
           cache: yarn
-        
-      - name: switch dir
-        run: cd docs
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
