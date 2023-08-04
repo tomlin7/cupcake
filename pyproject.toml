@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cupcake-editor"
-version = "0.25.7"
+version = "0.25.8"
 description = "Embeddable text editor with autocompletions"
 authors = ["Billy <billydevbusiness@gmail.com>"]
 license = "MIT"

@@ -1,4 +1,4 @@
-__version__ = '0.25.7'
+__version__ = '0.25.8'
 __version_info__ = tuple([ int(num) for num in __version__.split('.')])
 
 __all__ = ["Editor", "get_editor", "DiffEditor", "ImageViewer", "TextEditor", "Config", "Languages"]
