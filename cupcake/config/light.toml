@@ -6,7 +6,7 @@ accent = "#2aaaff"
 background = "white"
 foreground = "#424242"
 border = "#dfdfdf"
-
+cursor = "#000000"
 
 [editor]
 selection = "#add6ff"

@@ -33,7 +33,7 @@ class Text(Text):
         self.config_tags()
         self.create_proxy()
         self.config_bindings()
-        self.configure(wrap=tk.NONE, relief=tk.FLAT, bg=self.base.theme.background, fg=self.base.theme.foreground)
+        self.configure(wrap=tk.NONE, relief=tk.FLAT, bg=self.base.theme.background, fg=self.base.theme.foreground, insertbackground=self.base.theme.cursor)
 
         self.update_words()
 
