@@ -43,13 +43,10 @@ class TextEditor(BaseEditor):
     def on_change(self, *_):
         self.text.refresh()
         self.linenumbers.redraw()
-        if not self.minimalist:
-            self.minimap.redraw_cursor()
+        # self.minimap.redraw()
 
     def on_scroll(self, *_):
         self.linenumbers.redraw()
-        if not self.minimalist:
-            self.minimap.redraw()
 
     def unsupported_file(self):
         self.text.highlighter.lexer = None
