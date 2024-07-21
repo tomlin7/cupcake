@@ -1,15 +1,23 @@
-import os, tkinter as tk
+import os
+import tkinter as tk
 
 from pygments import lex
-from pygments.lexers import get_lexer_for_filename, get_lexer_by_name
+from pygments.lexers import get_lexer_by_name, get_lexer_for_filename
 
 
 class Highlighter:
-    def __init__(self, master, language=None, *args, **kwargs):
+    """Highlighter class.
+
+    Args:
+        master: Parent widget.
+        language: Language to use for syntax highlighting.
+    """
+
+    def __init__(self, master, language="", *args, **kwargs):
         self.text = master
         self.base = master.base
         self.language = language
-        
+
         if language:
             try:
                 self.lexer = get_lexer_by_name(language)
@@ -18,7 +26,11 @@ class Highlighter:
                 return
         else:
             try:
-                self.lexer = get_lexer_for_filename(os.path.basename(master.path), inencoding=master.encoding, encoding=master.encoding)
+                self.lexer = get_lexer_for_filename(
+                    os.path.basename(master.path),
+                    inencoding=master.encoding,
+                    encoding=master.encoding,
+                )
             except:
                 self.lexer = None
                 return
@@ -26,16 +38,20 @@ class Highlighter:
         self.setup_highlight_tags()
 
     def setup_highlight_tags(self):
+        """Sets up the highlight tags."""
         for token, color in self.base.settings.syntax.items():
             self.text.tag_configure(f"Token.{token}", foreground=color)
 
     def highlight(self):
+        """Highlights the text.
+
+        NOTE: This function is called whenever the text is modified."""
         if not self.lexer:
             return
-        
+
         for token, _ in self.base.settings.syntax.items():
-            self.text.tag_remove(f"Token.{token}", '1.0', tk.END)
-            
+            self.text.tag_remove(f"Token.{token}", "1.0", tk.END)
+
         text = self.text.get_all_text()
 
         # NOTE:  Highlighting only visible area
@@ -47,12 +63,12 @@ class Highlighter:
         #     self.text.tag_remove(str(token), first_visible_index, last_visible_index)
         # text = self.text.get(first_visible_index, last_visible_index)
 
-        self.text.mark_set("range_start", '1.0')
+        self.text.mark_set("range_start", "1.0")
         for token, content in lex(text, self.lexer):
             self.text.mark_set("range_end", f"range_start + {len(content)}c")
             self.text.tag_add(str(token), "range_start", "range_end")
             self.text.mark_set("range_start", "range_end")
-            
+
             # DEBUG
             # print(f"{content} is recognized as a <{str(token)}>")
         # print("==================================")

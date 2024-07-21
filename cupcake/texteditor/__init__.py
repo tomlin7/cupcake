@@ -1,35 +1,48 @@
 import os
 import tkinter as tk
 
-from ..utils import Scrollbar
 from ..editor import BaseEditor
-
-from .minimap import Minimap
+from ..utils import Scrollbar
 from .linenumbers import LineNumbers
+from .minimap import Minimap
 from .text import Text
 
 
 class TextEditor(BaseEditor):
-    def __init__(self, master, path=None, language=None, font=None, minimalist=False, *args, **kwargs):
+    """TextEditor class.
+
+    Args:
+        master: Parent widget.
+        path: Path to the file.
+        language: Language to use for syntax highlighting.
+        font: Font to use for the text.
+        minimalist: Whether to use the minimalist mode.
+    """
+
+    def __init__(
+        self, master, path="", language="", font="", minimalist=False, *args, **kwargs
+    ):
         super().__init__(master, path, *args, **kwargs)
         self.font = font or self.base.settings.font
         self.minimalist = minimalist
         self.language = language
-        
+
         self.rowconfigure(0, weight=1)
         self.columnconfigure(1, weight=1)
 
         self.text = Text(self, path=self.path, minimalist=minimalist, language=language)
         self.linenumbers = LineNumbers(self, self.text, self.font)
-        self.scrollbar = Scrollbar(self, orient=tk.VERTICAL, command=self.text.yview, style="EditorScrollbar")
-        
+        self.scrollbar = Scrollbar(
+            self, orient=tk.VERTICAL, command=self.text.yview, style="EditorScrollbar"
+        )
+
         self.text.config(font=self.font)
         self.text.configure(yscrollcommand=self.scrollbar.set)
-        
+
         if not self.minimalist:
             self.minimap = Minimap(self, self.text)
             self.minimap.grid(row=0, column=2, sticky=tk.NS)
-        
+
         self.linenumbers.grid(row=0, column=0, sticky=tk.NS)
         self.text.grid(row=0, column=1, sticky=tk.NSEW)
         self.scrollbar.grid(row=0, column=3, sticky=tk.NS)
@@ -63,23 +76,23 @@ class TextEditor(BaseEditor):
         self.font.configure(size=size)
         self.linenumbers.set_bar_width(size * 3)
         self.on_change()
-    
+
     def save(self, path=None):
         if self.editable:
             self.text.save_file(path)
-    
+
     def cut(self, *_):
         if self.editable:
             self.text.cut()
-    
+
     def copy(self, *_):
         if self.editable:
             self.text.copy()
-        
+
     def paste(self, *_):
         if self.editable:
             self.text.paste()
-    
+
     def write(self, *args, **kwargs):
         if self.editable:
             self.text.write(*args, **kwargs)
@@ -91,14 +104,14 @@ class TextEditor(BaseEditor):
     def get(self, *args, **kwargs):
         if self.editable:
             self.text.get(*args, **kwargs)
-    
+
     def clear(self):
         self.delete("1.0", tk.END)
 
     def delete(self, *args, **kwargs):
         if self.editable:
             self.text.delete(*args, **kwargs)
-    
+
     def mark_set(self, *args, **kwargs):
         if self.editable:
             self.text.mark_set(*args, **kwargs)
@@ -115,10 +128,10 @@ class TextEditor(BaseEditor):
     def edit_redo(self):
         if self.editable:
             self.text.edit_redo()
-    
+
     def edit_reset(self):
         if self.editable:
-         self.text.edit_reset()
+            self.text.edit_reset()
 
     def edit_separator(self):
         if self.editable:
@@ -138,7 +151,7 @@ class TextEditor(BaseEditor):
     def image_configure(self, index, **kwargs):
         if self.editable:
             return self.text.image_configure(index, **kwargs)
-    
+
     def image_names(self):
         return self.text.image_names()
 
@@ -150,7 +163,7 @@ class TextEditor(BaseEditor):
 
     def mark_names(self):
         return self.text.mark_names()
-        
+
     def mark_next(self, index):
         return self.text.mark_next(index)
 

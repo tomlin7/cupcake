@@ -1,14 +1,22 @@
-import re
 import threading
 import tkinter as tk
 
-from .pane import DiffPane
-from .differ import Differ
 from ..editor import BaseEditor
+from .differ import Differ
+from .pane import DiffPane
 
 
 class DiffEditor(BaseEditor):
-    def __init__(self, master, path1, path2, language=None, *args, **kwargs):
+    """DiffEditor class.
+
+    Args:
+        master: Parent widget.
+        path1: Path to the first file.
+        path2: Path to the second file.
+        language: Language to use for syntax highlighting.
+    """
+
+    def __init__(self, master, path1: str, path2: str, language=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.config(bg=self.base.theme.border)
         self.grid_columnconfigure(0, weight=1)
@@ -33,29 +41,41 @@ class DiffEditor(BaseEditor):
         self.left = self.lhs.text
         self.right = self.text = self.rhs.text
 
-        self.lhs.scrollbar['command'] = self.on_scrollbar
-        self.rhs.scrollbar['command'] = self.on_scrollbar
-        self.left['yscrollcommand'] = self.on_textscroll
-        self.right['yscrollcommand'] = self.on_textscroll
+        self.lhs.scrollbar["command"] = self.on_scrollbar
+        self.rhs.scrollbar["command"] = self.on_scrollbar
+        self.left["yscrollcommand"] = self.on_textscroll
+        self.right["yscrollcommand"] = self.on_textscroll
 
         self.stipple = self.base.settings.stipple
 
-        self.left.tag_config("addition", background=self.base.theme.diffeditor.notexist, bgstipple=f"@{self.stipple}")
+        self.left.tag_config(
+            "addition",
+            background=self.base.theme.diffeditor.notexist,
+            bgstipple=f"@{self.stipple}",
+        )
         self.left.tag_config("removal", background=self.base.theme.diffeditor.removed)
-        self.left.tag_config("removedword", background=self.base.theme.diffeditor.removedword)
-        
+        self.left.tag_config(
+            "removedword", background=self.base.theme.diffeditor.removedword
+        )
+
         self.right.tag_config("addition", background=self.base.theme.diffeditor.added)
-        self.right.tag_config("removal", background=self.base.theme.diffeditor.notexist, bgstipple=f"@{self.stipple}")
-        self.right.tag_config("addedword", background=self.base.theme.diffeditor.addedword)
+        self.right.tag_config(
+            "removal",
+            background=self.base.theme.diffeditor.notexist,
+            bgstipple=f"@{self.stipple}",
+        )
+        self.right.tag_config(
+            "addedword", background=self.base.theme.diffeditor.addedword
+        )
 
         self.differ = Differ(self)
 
         if path1 and path2:
-            with open(self.path1, 'r') as f:
+            with open(self.path1, "r") as f:
                 self.lhs_data = f.read()
-            with open(self.path2, 'r') as f:
+            with open(self.path2, "r") as f:
                 self.rhs_data = f.read()
-    
+
     def on_scrollbar(self, *args):
         self.left.yview(*args)
         self.lhs.on_scroll()
@@ -66,25 +86,36 @@ class DiffEditor(BaseEditor):
     def on_textscroll(self, *args):
         self.lhs.scrollbar.set(*args)
         self.rhs.scrollbar.set(*args)
-        self.on_scrollbar('moveto', args[0])
-    
+        self.on_scrollbar("moveto", args[0])
+
     def run_show_diff(self):
+        """Run the show_diff method in a separate thread."""
+
         threading.Thread(target=self.show_diff).start()
-    
+
     def show_diff_text(self, lhs, rhs):
+        """Show the diff between the two texts.
+
+        Args:
+            lhs (str): The left-hand side text.
+            rhs (str): The right-hand side text.
+        """
+
         self.lhs_data = lhs
         self.rhs_data = rhs
 
         self.show_diff()
 
     def show_diff(self):
+        """Show the diff between the two files."""
+
         self.left.set_active(True)
         self.lhs.clear()
         self.rhs.clear()
 
-        lhs_lines = [line+"\n" for line in self.lhs_data.split('\n')]
-        rhs_lines = [line+"\n" for line in self.rhs_data.split('\n')]
-        
+        lhs_lines = [line + "\n" for line in self.lhs_data.split("\n")]
+        rhs_lines = [line + "\n" for line in self.rhs_data.split("\n")]
+
         self.diff = list(self.differ.get_diff(lhs_lines, rhs_lines))
         for i, line in enumerate(self.diff):
             marker = line[0]
@@ -121,10 +152,10 @@ class DiffEditor(BaseEditor):
                 #             start = f"{self.lhs_last_line}.{match.start()}"
                 #             end = f"{self.lhs_last_line}.{match.end()}"
                 #             self.left.tag_add("removedword", start, end)
-                    
+
             self.left.update()
             self.right.update()
-        
+
         self.left.highlighter.highlight()
         self.right.highlighter.highlight()
 
@@ -139,5 +170,5 @@ class DiffEditor(BaseEditor):
             extra_newlines = rhs_line_count - lhs_line_count
             for _ in range(extra_newlines):
                 self.left.newline()
-        
+
         self.left.set_active(False)

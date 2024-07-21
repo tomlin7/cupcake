@@ -2,6 +2,7 @@ class Languages:
     """
     Holds all available languages. To be passed to Editor during initialization.
     """
+
     ABAP = "abap"
     AMDGPU = "amdgpu"
     APL = "apl"

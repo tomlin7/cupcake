@@ -1,0 +1,59 @@
+site_name: cupcake
+site_description: "Embeddable code editor for Python applications, with syntax highlighting, autocompletions, minimap, and many more editing features"
+site_url: "https://tomlin7.github.io/cupcake"
+repo_url: "https://github.com/tomlin7/cupcake"
+repo_name: "tomlin7/cupcake"
+copyright: Copyright &copy; 2024 Billy
+
+theme:
+  name: "material"
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: pink
+      accent: pink
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: black
+      accent: pink
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
+  features:
+    - navigation.top
+    - toc.follow
+    - content.code.copy
+    - content.code.select
+
+plugins:
+  - mkdocstrings:
+      handlers:
+        python:
+          options:
+            heading_level: 3
+  - search
+  - autorefs
+
+nav:
+  - Home: index.md
+  - API Reference: api-reference.md
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/tomlin7/cupcake
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - admonition
+  - pymdownx.details
