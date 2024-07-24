@@ -41,7 +41,7 @@ class Config:
             )
 
         self.font = font or Font(family="Consolas", size=11)
-        self.uifont = uifont or Font(family="Segoi UI", size=10)
+        self.uifont = uifont or Font(family="Segoe UI", size=10)
         self.load_from(config_file)
 
     def load_from(self, config_file: str):
